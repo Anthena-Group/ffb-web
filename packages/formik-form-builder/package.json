@@ -1,0 +1,68 @@
+{
+  "name": "formik-form-builder",
+  "version": "1.0.15",
+  "description": "Leverage Formik-Form-Builder Creator to effortlessly construct MUI-based forms using concise JSON definitions.",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "type": "module",
+  "scripts": {
+    "build:types": "tsc",
+    "build:js": "tsup",
+    "build": "npm run build:types && npm run build:js",
+    "clean-build": "rm -rf dist && npm run build:types && npm run build:js",
+    "package-build": "rm -rf dist && npm run build:js"
+  },
+  "keywords": [
+    "formik-form-builder",
+    "MUI",
+    "Formik",
+    "Form-Builder",
+    "JSON",
+    "JoyUI",
+    "React"
+  ],
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/types/index.d.ts"
+    }
+  },
+  "author": "codewithshinde",
+  "license": "MIT",
+  "files": [
+    "dist"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Anthena-Group/formik-from-builder.git"
+  },
+  "homepage": "https://github.com/Anthena-Group/formik-form-builder#readme",
+  "bugs": {
+    "url": "https://github.com/Anthena-Group/formik-form-builder/issues"
+  },
+  "dependencies": {
+    "formik": "^2.4.6",
+    "yup": "^1.6.1",
+    "@mui/material": "^6.3.1",
+    "@mui/joy": "^5.0.0-beta.51",
+    "@mui/icons-material": "^6.4.0",
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.0"
+  },
+  "devDependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "@ladle/react": "^1.1.2",
+    "@types/react": "^18.0.14",
+    "@types/react-dom": "^18.0.5",
+    "tsup": "^6.1.2",
+    "typescript": "^4.7.4"
+  },
+  "peerDependencies": {
+    "react": "^16.8 || ^17 || ^18",
+    "react-dom": "^16.8 || ^17 || ^18"
+  },
+  "publishConfig": {
+    "@anthenagroup:registry": "https://npm.pkg.github.com"
+  }
+}

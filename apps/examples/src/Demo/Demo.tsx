@@ -4,7 +4,7 @@ import {
   InputTypes,
   useFormBuilder,
   type FieldType,
-} from "formik-from-builder";
+} from "formik-form-builder";
 
 const Demo = () => {
   const fields: FieldType[] = [

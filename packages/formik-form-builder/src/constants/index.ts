@@ -1,0 +1,1 @@
+export const FORM_DATA_TEST_PREFIX = 'form-item-';

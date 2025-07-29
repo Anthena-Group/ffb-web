@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+    "target": "ESNext",                        // Use the latest JS features (safer for modern apps)
+    "module": "ESNext",                        // Use modern module system (important for bundlers like Vite)
+    "moduleResolution": "Node",               // Required for resolving node_modules and local imports
+    "jsx": "react-jsx",                        // Modern JSX transform (no need to import React explicitly)
+    "strict": true,                            // Enables all strict type-checking options
+    "esModuleInterop": true,                   // Allows default imports from CommonJS modules
+    "allowSyntheticDefaultImports": true,      // Allows `import X from 'Y'` even if Y doesn't have default export
+    "declaration": true,                       // Emits `.d.ts` files for consumers of your library
+    "declarationDir": "dist/types",            // Where to output `.d.ts` files
+    "outDir": "dist",                          // Where to put the compiled JavaScript files
+    "skipLibCheck": true,                      // Skip type checking of `.d.ts` files (faster builds)
+    "lib": ["ESNext", "DOM"],                   // ✅ Required for `.includes()` and browser features
+    "emitDeclarationOnly": true
+  },
+  "include": ["src"],                          // What to compile
+  "exclude": ["node_modules", "dist"]          // What NOT to compile
+}
