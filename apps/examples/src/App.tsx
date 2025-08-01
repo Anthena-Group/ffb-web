@@ -1,9 +1,8 @@
 import "./App.css";
-import { SignInFormExample } from "./SignInFormExample";
-
+import TextInputDemo from "./Demo/TextInputDemo"; 
 function App() {
   return (
-      <SignInFormExample />
+      <TextInputDemo />
   );
 }
 

@@ -5,9 +5,11 @@ import type * as Preset from '@docusaurus/preset-classic';
 // This runs in Node.js - Don't use client-side code here (browser APIs, JSX...)
 
 const config: Config = {
-  title: 'My Site',
-  tagline: 'Dinosaurs are cool',
-  favicon: 'img/favicon.ico',
+  //title: 'My Site',
+  //tagline: 'Dinosaurs are cool',
+  title: 'Formik Form Builder',
+tagline: 'Build and document forms easily with Formik',
+  favicon: 'img/favicon.ico.jpg',
 
   // Future flags, see https://docusaurus.io/docs/api/docusaurus-config#future
   future: {
@@ -76,7 +78,7 @@ const config: Config = {
       title: 'My Site',
       logo: {
         alt: 'My Site Logo',
-        src: 'img/logo.svg',
+        src: 'img/logo.png.jpg',
       },
       items: [
         {
