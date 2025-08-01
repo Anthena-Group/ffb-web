@@ -1,0 +1,1 @@
+export { default as AcceptTerm} from "./accept-terrm"

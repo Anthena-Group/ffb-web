@@ -28,3 +28,12 @@
   --ifm-color-primary-lightest: #4fddbf;
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
 }
+
+
+.header-github-logo {
+  background: url("https://cdn-icons-png.flaticon.com/512/25/25231.png") no-repeat center;
+  background-size: 20px 20px;
+  width: 24px;
+  height: 24px;
+  display: inline-block;
+}
