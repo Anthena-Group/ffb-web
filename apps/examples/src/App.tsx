@@ -1,9 +1,13 @@
 import "./App.css";
-import { Demo } from "./Demo";
+// import CheckboxExample from "./checkboxExamples/checkbox-examples";
+import ConditionalCheckBox from "./checkboxExamples/conditional-checkbox";
 
 function App() {
   return (
-      <Demo />
+    <>
+    {/* <CheckboxExample/> */}
+      <ConditionalCheckBox />
+    </>
   );
 }
 
