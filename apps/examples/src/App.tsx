@@ -1,9 +1,8 @@
 import "./App.css";
-import { Demo } from "./Demo";
-
+import TextInputDemo from "./Demo/TextInputDemo"; 
 function App() {
   return (
-      <Demo />
+      <TextInputDemo />
   );
 }
 
