@@ -1,13 +1,10 @@
-import { Form, Formik } from "formik";
 import {
-  FormBuilder,
+  FormikRenderer,
   InputTypes,
-  useFormBuilder,
-  type FieldType,
+  type FieldType
 } from "formik-form-builder";
 
 const SignInFormExample = () => {
-    
   const SignInForm: FieldType[] = [
     {
       field: "email",
@@ -31,29 +28,19 @@ const SignInFormExample = () => {
     },
   ];
 
-  const { initailValues, yupSchemaValidation } = useFormBuilder(SignInForm);
-
   return (
-    <Formik
-      initialValues={initailValues}
-      validationSchema={yupSchemaValidation}
-      onSubmit={(values, actions) => {
-        setTimeout(() => {
-          alert(JSON.stringify(values, null, 2));
-          actions.setSubmitting(false);
-        }, 1000);
-      }}
-    >
-      <Form>
-        <FormBuilder
-          group="form"
-          fields={SignInForm}
-          data-test="form"
-          values={initailValues}
-        />
-        <button type="submit">Submit</button>
-      </Form>
-    </Formik>
+    <>
+      <FormikRenderer
+        fields={SignInForm}
+          onSubmit = {(values, actions) => {
+            setTimeout(() => {
+              alert(JSON.stringify(values, null, 2));
+              actions.setSubmitting(false);
+            }, 1000);
+          }}>
+
+      </FormikRenderer>
+    </>
   );
 };
 

@@ -1,9 +1,9 @@
 import "./App.css";
-import { Demo } from "./Demo";
+import { SignInFormExample } from "./SignInFormExample";
 
 function App() {
   return (
-      <Demo />
+      <SignInFormExample />
   );
 }
 
