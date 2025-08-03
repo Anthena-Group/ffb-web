@@ -59,12 +59,4 @@ It includes required field validation and a strong regex pattern to enforce secu
 
 We also used `muiProps.type = password` to mask the input.
 
----
 
-## Try It Out
-
-You can test this example by running the examples app:
-
-```bash
-cd apps/examples
-pnpm dev

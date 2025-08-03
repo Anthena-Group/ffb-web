@@ -1,5 +1,5 @@
 import "./App.css";
-import TextInputDemo from "./Demo/TextInputDemo"; 
+import TextInputDemo from "./Demo/text-input-examples"; 
 function App() {
   return (
       <TextInputDemo />
