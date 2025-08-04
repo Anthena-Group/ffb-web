@@ -1,5 +1,5 @@
 import { TabExampleViewer } from "../utils";
-import { DarkLight, GenderRadioButton } from "./examples";
+import { DarkLight, DisabledRadio, GenderRadioButton } from "./examples";
 import type { exampleType } from "../utils/tab-example-viewer";
 
 const examples: Record<string, exampleType> = {
@@ -10,6 +10,10 @@ const examples: Record<string, exampleType> = {
   darkLightTheme: {
     label: "Theme",
     component: <DarkLight />,
+  },
+  disableRadioButton: {
+    label: "Disable Radio",
+    component: <DisabledRadio />,
   },
 };
 
