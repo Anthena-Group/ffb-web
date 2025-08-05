@@ -1,15 +1,10 @@
 import { Form, Formik } from "formik";
-import {
-  FormBuilder,
-  useFormBuilder,
-} from "formik-form-builder";
-import { fields} from "./constants";
+import { FormBuilder, useFormBuilder } from "formik-form-builder";
+import { fields, selectField } from "./constants";
 
-const TextInputDemo = () => {
- 
+const SelectInputDemo = () => {
   const { initailValues, yupSchemaValidation } = useFormBuilder(fields);
 
-  // Render Formik with FormBuilder
   return (
     <Formik
       initialValues={initailValues}
@@ -23,14 +18,14 @@ const TextInputDemo = () => {
     >
       <Form>
         <FormBuilder
-  fields={fields}
-  group="form"
-  values={initailValues}       
-  data-test="form"       
-  />         
+          fields={selectField}
+          group="form"
+          values={initailValues}
+          data-test="form"
+        />
       </Form>
     </Formik>
   );
 };
 
-export default TextInputDemo;
+export default SelectInputDemo;

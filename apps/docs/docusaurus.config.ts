@@ -81,12 +81,19 @@ tagline: 'Build and document forms easily with Formik',
         src: 'img/logo.png.jpg',
       },
       items: [
+        //{
+          //type: 'docSidebar',
+          //sidebarId: 'tutorialSidebar',
+          //position: 'left',
+          //label: 'Tutorial',
+        //},
         {
-          type: 'docSidebar',
-          sidebarId: 'tutorialSidebar',
-          position: 'left',
-          label: 'Tutorial',
-        },
+  type: 'docSidebar',
+  sidebarId: 'tutorialSidebar',
+  position: 'left',
+  label: 'Docs',
+},
+
         {to: '/blog', label: 'Blog', position: 'left'},
         {
           href: 'https://github.com/facebook/docusaurus',
