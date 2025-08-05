@@ -35,7 +35,7 @@ Let us see some of the ways how can use checkbox using `formik-form-builder`.
 A checkbox when you need to present multiple options and expect the user to select one or more of them. Itâ€™s useful for capturing preferences, eligibility, or any multi-choice input. Making it required ensures the user engages with the field before submitting.
 
 ![Basic-Toggle](../../static/img/basic-toggle.png)
-```tsx
+```tsx showLineNumbers
 {
   field: "sport",
   type: InputTypes.CHECKBOX,
@@ -61,7 +61,7 @@ Checkbox for single-option like accepting terms and conditions, switch, etc. It 
 
 ![Agreement](../../static/img/agreement-checkbox.png)
 
-```tsx
+```tsx showLineNumbers
 {
   field: "termAcceptence",
   type: InputTypes.CHECKBOX,
@@ -82,7 +82,7 @@ Checkbox for bulk selections where users can choose multiple items from a list â
 
 ![Batch](../../static/img/batch-checkbox.png)
 
-```tsx
+```tsx showLineNumbers
 {
   field: "bulkSelecting",
   type: InputTypes.CHECKBOX,
@@ -144,7 +144,7 @@ This checkbox group is suited for task or checklist-style inputs where users can
 
 ![To-Do-List](../../static/img/to-do-list.png)
 
-```tsx
+```tsx showLineNumbers
 {
   field: "tasks",
   type: InputTypes.CHECKBOX,
@@ -170,7 +170,7 @@ This pattern is used when one field controls the visibility of another based on 
 **When condition is fulfilled:** 
 ![Default](../../static/img/conditional-fulfilled.png)
 
-```tsx
+```tsx showLineNumbers
 {
   field: "isIntern",
   type: InputTypes.CHECKBOX,
@@ -225,7 +225,7 @@ Checkbox used for optional preference settings, allowing users to customize thei
 
 ![switch-checkbox](../../static/img/switch-checkbox.png)
 
-``` tsx
+``` tsx showLineNumbers
 {
   field: "notifications",
   type: InputTypes.CHECKBOX,
