@@ -5,10 +5,11 @@ import type * as Preset from '@docusaurus/preset-classic';
 // This runs in Node.js - Don't use client-side code here (browser APIs, JSX...)
 
 const config: Config = {
+  //title: 'My Site',
+  //tagline: 'Dinosaurs are cool',
   title: 'Formik Form Builder',
   tagline: 'Leverage Formik-Form-Builder Creator to effortlessly construct MUI-based forms using concise JSON definitions.',
   favicon: 'img/favicon.ico',
-
   // Future flags, see https://docusaurus.io/docs/api/docusaurus-config#future
   future: {
     v4: true, // Improve compatibility with the upcoming Docusaurus v4
@@ -84,7 +85,7 @@ const config: Config = {
       title: 'Formik Form Builer',
       logo: {
         alt: 'My Site Logo',
-        src: 'img/logo.svg',
+        src: 'img/logo.png.jpg',
       },
       hideOnScroll: true,
       items: [
