@@ -1,6 +1,6 @@
 import { InputTypes, type FieldType } from "formik-form-builder";
 
-export const fields: FieldType[] = [
+export const firstNameField: FieldType[] = [
   {
     field: "firstName",
     type: InputTypes.TEXT,
@@ -11,11 +11,14 @@ export const fields: FieldType[] = [
     },
     helperText: "Please enter your first name",
     muiProps: {
-      variant: "plain",
-      fullWidth: true,
+      variant: "outlined",
+     // fullWidth: false,
+      //sx: { width: "300px" },
     },
     gridProps: { xs: 12 },
   },
+]
+export const emailField: FieldType[] = [
   {
     field: "email",
     type: InputTypes.TEXT,
@@ -28,11 +31,14 @@ export const fields: FieldType[] = [
     },
     helperText: "Please enter a valid email address",
     muiProps: {
-      variant: "plain",
-      fullWidth: true,
+      variant: "outlined",
+      //fullWidth: false,
+      //sx: { width: "300px" },
     },
-    gridProps: { xs: 12 },
+    gridProps: { xs: 12  },
   },
+]
+export const usernameField: FieldType[] = [
   {
     field: "username",
     type: InputTypes.TEXT,
@@ -44,11 +50,14 @@ export const fields: FieldType[] = [
     },
     helperText: "Choose a unique username",
     muiProps: {
-      variant: "plain",
-      fullWidth: true,
+      variant: "outlined",
+      //fullWidth: false,
+      //sx: { width: "300px" },
     },
     gridProps: { xs: 12 },
   },
+]
+export const passwordField: FieldType[] = [
   {
     field: "password",
     type: InputTypes.TEXT,
@@ -65,11 +74,14 @@ export const fields: FieldType[] = [
     helperText: "Include uppercase, lowercase, number, and symbol",
     muiProps: {
       variant: "outlined",
-      fullWidth: true,
+      //fullWidth: false,
+      //sx: { width: "300px" },
       type: "password",
     },
-    gridProps: { xs: 12 },
+    gridProps: { xs: 12},
   },
+]
+export const phoneNumberField : FieldType[] = [
   {
     field: "phoneNumber",
     type: InputTypes.TEXT,
@@ -82,11 +94,14 @@ export const fields: FieldType[] = [
     },
     helperText: "Only digits allowed, no spaces or special characters",
     muiProps: {
-      variant: "plain",
-      fullWidth: true,
+      variant: "outlined",
+      //fullWidth: false,
+      //sx: { width: "300px" },
     },
-    gridProps: { xs: 12 },
+    gridProps: {xs: 12  },
   },
+]
+export const panField: FieldType[] = [
   {
     field: "panNumber",
     type: InputTypes.TEXT,
@@ -99,9 +114,10 @@ export const fields: FieldType[] = [
     },
     helperText: "PAN format: 5 letters, 4 digits, 1 letter (all uppercase)",
     muiProps: {
-      variant: "plain",
-      fullWidth: true,
+      variant: "outlined",
+      //fullWidth: false,
+      //sx: { width: "300px" },
     },
-    gridProps: { xs: 12 },
+    gridProps: {xs: 12 },
   },
 ];

@@ -89,14 +89,20 @@ const config: Config = {
       },
       hideOnScroll: true,
       items: [
+        //{
+          //type: 'docSidebar',
+          //sidebarId: 'tutorialSidebar',
+          //position: 'left',
+          //label: 'Tutorial',
+        //},
         {
-          type: 'docSidebar',
-          sidebarId: 'tutorialSidebar',
-          position: 'left',
-          label: 'Docs',
-        },
+  type: 'docSidebar',
+  sidebarId: 'tutorialSidebar',
+  position: 'left',
+  label: 'Docs',
+},
 
-        { to: '/blog', label: 'Blog', position: 'left' },
+        {to: '/blog', label: 'Blog', position: 'left'},
         {
           type: 'localeDropdown',
           position: 'right',
