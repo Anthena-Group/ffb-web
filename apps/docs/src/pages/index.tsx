@@ -21,7 +21,7 @@ function HomepageHeader() {
           <Link
             className="button button--secondary button--lg"
             to="/docs/intro">
-           Formik-form-builder Tutorial - 5min ⏱️
+            Get started
           </Link>
         </div>
       </div>
