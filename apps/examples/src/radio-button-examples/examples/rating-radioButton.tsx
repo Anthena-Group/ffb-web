@@ -1,11 +1,11 @@
-import { Box, Button } from "@mui/material";
+import { Box, Button } from "@mui/joy";
 import { FormikRenderer } from "formik-form-builder";
-import { basicToggling } from "../../constants";
+import { rate } from "../../constants";
 
-function BasicToggleCheckBox() {
+export const Rating = () => {
   return (
     <FormikRenderer
-      fields={basicToggling}
+      fields={rate}
       onSubmit={(values, actions) => {
         console.log(values);
         alert(JSON.stringify(values, null, 2));
@@ -18,12 +18,10 @@ function BasicToggleCheckBox() {
         justifyContent={"center"}
         alignItems={"center"}
       >
-        <Button variant="contained" type="submit">
-          Submit
+        <Button variant="solid" type="submit">
+          Continue
         </Button>
       </Box>
     </FormikRenderer>
   );
-}
-
-export default BasicToggleCheckBox;
+};

@@ -1,10 +1,11 @@
 import { FormBuilder, useFormBuilder } from "formik-form-builder";
-import { disabledRadio } from "../../constants";
+import { conditionalRadio } from "../../constants";
 import { Form, Formik } from "formik";
 import { Box, Button } from "@mui/joy";
 
-export const DisabledRadio = () => {
-  const { initailValues, yupSchemaValidation } = useFormBuilder(disabledRadio);
+export const ConditionalRadioButton = () => {
+  const { initailValues, yupSchemaValidation } =
+    useFormBuilder(conditionalRadio);
   return (
     <Formik
       initialValues={initailValues}
@@ -18,10 +19,10 @@ export const DisabledRadio = () => {
       {({ values }) => (
         <Form>
           <FormBuilder
-            group="form"
             values={values}
+            group="form"
             data-test="form"
-            fields={disabledRadio}
+            fields={conditionalRadio}
           />
           <Box
             width={"100%"}
@@ -30,7 +31,7 @@ export const DisabledRadio = () => {
             alignItems={"center"}
           >
             <Button variant="solid" type="submit">
-              Continue
+              Submit
             </Button>
           </Box>
         </Form>
