@@ -1,6 +1,6 @@
-import { TabExampleViewer } from "../utils";
+import { TabExampleViewer } from "../Layout";
 import { ConditionalRadioButton, Confirmation, DarkLight, DisabledRadio, GenderRadioButton, Rating } from "./examples";
-import type { exampleType } from "../utils/tab-example-viewer";
+import type { exampleType } from "../Layout/tab-example-viewer";
 
 const examples: Record<string, exampleType> = {
   gender: {

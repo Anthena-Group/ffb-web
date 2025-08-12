@@ -1,4 +1,4 @@
-import TabExampleViewer, { type exampleType } from "../utils/tab-example-viewer";
+import TabExampleViewer, { type exampleType } from "../Layout/tab-example-viewer";
 import { BasicMultiText } from "./example";
 
 
