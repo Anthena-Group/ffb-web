@@ -5,8 +5,6 @@ import type * as Preset from '@docusaurus/preset-classic';
 // This runs in Node.js - Don't use client-side code here (browser APIs, JSX...)
 
 const config: Config = {
-  //title: 'My Site',
-  //tagline: 'Dinosaurs are cool',
   title: 'Formik Form Builder',
   tagline: 'Leverage Formik-Form-Builder Creator to effortlessly construct MUI-based forms using concise JSON definitions.',
   favicon: 'img/favicon.ico',
@@ -23,8 +21,8 @@ const config: Config = {
 
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
-  organizationName: 'facebook', // Usually your GitHub org/user name.
-  projectName: 'docusaurus', // Usually your repo name.
+  organizationName: 'Anthena Group', // Usually your GitHub org/user name.
+  projectName: 'formik-form-builder', // Usually your repo name.
 
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
@@ -82,7 +80,7 @@ const config: Config = {
     // Replace with your project's social card
     image: 'img/docusaurus-social-card.jpg',
     navbar: {
-      title: 'Formik Form Builer',
+      title: 'Formik Form Builder',
       logo: {
         alt: 'My Site Logo',
         src: 'img/logo.png.jpg',
@@ -126,8 +124,20 @@ const config: Config = {
           title: 'Docs',
           items: [
             {
-              label: 'Tutorial',
+              label: 'Intorduction',
               to: '/docs/intro',
+            },
+            {
+              label: 'Geting Started',
+              to: '/docs/category/getting-started',
+            },
+            {
+              label: 'Components',
+              to: '/docs/category/components',
+            },
+            {
+              label: 'Contribution',
+              to: '/docs/contribution',
             },
           ],
         },
@@ -157,12 +167,12 @@ const config: Config = {
             },
             {
               label: 'GitHub',
-              href: 'https://github.com/facebook/docusaurus',
+              href: 'https://github.com/Anthena-Group/formik-from-builder',
             },
           ],
         },
       ],
-      copyright: `Copyright © ${new Date().getFullYear()} My Project, Inc. Built with Docusaurus.`,
+      copyright: `Copyright © ${new Date().getFullYear()} @anthenaGroup, Inc. Built with Docusaurus.`,
     },
 
 

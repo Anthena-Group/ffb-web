@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Box, Button, Stack, Typography, Divider } from "@mui/joy";
 import { CheckboxExamples } from "./checkbox-examples";
 import { RadioButtonExamples } from "./radio-button-examples";
+import { AutoCompleteExamples } from "./auto-complete-examples";
 
 const examples: Record<string, { label: string; component: React.ReactNode }> =
   {
@@ -13,6 +14,10 @@ const examples: Record<string, { label: string; component: React.ReactNode }> =
       label: "Radio Button",
       component: <RadioButtonExamples />,
     },
+    autoComplete : {
+      label: "Auto Complete",
+      component: <AutoCompleteExamples/>
+    }
   };
 
 const App = () => {

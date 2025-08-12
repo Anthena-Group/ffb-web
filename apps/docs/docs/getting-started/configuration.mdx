@@ -7,4 +7,187 @@ sidebar_position: 2
 ---
 
 
-**Easy Installation with npm or yarn**
+# Configuration
+
+The `formik-form-builder` package is fully configurable through a simple **fields array** and optional **global settings**.  
+Each field in your form is defined by an object that follows the `FieldType` structure.
+
+---
+
+## FieldType Structure
+
+Below are the available configuration options for each field:
+
+| Property         | Type         | Required | Description |
+| ---------------- | ------------ | -------- | ----------- |
+| `field`          | `string`     | True        | Unique field name used in form state. |
+| `type`           | `InputTypes` | True        | Input type (see belowsee available values below). |
+| `initialValue`   | `any`        | True        | Default value for the field. |
+| `label`          | `string`     | False       | Label displayed above the input. |
+| `groupLabel`     | `string`     | False       | Label for grouping multiple related inputs. |
+| `helperText`     | `string`     | False       | Additional hint or instruction under the field. |
+| `options`        | `[{ label: string, value: string/number, description: string },]` | True(for choice-based inputs else False) | For choice-based inputs like checkboxes, radios, selects. |
+| `direction`      | `"row" \| "column"`| False | Layout direction for option-based inputs. |
+| `validation`     | `object `    | False       | Yup validation rules for the field. |
+| `gridProps`      | `object`     | False       | MUI grid props for responsive layouts. |
+| `conditions`     | `object`     | False       | Conditional display rules based on other fields. |
+| `placeholder`    | `string`     | False       | To provide placeholder. |
+| `outputType`     | `string`     | False       | Specify type of output. |
+| `valueType`      | `CHECK_BOX_VALUE_TYPE`  | False  | Checkbox value type (`ARRAY`, `STRING` ,`BOOLEAN`). |
+| `variant`      | `string("DEFAULT" \| "ICON")`  | False  |Can be used only for RADIO InputTypes. |
+| `muiProps`       | `{any}`        | False       | Any additional props passed to the MUI/Joy component. |
+
+### Available InputTypes:
+- `TEXT` 
+- `MULTI_TEXT`
+- `CHECKBOX`
+- `SELECT` 
+- `AUTO_COMPLETE` 
+- `RADIO` 
+- `DROPDOWN` 
+
+---
+
+## Validation Rules
+The validation object supports the following rules:
+
+| Rule         | Type         | Description |
+|--------------|--------------|-------------|
+|`required`	   |boolean       | Whether the field is mandatory.|
+|`message`     |string        | Error message when validation fails. |
+|`minLength`   |number        | Minimum allowed length.|
+|`minLengthRuleMsg`|string    | Message when minLength fails.|
+|`maxLength`   |number        | Maximum allowed length.|
+|`maxLengthRuleMsg`|string    | Message when maxLengthRuleMsg fails.|
+|`minValue`    |number        | Minimum allowed value.|
+|`minValueRuleMsg`|string    | Message when minValueRuleMsg fails.|
+|`maxValue`    |number        | Maximum allowed value.|
+|`maxValueRuleMsg`|string    | Message when maxValueRuleMsg fails.|
+|`isPositive` |boolean    | Validate if positive value.|
+|`isPositiveRuleMsg`|string    | Message when it is not positive.|
+|`moreThan` |number    |  Value to compare.|
+|`moreThanRuleMsg`|string    | Message when it is not more than.|
+|`lessThan` |number    |  Value to compare.|
+|`lessThanRuleMsg`|string    | Message when it is not less than.|
+| `pattern`    | RegExp       | Regex pattern for validation.|
+|`patternRuleMsg`| string     | Message when pattern fails.|
+| `yupCustomValidation` | `Yup.TestConfig<string \| number \| boolean \| string[] \| number[] \| boolean[] \| undefined \| null>` | Adds a custom Yup test. Useful for advanced or conditional validation logic. |
+
+---
+## Conditional Rendering
+
+The `conditions` property allows you to define conditional logic for showing, hiding, enabling, or disabling fields based on the values of other fields.
+
+| Property             | Type                          | Description |
+|----------------------|-------------------------------|-------------|
+| `action`             | `ConditionAction`             | Specifies what to do when the conditions are met (e.g., `SHOW`, `HIDE`, `DISABLE`, `ENABLE`). |
+| `groups`             | `[{group, groupPostCondition,logic: [{}] }]`            | An array of condition groups. Each group contains one or more conditions (`logic`) that must be evaluated together. |
+| `group`              | `string`                      | The group name for organizing related conditions. |
+| `groupPostCondition` | `PostCondition.AND \| OR`     | Defines how this group’s result combines with other groups. |
+| `logic`              | `[{field, value, condition, postCondition}]`                 | An array of individual conditions to check within a group. |
+| `field`              | `string`                      | The field key whose value will be checked. |
+| `value`              | `string \| number \| boolean \| null \| undefined \| Array<...>` | The value to compare against. |
+| `condition`          | `ConditionName`               | The type of comparison to perform (see available values below). |
+| `postCondition`      | `PostCondition.AND \| OR`     | Defines how this condition combines with others in the same group. |
+
+### Available Enum Values
+
+**`ConditionAction`**
+- `SHOW` — Make the field visible.
+- `HIDE` — Hide the field.
+- `DISABLE` — Disable the field (read-only).
+- `ENABLE` — Enable the field.
+
+**`ConditionName`**
+- `EQUALS`
+- `NOT_EQUALS`
+- `GREATER_THAN`
+- `LESS_THAN`
+- `GREATER_THAN_OR_EQUAL`
+- `LESS_THAN_OR_EQUAL`
+- `CONTAINS`
+- `NOT_CONTAINS`
+- `STARTS_WITH`
+- `ENDS_WITH`
+- `IS_EMPTY`
+- `IS_NOT_EMPTY`
+- `INCLUDES`
+- `NOT_INCLUDES`
+- `ARRAY_EQUALS`
+
+**`PostCondition`**
+- `AND` — All conditions/groups must be true.
+- `OR` — At least one condition/group must be true.
+
+
+**Example:**
+```ts
+conditions: {
+  action: ConditionAction.SHOW,
+  groups: [
+    {
+      group: "check",
+      groupPostCondition: PostCondition.AND,
+      logic: [
+        {
+          field: "test.firstName",
+          value: "10",
+          condition: ConditionName.EQUALS,
+          postCondition: PostCondition.AND
+        }
+      ]
+    }
+  ]
+}
+```
+---
+
+## Using `useFormBuilder` Hook
+
+The `useFormBuilder` hook generates **initial form values** and a **Yup validation schema** from your `fields` configuration.
+
+```ts
+import { useFormBuilder } from "formik-form-builder";
+const { initialValues, yupSchemaValidation } = useFormBuilder(fields);
+```
+
+|  Name   |  Type   | Description  |
+|---------|---------|--------------|
+| `initialValue` | `object` | An object containing the default values for each field, based on the `initialValue` property in your field definitions. |
+| `yupSchemaValidation` | `Yup.ObjectSchema` | A Yup validation schema automatically built from the validation rules defined in the `fields` array. |
+---
+
+## Global Settings
+### Formik Integration
+
+#### `<Formik/>`
+The Formik component is used to manage form state, validation, and submission. You should pass this props to `<Formik/>` : 
+|Prop   | Description|
+|-------|-----------|
+|`initialValues`   | The initial values for the form fields. To be passed from the destructured data of `useFormBuilder` hook. |
+|`validationSchema`| The Yup validation schema. To be passed from the destructured data of `useFormBuilder` hook. |
+|`onSubmit` | A callback function that is called for form submission. |
+
+#### `<FormBuilder />`
+
+ A custom component that renders the form fields based on the fields array which should be wrap inside a `<Form>`.
+You should pass this global configuration props to `<FormBuilder />` :
+
+|Prop  	|Description|
+|-------|-----------|
+|`group`  | Group name for fields.|
+|`values` | Current form values from Formik. |
+|`data-test`| Test identifier for automated testing. |
+|`fields`	|	Array of field configurations. |
+
+
+## Form Submission
+
+When the form is submitted, the `onSubmit` function is called, which is used to handle the form submission. Example of it:
+```js
+onSubmit={(values, actions) => {
+    console.log(values);
+    alert(JSON.stringify(values, null, 2));
+    actions.setSubmitting(false);
+}}
+``` 

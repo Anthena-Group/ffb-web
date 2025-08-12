@@ -1,10 +1,9 @@
-import { CHECK_BOX_VALUE_TYPE, ConditionAction, ConditionName, InputTypes, PostCondition, type FieldType } from "formik-form-builder";
+import { ConditionAction, ConditionName, InputTypes, PostCondition, type FieldType } from "formik-from-builder";
 
 export const termsAndAgreement: FieldType[] = [
   {
     field: "termAcceptence",
     type: InputTypes.CHECKBOX,
-    valueType: CHECK_BOX_VALUE_TYPE.ARRAY,
     initialValue: [],
     validation: {
       required: true,
@@ -79,10 +78,6 @@ export const conditionalCheck: FieldType[] = [
     type: InputTypes.TEXT,
     label: "Please enter the name of your company",
     initialValue: "",
-    validation: {
-      required: true,
-      message: "Required.",
-    },
     conditions: {
       action: ConditionAction.SHOW,
       groups: [
@@ -123,22 +118,22 @@ export const checklistFields: FieldType[] = [
 
 
 export const itemOptions = [
-    { label: "Item A", value: "Item A" },
-    { label: "Item B", value: "Item B" },
-    { label: "Item C", value: "Item C" },
-    { label: "Item D", value: "Item D" },
-  ];
+  { label: "Item A", value: "Item A" },
+  { label: "Item B", value: "Item B" },
+  { label: "Item C", value: "Item C" },
+  { label: "Item D", value: "Item D" },
+];
 
 export const bulkSelect: FieldType[] = [
-    {
-      field: "bulkSelecting",
-      type: InputTypes.CHECKBOX,
-      initialValue: [],
-      groupLabel: "Choose items to buy:",
-      options: itemOptions,
-      muiProps: { variant: "outlined" },
-    },
-  ];
+  {
+    field: "bulkSelecting",
+    type: InputTypes.CHECKBOX,
+    initialValue: [],
+    groupLabel: "Choose items to buy:",
+    options: itemOptions,
+    muiProps: { variant: "outlined" },
+  },
+];
 
 export const switchField: FieldType[] = [
   {

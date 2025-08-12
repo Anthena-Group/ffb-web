@@ -1,5 +1,5 @@
 import { Formik, Form } from "formik";
-import { FormBuilder, useFormBuilder } from "formik-form-builder";
+import { FormBuilder, useFormBuilder } from "formik-from-builder";
 import { Button, Box } from "@mui/joy";
 import { switchField } from "../../constants";
 

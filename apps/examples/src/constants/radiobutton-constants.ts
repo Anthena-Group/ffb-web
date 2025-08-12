@@ -1,4 +1,4 @@
-import { ConditionAction, ConditionName, InputTypes, PostCondition, type FieldType } from "formik-form-builder";
+import { ConditionAction, ConditionName, InputTypes, PostCondition, type FieldType } from "formik-from-builder";
 
 
 export const gender: FieldType[] = [
@@ -17,7 +17,8 @@ export const darkLight: FieldType[] = [
         type: InputTypes.RADIO,
         initialValue: "Dark",
         groupLabel: "Choose a theme:",
-        options: [{ label: "Dark", value: "Dark" }, { label: "Light", value: "Light" }]
+        options: [{ label: "Dark", value: "Dark"}, { label: "Light", value: "Light" }],
+        variant:"ICON"
     }
 ]
 
@@ -31,6 +32,7 @@ export const disabledRadio: FieldType[] = [
             { label: "Guest", value: "guest" },
             { label: "Registered", value: "registered" },
         ],
+
     },
     {
         field: "subscription",

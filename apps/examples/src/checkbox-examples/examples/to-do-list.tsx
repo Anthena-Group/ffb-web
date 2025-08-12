@@ -1,6 +1,6 @@
 import { Box, Button, Typography } from "@mui/joy";
 import { Form, Formik } from "formik";
-import { FormBuilder, useFormBuilder } from "formik-form-builder";
+import { FormBuilder, useFormBuilder } from "formik-from-builder";
 import { checklistFields } from "../../constants";
 
 const ToDoExample = () => {

@@ -4,12 +4,12 @@ import {
   FormBuilder,
   useFormBuilder,
 } from "formik-from-builder";
-import { termsAndAgreement } from "../../constants";
+import { basic } from "../../constants/auto-complete-constants";
 
 
-function Agreement() {
+function BasicAuto() {
  
-  const { initailValues, yupSchemaValidation } = useFormBuilder(termsAndAgreement);
+  const { initailValues, yupSchemaValidation } = useFormBuilder(basic);
   return (
     <Formik
       initialValues={initailValues}
@@ -26,7 +26,7 @@ function Agreement() {
             group="form"
             values={values}
             data-test="form"
-            fields={termsAndAgreement}
+            fields={basic}
           />
           <Box
             width={"100%"}
@@ -44,4 +44,4 @@ function Agreement() {
   );
 }
 
-export default Agreement;
+export default BasicAuto;
