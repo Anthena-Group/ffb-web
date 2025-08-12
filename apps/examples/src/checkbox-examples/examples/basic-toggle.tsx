@@ -1,5 +1,5 @@
 import { Box, Button } from "@mui/joy";
-import { FormBuilder, useFormBuilder } from "formik-from-builder";
+import { FormBuilder, useFormBuilder } from "formik-form-builder";
 import { basicToggling } from "../../constants";
 import { Form, Formik } from "formik";
 

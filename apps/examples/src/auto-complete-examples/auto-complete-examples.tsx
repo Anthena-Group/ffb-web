@@ -1,4 +1,4 @@
-import TabExampleViewer, { type exampleType } from "../layout/tab-example-viewer";
+import TabExampleViewer, { type exampleType } from "../utils/tab-example-viewer";
 import BasicAuto from "./examples/basic-auto-complete";
 
 

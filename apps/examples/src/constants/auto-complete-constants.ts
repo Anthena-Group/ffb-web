@@ -1,4 +1,4 @@
-import { InputTypes, type FieldType } from "formik-from-builder";
+import { InputTypes, type FieldType } from "formik-form-builder";
 
 export const basic: FieldType[] = [
     {
@@ -22,6 +22,6 @@ export const basic: FieldType[] = [
             { label: "China", value: "CN" },
             { label: "Brazil", value: "BR" }
         ],
-        muiProps: { variant: "outlined" },
+        muiProps: { variant: "outlined", },
     },
 ];

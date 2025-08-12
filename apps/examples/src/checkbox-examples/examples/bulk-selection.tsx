@@ -3,7 +3,7 @@ import { Form, Formik } from "formik";
 import {
   FormBuilder,
   useFormBuilder,
-} from "formik-from-builder";
+} from "formik-form-builder";
 import { bulkSelect, itemOptions } from "../../constants";
 
 const BulkSelection = () => {

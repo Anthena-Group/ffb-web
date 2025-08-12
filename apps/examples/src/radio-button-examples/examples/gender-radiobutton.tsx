@@ -1,6 +1,6 @@
 import { Box, Button } from "@mui/joy";
 import { Form, Formik } from "formik";
-import { FormBuilder, useFormBuilder } from "formik-from-builder";
+import { FormBuilder, useFormBuilder } from "formik-form-builder";
 import { gender } from "../../constants";
 
 export const GenderRadioButton = () => {

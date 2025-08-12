@@ -16,26 +16,9 @@ import {
 
 ## Introduction
 
-Checkbox provide users with a graphical representation of a binary choice (yes or no, on or off, etc). We have created ways to handle checkbox operations using `formik-form-builder`. To make it a checkbox, use type: `InputTypes.CHECKBOX`.
+Checkbox provide users with a graphical representation of a binary choice (yes or no, on or off, etc). We have created ways to handle checkbox operations using `formik-form-builder`. To make it a checkbox, use type: `InputTypes.CHECKBOX`. Check [Configuration](/docs/getting-started/my-doc-configuration#fieldtype-structure) to see what we can pass.
 
 ---
-
-## Usage
-
-Checkbox input type allows you to create multiple checkbox options tied to a single field, typically representing a multi-select scenario.
-
-_Each checkbox group is controlled by a field configuration object:_
-
-- `field`: The name of the variable that holds the data.
-- `type`: To specify the type of input we want to use.
-- `initialValue`: To provide initial/default value.
-- `direction`: To specify the direction of the option items.
-- `helperText` : To provide more information about it.
-- `groupLabel`: To provide label for that particular input group.
-- `validation`: To give validation like `required`, `message`, `minLength`, etc. Pass it as an object. See more at [validation](./checkbox.mdx).
-- `options`: Options an array of object is required which will have a `label` (what the user sees) and `value` (what gets submitted) and a `description`(descrption about the option).
-- `valueType`: to specify the type of value it will be used.(import CHECK_BOX_VALUE_TYPE)
-- `muiProps`: You can pass all [mui](https://mui.com/joy-ui/react-checkbox/) props that is available for this type.
 
 ## Examples
 
@@ -50,7 +33,7 @@ A checkbox when you need to present multiple options and expect the user to sele
   code={`
 import { Box, Button } from "@mui/joy";
 import { Formik, Form } from "formik";
-import { FormBuilder,InputTypes,useFormBuilder, type FieldType, } from "formik-from-builder";
+import { FormBuilder,InputTypes,useFormBuilder, type FieldType, } from "formik-form-builder";
 function BasicToggleCheckBox() {
   const basicToggling: FieldType[] = [
     {
@@ -133,7 +116,7 @@ Checkbox for single-option like accepting terms and conditions, switch, etc. It 
   code={`
 import { Box, Button } from "@mui/joy";
 import { Formik, Form } from "formik";
-import { FormBuilder,InputTypes,useFormBuilder, type FieldType, } from "formik-from-builder";
+import { FormBuilder,InputTypes,useFormBuilder, type FieldType, } from "formik-form-builder";
 function Agreement() {
   const termsAndAgreement: FieldType[] = [
     {
@@ -211,7 +194,7 @@ You will need more that just the config check code:
   code={`
 import { Button, FormControl, Checkbox, Box, FormLabel } from "@mui/joy";
 import { Form, Formik } from "formik";
-import { FormBuilder, useFormBuilder,InputTypes, type FieldType, } from "formik-from-builder";
+import { FormBuilder, useFormBuilder,InputTypes, type FieldType, } from "formik-form-builder";
 const BulkSelection = () => {
   const itemOptions = [
     { label: "Item A", value: "Item A" },
@@ -303,7 +286,7 @@ This checkbox group is suited for task or checklist-style inputs where users can
   code={`
 import { Box, Button, Typography } from "@mui/joy";
 import { Formik, Form } from "formik";
-import { FormBuilder,InputTypes,useFormBuilder, type FieldType, } from "formik-from-builder";
+import { FormBuilder,InputTypes,useFormBuilder, type FieldType, } from "formik-form-builder";
 const ToDoExample = () => {
   const checklistFields: FieldType[] = [
     {
@@ -371,7 +354,7 @@ export default ToDoExample;
 
 ### Conditional Checkbox
 
-This pattern is used when one field controls the visibility of another based on the user's response. A checkbox group collects a yes/no or multi-option answer, and a related input field appears conditionally if a specific value is selected. It’s useful for creating dynamic, context-aware forms that respond to user input. Refer [Conditional Logic](./checkbox.mdx).
+This pattern is used when one field controls the visibility of another based on the user's response. A checkbox group collects a yes/no or multi-option answer, and a related input field appears conditionally if a specific value is selected. It’s useful for creating dynamic, context-aware forms that respond to user input. Refer [Conditional Rendering](/docs/getting-started/my-doc-configuration#conditional-rendering).
 
 <LiveCodeBlock
   componentName="ConditionalCheckBox"
@@ -383,7 +366,7 @@ This pattern is used when one field controls the visibility of another based on 
   code={`
 import { Box, Button } from "@mui/joy";
 import { Formik, Form } from "formik";
-import { FormBuilder, ConditionAction, ConditionName, InputTypes, useFormBuilder, PostCondition, type FieldType} from "formik-from-builder";
+import { FormBuilder, ConditionAction, ConditionName, InputTypes, useFormBuilder, PostCondition, type FieldType} from "formik-form-builder";
 
 function ConditionalCheckBox() {
   const conditionalCheck: FieldType[] = [
@@ -482,7 +465,7 @@ Checkbox used for optional preference settings, allowing users to customize thei
   code={`
 import { Box, Button } from "@mui/joy";
 import { Formik, Form } from "formik";
-import { FormBuilder,InputTypes,useFormBuilder, type FieldType, } from "formik-from-builder";
+import { FormBuilder,InputTypes,useFormBuilder, type FieldType, } from "formik-form-builder";
 
 const SwitchDemo = () => {
   const switchField: FieldType[] = [

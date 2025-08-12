@@ -6,6 +6,7 @@ import TextInputExamples from './text-input-examples/text-input-examples';
 import SelectInputExamples from './select-input-examples/select-input-examples';
 
 import { AutoCompleteExamples } from "./auto-complete-examples";
+import { MultiTextExamples } from "./multi-text-examples";
 
 const examples: Record<string, { label: string; component: React.ReactNode }> =
   {
@@ -28,6 +29,10 @@ Select: {
     autoComplete : {
       label: "Auto Complete",
       component: <AutoCompleteExamples/>
+    },
+    multiText : {
+      label: "MultiText",
+      component: <MultiTextExamples/>
     }
   };
 

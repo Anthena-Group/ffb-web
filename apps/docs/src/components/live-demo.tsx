@@ -1,17 +1,8 @@
 import React, { useState } from "react";
-import {
-  LiveProvider,
-  LiveEditor,
-  LiveError,
-  LivePreview,
-} from "react-live";
+import { LiveProvider, LiveEditor, LiveError, LivePreview } from "react-live";
 import { Box, Typography, Button, Stack } from "@mui/joy";
-import { Formik, Form } from 'formik';
-import {
-  FormBuilder,
-  InputTypes,
-  useFormBuilder,
-} from 'formik-from-builder';
+import { Formik, Form } from "formik";
+import { FormBuilder, InputTypes, useFormBuilder } from "formik-from-builder";
 
 type LiveCodeBlockProps = {
   code: string;
@@ -59,11 +50,10 @@ export default function LiveCodeBlock({
     }
   };
 
-
   return (
     <LiveProvider
       language="tsx"
-      enableTypeScript 
+      enableTypeScript
       code={code}
       scope={{ ...defaultScope, ...scope }}
       noInline
@@ -79,26 +69,32 @@ export default function LiveCodeBlock({
           border: "1px solid #ddd",
         }}
       >
-        <Box sx={{ px: 2, py: 1 , mb:0.5, borderBottom: "1px solid #ddd"}}>
+        <Box sx={{ px: 2, py: 1,bgcolor:"white",mb: 0.5, borderBottom: "1px solid #ddd" }}>
           <LiveError />
-          <LivePreview />
+          <LivePreview/>
         </Box>
 
         <Box
           sx={{
-            px:2,
+            px: 2,
             py: 0.5,
             display: "flex",
             justifyContent: "space-between",
             alignItems: "center",
           }}
         >
-          <Typography level="h4" fontFamily={"monospace"}>Code Editor</Typography>
+          <Typography level="h4" fontFamily={"monospace"}>
+            Code Editor
+          </Typography>
           <Stack direction="row" gap={1}>
             <Button variant="soft" size="sm" onClick={handleCopy}>
               {copied ? "Copied..!" : "Copy"}
             </Button>
-            <Button variant="soft" size="sm" onClick={() => setExpanded((prev) => !prev)}>
+            <Button
+              variant="soft"
+              size="sm"
+              onClick={() => setExpanded((prev) => !prev)}
+            >
               {expanded ? "Collapse" : "Expand"}
             </Button>
           </Stack>
@@ -109,8 +105,8 @@ export default function LiveCodeBlock({
             maxHeight: expanded ? "none" : 300,
             overflow: "auto",
             transition: "all 1s ease",
-            scrollbarWidth:"none",
-            bgcolor:"black",
+            scrollbarWidth: "none",
+            bgcolor: "black",
           }}
         >
           <LiveEditor

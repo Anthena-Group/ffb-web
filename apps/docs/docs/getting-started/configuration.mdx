@@ -2,7 +2,6 @@
 id: my-doc-configuration
 title: Configuration
 description: Configurations need to use Formik-form-builder
-slug: /my-custom-new-url
 sidebar_position: 2
 ---
 
@@ -21,14 +20,14 @@ Below are the available configuration options for each field:
 | Property         | Type         | Required | Description |
 | ---------------- | ------------ | -------- | ----------- |
 | `field`          | `string`     | True        | Unique field name used in form state. |
-| `type`           | `InputTypes` | True        | Input type (see belowsee available values below). |
+| `type`           | `InputTypes` | True        | Input type (see below available values below). |
 | `initialValue`   | `any`        | True        | Default value for the field. |
 | `label`          | `string`     | False       | Label displayed above the input. |
 | `groupLabel`     | `string`     | False       | Label for grouping multiple related inputs. |
 | `helperText`     | `string`     | False       | Additional hint or instruction under the field. |
 | `options`        | `[{ label: string, value: string/number, description: string },]` | True(for choice-based inputs else False) | For choice-based inputs like checkboxes, radios, selects. |
 | `direction`      | `"row" \| "column"`| False | Layout direction for option-based inputs. |
-| `validation`     | `object `    | False       | Yup validation rules for the field. |
+| `validation`     | `object `    | False       | Yup validation rules for the field. Check [Validation Rules](/docs/getting-started/my-doc-configuration#validation-rules) |
 | `gridProps`      | `object`     | False       | MUI grid props for responsive layouts. |
 | `conditions`     | `object`     | False       | Conditional display rules based on other fields. |
 | `placeholder`    | `string`     | False       | To provide placeholder. |
@@ -167,6 +166,7 @@ The Formik component is used to manage form state, validation, and submission. Y
 |`initialValues`   | The initial values for the form fields. To be passed from the destructured data of `useFormBuilder` hook. |
 |`validationSchema`| The Yup validation schema. To be passed from the destructured data of `useFormBuilder` hook. |
 |`onSubmit` | A callback function that is called for form submission. |
+|`onReset`(optional) | A callback function to reset from inputs. |
 
 #### `<FormBuilder />`
 
