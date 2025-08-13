@@ -1,7 +1,7 @@
 ---
-id: text-input
+id: firstname-input
 title: Text Input Component
-sidebar_label: Text Input
+sidebar_label: First Name
 ---
 
 import Tabs from '@theme/Tabs';

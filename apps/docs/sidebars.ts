@@ -33,18 +33,37 @@ const sidebars: SidebarsConfig = {
       type: 'category',
       label: 'Components',
       items: [
-        'components/text-input',
+         {
+          type: 'category',
+          label: 'Text Input',
+          items: [
+        'components/firstname-input',
         'components/phone-input',
         'components/username-input',
         'components/password-input',
         'components/pan-input',
-        "components/Select-input",
+
 
       ],
     },
+ {
+         type: 'category',
+          label: 'Select Input (Dropdown)',
+         items: [
+          'components/gender-select',
+           'components/role-select',
+           'components/country-select',
+           'components/language-select',
+           'components/select-input-constants',
+           'components/select-input-examples',
+           
+        ],            },
+      ],
+    },
+
     {
       type: 'doc',
-      id: 'how-to-contribute', // This ID matches the markdown file name
+      id: 'how-to-contribute', 
       label: 'How to Contribute',
     },
   ],

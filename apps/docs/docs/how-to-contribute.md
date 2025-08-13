@@ -26,7 +26,12 @@ cd ffb-web
 Make sure you have [Node.js](https://nodejs.org/) and [pnpm](https://pnpm.io/) installed. Then install the project dependencies by running:
 
 ```bash
-pnpm install
+pnpm install -r
+
+```
+Then, build all workspaces:
+```bash
+pnpm -r build
 ```
 ---
 
