@@ -1,13 +1,15 @@
-import FormControl from '@mui/joy/FormControl';
-import FormLabel from '@mui/joy/FormLabel';
-import Grid from '@mui/joy/Grid';
-import Radio from '@mui/joy/Radio';
-import RadioGroup from '@mui/joy/RadioGroup';
-import { useField } from 'formik';
 import React from 'react';
+import { useField } from 'formik';
+import { 
+  FormControl, 
+  FormLabel, 
+  Grid, 
+  Radio, 
+  RadioGroup, 
+  Typography 
+} from '@mui/joy';
 import { FieldRadioProps } from '../../types';
 import { HelperText } from '../common';
-import Typography from '@mui/joy/Typography';
 
 
 export const FieldRadio: React.FC<FieldRadioProps> = ({ name, groupLabel, outputType,

@@ -1,3 +1,8 @@
+---
+title: Contribution
+sidebar_position: 4
+---
+
 # How to Contribute
 
 Thank you for your interest in contributing to the **Formik Form Builder** project!   

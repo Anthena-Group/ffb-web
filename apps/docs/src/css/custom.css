@@ -18,7 +18,7 @@
 }
 
 /* For readability concerns, you should choose a lighter palette in dark mode. */
-[data-theme='dark'] {
+[data-theme="dark"] {
   --ifm-color-primary: #25c2a0;
   --ifm-color-primary-dark: #21af90;
   --ifm-color-primary-darker: #1fa588;
@@ -29,11 +29,16 @@
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
 }
 
-
 .header-github-logo {
-  background: url("https://cdn-icons-png.flaticon.com/512/25/25231.png") no-repeat center;
+  background: url("../../static/img/github-light.svg") no-repeat center;
   background-size: 20px 20px;
-  width: 24px;
-  height: 24px;
+  width: 26px;
+  height: 26px;
   display: inline-block;
+}
+
+/* When Docusaurus dark mode is active */
+[data-theme="dark"] .header-github-logo {
+  background: url("../../static/img/github-dark.svg") no-repeat center;
+  background-size: 20px 20px;
 }

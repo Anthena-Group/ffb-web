@@ -1,0 +1,523 @@
+---
+id: checkbox
+title: Checkbox
+description: Checkbox usage
+---
+
+import LiveCodeBlock from "@site/src/components/live-demo";
+import { FormControl, FormLabel, Checkbox } from "@mui/joy";
+import {
+  ConditionAction,
+  ConditionName,
+  PostCondition,
+} from "formik-form-builder";
+
+[Checkbox](./checkbox.mdx) give users binary choices when presented with multiple options in a series.
+
+## Introduction
+
+Checkbox provide users with a graphical representation of a binary choice (yes or no, on or off, etc). We have created ways to handle checkbox operations using `formik-form-builder`. To make it a checkbox, use type: `InputTypes.CHECKBOX`. Check [Configuration](/docs/getting-started/my-doc-configuration#fieldtype-structure) to see what we can pass.
+
+---
+
+## Examples
+
+Let us see some of the ways how can use checkbox using `formik-form-builder`.
+
+### Basic toggle Checkbox
+
+A checkbox when you need to present multiple options and expect the user to select one or more of them. It is useful for capturing preferences, eligibility, or any multi-choice input. Making it required ensures the user engages with the field before submitting.
+
+<LiveCodeBlock
+  componentName="BasicToggleCheckBox"
+  code={`
+import { Box, Button } from "@mui/joy";
+import { Formik, Form } from "formik";
+import { FormBuilder,InputTypes,useFormBuilder, type FieldType, } from "formik-form-builder";
+function BasicToggleCheckBox() {
+  const basicToggling: FieldType[] = [
+    {
+      field: "sport",
+      type: InputTypes.CHECKBOX,
+      initialValue: [],
+      groupLabel: "Choose the sports you love:",
+      validation: {
+        required: true,
+        minLength: 1,
+        minLengthRuleMsg: "Choose atleast one sport",
+      },
+      options: [
+        {
+          label: "Football",
+          value: "Football",
+        },
+        {
+          label: "Volleyball",
+          value: "Volleyball",
+        },
+        {
+          label: "BasketBall",
+          value: "BasketBall",
+        },
+        {
+          label: "Cricket",
+          value: "Cricket",
+        },
+      ],
+      muiProps: { variant: "outlined" },
+    },
+  ];
+  const { initailValues, yupSchemaValidation } = useFormBuilder(basicToggling);
+
+  return (
+    <Formik
+      initialValues={initailValues}
+      validationSchema={yupSchemaValidation}
+      onSubmit={(values, actions) => {
+        console.log(values);
+        alert(JSON.stringify(values, null, 2));
+        actions.setSubmitting(false);
+      }}
+    >
+      {({ values }) => (
+        <Form>
+          <FormBuilder
+            group="form"
+            values={values}
+            data-test="form"
+            fields={basicToggling}
+          />
+          <Box
+            width={"100%"}
+            display={"flex"}
+            justifyContent={"center"}
+            alignItems={"center"}
+          >
+            <Button variant="solid" type="submit">
+              Continue
+            </Button>
+          </Box>
+        </Form>
+      )}
+    </Formik>
+  );
+}
+export default BasicToggleCheckBox;
+
+`}
+/>
+
+### Agreement Checkbox
+
+Checkbox for single-option like accepting terms and conditions, switch, etc. It acts as a required toggle — the form won’t submit unless the user checks it. Ideal for confirmations, consent, or any “I agree” action. Clean, declarative, and easily styled via MUI props.
+
+<LiveCodeBlock
+  componentName="Agreement"
+  code={`
+import { Box, Button } from "@mui/joy";
+import { Formik, Form } from "formik";
+import { FormBuilder,InputTypes,useFormBuilder, type FieldType, } from "formik-form-builder";
+function Agreement() {
+  const termsAndAgreement: FieldType[] = [
+    {
+      field: "termAcceptence",
+      type: InputTypes.CHECKBOX,
+      initialValue: [],
+      validation: {
+        required: true,
+        minLength: 1,
+        minLengthRuleMsg: "Accept terms and condition to continue",
+      },
+      options: [
+        {
+          label: "Accept terms and condition to continue",
+          value: "Accepted",
+        },
+      ],
+      muiProps: { variant: "outlined" },
+    },
+  ];
+
+  const { initailValues, yupSchemaValidation } =
+    useFormBuilder(termsAndAgreement);
+
+  return (
+    <Formik
+      initialValues={initailValues}
+      validationSchema={yupSchemaValidation}
+      onSubmit={(values, actions) => {
+        console.log(values);
+        alert(JSON.stringify(values, null, 2));
+        actions.setSubmitting(false);
+      }}
+    >
+      {({ values }) => (
+        <Form>
+          <FormBuilder
+            group="form"
+            values={values}
+            data-test="form"
+            fields={termsAndAgreement}
+          />
+          <Box
+            width={"100%"}
+            display={"flex"}
+            justifyContent={"center"}
+            alignItems={"center"}
+          >
+            <Button variant="solid" type="submit">
+              Continue
+            </Button>
+          </Box>
+        </Form>
+      )}
+    </Formik>
+  );
+}
+
+export default Agreement;
+
+  `}
+/>
+### Bulk Selection
+Checkbox for bulk selections where users can choose multiple items from a list — like selecting products, categories, or preferences. It's ideal for use cases where multi-choice input is needed, with each selection tracked under the same field. The vertical layout and MUI props keep it flexible and styled.
+
+You will need more that just the config check code:
+
+<LiveCodeBlock
+  componentName="BulkSelection"
+  scope={{
+    FormControl,
+    FormLabel,
+    Checkbox,
+  }}
+  code={`
+import { Button, FormControl, Checkbox, Box, FormLabel } from "@mui/joy";
+import { Form, Formik } from "formik";
+import { FormBuilder, useFormBuilder,InputTypes, type FieldType, } from "formik-form-builder";
+const BulkSelection = () => {
+  const itemOptions = [
+    { label: "Item A", value: "Item A" },
+    { label: "Item B", value: "Item B" },
+    { label: "Item C", value: "Item C" },
+    { label: "Item D", value: "Item D" },
+  ];
+
+  const bulkSelect: FieldType[] = [
+    {
+      field: "bulkSelecting",
+      type: InputTypes.CHECKBOX,
+      initialValue: [],
+      groupLabel: "Choose items to buy:",
+      options: itemOptions,
+      muiProps: { variant: "outlined" },
+    },
+  ];
+
+  const { initailValues, yupSchemaValidation } = useFormBuilder(bulkSelect);
+
+  const allValues = itemOptions.map((opt) => opt.value);
+
+  return (
+    <Formik
+      initialValues={initailValues}
+      validationSchema={yupSchemaValidation}
+      onSubmit={(values, actions) => {
+        console.log(values);
+        alert(JSON.stringify(values, null, 2));
+        actions.setSubmitting(false);
+      }}
+    >
+      {({ values, setFieldValue }) => {
+        const isAllSelected =
+          values.bulkSelecting?.length === itemOptions.length;
+
+        const toggleSelectAll = () => {
+          setFieldValue("bulkSelecting", isAllSelected ? [] : allValues);
+        };
+
+        return (
+          <Form>
+            <FormControl orientation="horizontal" sx={{ mb: 2 }}>
+              <Checkbox
+                checked={isAllSelected}
+                onChange={toggleSelectAll}
+                variant="outlined"
+                color="primary"
+              />
+              <FormLabel sx={{ ml: 1, fontWeight: 500 }}>Select All</FormLabel>
+            </FormControl>
+
+            <FormBuilder
+              group="form"
+              fields={bulkSelect}
+              data-test="form"
+              values={values}
+            />
+
+            <Box
+              width={"100%"}
+              display={"flex"}
+              justifyContent={"center"}
+              alignItems={"center"}
+            >
+              <Button variant="solid" type="submit">
+                Proceed
+              </Button>
+            </Box>
+          </Form>
+        );
+      }}
+    </Formik>
+  );
+};
+
+export default BulkSelection;
+
+  `}
+/>
+
+### To-Do List
+
+This checkbox group is suited for task or checklist-style inputs where users can mark multiple actions as selected. It works well for to-do lists, progress tracking, or any form that needs multiple step confirmations. The column layout ensures clarity, and MUI props handle the styling.
+
+<LiveCodeBlock
+  componentName="ToDoExample"
+  code={`
+import { Box, Button, Typography } from "@mui/joy";
+import { Formik, Form } from "formik";
+import { FormBuilder,InputTypes,useFormBuilder, type FieldType, } from "formik-form-builder";
+const ToDoExample = () => {
+  const checklistFields: FieldType[] = [
+    {
+      field: "tasks",
+      type: InputTypes.CHECKBOX,
+      initialValue: [],
+      direction: "column",
+      groupLabel: "Tasks to complete:",
+      options: [
+        { label: "Check email", value: "email" },
+        { label: "Write code", value: "code" },
+        { label: "Attend standup", value: "standup" },
+        { label: "Review PRs", value: "review" },
+      ],
+      muiProps: { variant: "outlined" },
+    },
+  ];
+
+  const { initailValues, yupSchemaValidation } =
+    useFormBuilder(checklistFields);
+
+  return (
+    <Formik
+      initialValues={initailValues}
+      validationSchema={yupSchemaValidation}
+      onSubmit={(values, actions) => {
+        console.log(values);
+        alert("Completed Tasks: " + JSON.stringify(values.tasks, null, 2));
+        actions.setSubmitting(false);
+      }}
+    >
+      {({ values }) => (
+        <Form>
+          <Typography level="h4" gutterBottom>
+            Checklist Example usage
+          </Typography>
+
+          <FormBuilder
+            group="form"
+            fields={checklistFields}
+            values={values}
+            data-test="form"
+          />
+
+          <Box
+            width={"100%"}
+            display={"flex"}
+            justifyContent={"center"}
+            alignItems={"center"}
+          >
+            <Button variant="solid" type="submit">
+              Completed
+            </Button>
+          </Box>
+        </Form>
+      )}
+    </Formik>
+  );
+};
+
+export default ToDoExample;
+
+  `}
+/>
+
+### Conditional Checkbox
+
+This pattern is used when one field controls the visibility of another based on the user's response. A checkbox group collects a yes/no or multi-option answer, and a related input field appears conditionally if a specific value is selected. It’s useful for creating dynamic, context-aware forms that respond to user input. Refer [Conditional Rendering](/docs/getting-started/my-doc-configuration#conditional-rendering).
+
+<LiveCodeBlock
+  componentName="ConditionalCheckBox"
+  scope={{
+    ConditionAction, 
+    ConditionName,
+    PostCondition
+  }}
+  code={`
+import { Box, Button } from "@mui/joy";
+import { Formik, Form } from "formik";
+import { FormBuilder, ConditionAction, ConditionName, InputTypes, useFormBuilder, PostCondition, type FieldType} from "formik-form-builder";
+
+function ConditionalCheckBox() {
+  const conditionalCheck: FieldType[] = [
+    {
+      field: "isIntern",
+      type: InputTypes.CHECKBOX,
+      initialValue: "",
+      groupLabel: "Are you a intern?",
+      validation: {
+        required: true,
+        minLength: 1,
+        minLengthRuleMsg: "required",
+        maxLength: 1,
+        maxLengthRuleMsg: "Please select either yes or no",
+      },
+      options: [
+        { label: "Yes", value: "yes" },
+        { label: "No", value: "no" },
+      ],
+      muiProps: { variant: "outlined", color: "primary" },
+    },
+
+    {
+      field: "companyName",
+      type: InputTypes.TEXT,
+      label: "Please enter the name of your company",
+      initialValue: "",
+      conditions: {
+        action: ConditionAction.SHOW,
+        groups: [
+          {
+            group: "check",
+            groupPostCondition: PostCondition.AND,
+            logic: [
+              {
+                field: "isIntern",
+                value: "yes",
+                condition: ConditionName.INCLUDES,
+                postCondition: PostCondition.AND,
+              },
+            ],
+          },
+        ],
+      },
+      muiProps: { placeholder: "Enter you company name" },
+    },
+  ];
+
+  const { initailValues, yupSchemaValidation } =
+    useFormBuilder(conditionalCheck);
+  return (
+    <Formik
+      initialValues={initailValues}
+      validationSchema={yupSchemaValidation}
+      onSubmit={(values, actions) => {
+        console.log(values);
+        alert(JSON.stringify(values, null, 2));
+        actions.setSubmitting(false);
+      }}
+    >
+      {({ values }) => (
+        <Form>
+          <FormBuilder
+            fields={conditionalCheck}
+            data-test="form"
+            group="form"
+            values={values}
+          />
+          <Box
+            width={"100%"}
+            display={"flex"}
+            justifyContent={"center"}
+            alignItems={"center"}
+          >
+            <Button variant="solid" type="submit">
+              Submit
+            </Button>
+          </Box>
+        </Form>
+      )}
+    </Formik>
+  );
+}
+
+export default ConditionalCheckBox;
+
+  `}
+/>
+
+### Switch Checkbox
+
+Checkbox used for optional preference settings, allowing users to customize their experience — like enabling features or toggling options. It’s ideal when the input is not mandatory but enhances functionality or personalization.
+
+<LiveCodeBlock
+  componentName="SwitchDemo"
+  code={`
+import { Box, Button } from "@mui/joy";
+import { Formik, Form } from "formik";
+import { FormBuilder,InputTypes,useFormBuilder, type FieldType, } from "formik-form-builder";
+
+const SwitchDemo = () => {
+  const switchField: FieldType[] = [
+    {
+      field: "notifications",
+      type: InputTypes.CHECKBOX,
+      initialValue: [],
+      options: [
+        {
+          label: "Enable Notifications",
+          value: "enabled",
+        },
+      ],
+      muiProps: {
+        variant: "outlined",
+        color: "success",
+      },
+    },
+  ];
+
+  const { initailValues, yupSchemaValidation } = useFormBuilder(switchField);
+
+  return (
+    <Formik
+      initialValues={initailValues}
+      validationSchema={yupSchemaValidation}
+      onSubmit={(values, actions) => {
+        console.log(values);
+        alert(JSON.stringify(values, null, 2));
+        actions.setSubmitting(false);
+      }}
+    >
+      {({ values }) => (
+        <Form>
+          <FormBuilder
+            group="form"
+            data-test="form"
+            fields={switchField}
+            values={values}
+          />
+          <Box display="flex" justifyContent="center" mt={2}>
+            <Button type="submit" variant="solid">
+              Submit
+            </Button>
+          </Box>
+        </Form>
+      )}
+    </Formik>
+  );
+};
+
+export default SwitchDemo;
+
+  `}
+/>

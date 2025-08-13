@@ -1,12 +1,15 @@
 import React from 'react';
-import FormControl from '@mui/joy/FormControl';
-import Select, { selectClasses } from '@mui/joy/Select';
-import Option from '@mui/joy/Option';
-import KeyboardArrowDown from '@mui/icons-material/KeyboardArrowDown';
-import Typography from '@mui/joy/Typography';
 import { useField } from 'formik';
+import {
+  FormControl,
+  FormLabel,
+  Select,
+  selectClasses,
+  Option,
+  Typography
+} from '@mui/joy';
+import { KeyboardArrowDown } from '@mui/icons-material';
 import { FieldSelectProps } from '../../types';
-import FormLabel from '@mui/joy/FormLabel';
 import { HelperText } from '../common';
 
 export const FieldSelect: React.FC<FieldSelectProps> = ({ name, required, label, placeholder, helperText,

@@ -1,16 +1,13 @@
 import React from 'react';
 import { useField } from 'formik';
-import Autocomplete from '@mui/joy/Autocomplete';
-import FormControl from '@mui/joy/FormControl';
-import FormLabel from '@mui/joy/FormLabel';
+import { Autocomplete, FormControl, FormLabel, Typography } from '@mui/joy';
 import { FieldAutoCompleteProps } from '../../types';
 import { HelperText } from '../common';
-import Typography from '@mui/joy/Typography';
 
 export const FieldAutoComplete: React.FC<FieldAutoCompleteProps> = ({ name, label, placeholder,
     helperText, options, required, actions, ...props }) => {
     const [field, meta, helpers] = useField(name);
-    
+
     if (actions.hide) return null;
 
     return (
