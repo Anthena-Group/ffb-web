@@ -3,6 +3,8 @@
   "version": "1.0.15",
   "description": "Leverage Formik-Form-Builder Creator to effortlessly construct MUI-based forms using concise JSON definitions.",
   "main": "dist/index.js",
+  "module": "dist/index.js",
+  "browser": "dist/index.js",
   "types": "dist/index.d.ts",
   "type": "module",
   "scripts": {
@@ -53,7 +55,7 @@
     "typescript": "~5.8.3",
     "@types/react": "^19.0.0",
     "@types/react-dom": "^19.0.0",
-    "tsup": "^6.1.2"  
+    "tsup": "^6.1.2"
   },
   "peerDependencies": {
     "react": "^16.8 || ^17 || ^18 || ^19",

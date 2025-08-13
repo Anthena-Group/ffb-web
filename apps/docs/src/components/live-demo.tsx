@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import { LiveProvider, LiveEditor, LiveError, LivePreview } from "react-live";
 import { Box, Typography, Button, Stack } from "@mui/joy";
+
 import { Formik, Form } from "formik";
-import { FormBuilder, InputTypes, useFormBuilder } from "formik-from-builder";
+import { FormBuilder, InputTypes, useFormBuilder } from "formik-form-builder";
 
 type LiveCodeBlockProps = {
   code: string;

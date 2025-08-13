@@ -1,11 +1,8 @@
 import React from 'react';
-import FormControl from '@mui/joy/FormControl';
-import FormLabel from '@mui/joy/FormLabel';
-import Textarea from '@mui/joy/Textarea';
-import { useField } from "formik";
-import { FieldMultiTextProps } from "../../types";
+import { useField } from 'formik';
+import { FormControl, FormLabel, Textarea, Typography } from '@mui/joy';
+import { FieldMultiTextProps } from '../../types';
 import { HelperText } from '../common';
-import Typography from '@mui/joy/Typography';
 
 export const FieldMultiText: React.FC<FieldMultiTextProps> = ({ name, label, placeholder,
     actions, helperText, required, ...props }) => {

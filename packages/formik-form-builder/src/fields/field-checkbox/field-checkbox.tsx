@@ -1,8 +1,6 @@
-import Checkbox from '@mui/joy/Checkbox';
-import FormLabel from '@mui/joy/FormLabel';
-import Grid from '@mui/joy/Grid';
-import { useField } from 'formik';
 import React from 'react';
+import { useField } from 'formik';
+import { Checkbox, FormLabel, Grid } from '@mui/joy';
 import { FieldCheckBoxProps } from '../../types';
 import { HelperText } from '../common';
 

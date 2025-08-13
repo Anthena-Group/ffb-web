@@ -1,11 +1,6 @@
 import React from "react";
-import InfoOutlined from '@mui/icons-material/InfoOutlined';
-import ErrorIcon from '@mui/icons-material/Error';
-import Box from "@mui/joy/Box";
-import Link from '@mui/joy/Link';
-import Stack from '@mui/joy/Stack';
-import Typography from '@mui/joy/Typography';
-import FormHelperText from '@mui/joy/FormHelperText';
+import { InfoOutlined, Error } from '@mui/icons-material'; // Icons
+import { Box, Link, Stack, Typography, FormHelperText } from '@mui/joy'; // Joy components
 
 interface HelperTextProps {
     name?: string;
@@ -29,7 +24,7 @@ export const HelperText: React.FC<HelperTextProps> = ({ error, helperText,
             }}>
                 {error ? (
                     <Stack flexDirection={"row"} alignItems={"center"} data-test={`error-text-group`}>
-                        <ErrorIcon data-test={`error-text-icon`} color="error" sx={{ width: "18px", marginRight: "7px" }} />
+                        <Error data-test={`error-text-icon`} color="error" sx={{ width: "18px", marginRight: "7px" }} />
                         <Typography data-test={`error-text-val`} level="body-xs" color="danger">{errorText}</Typography>
                     </Stack>
                 ) : (helperText &&

@@ -1,4 +1,4 @@
-import Grid from "@mui/joy/Grid";
+import { Grid } from "@mui/joy";
 import { DynamicFieldRenderer } from "./fields";
 import { FormBuilderProps } from "./types";
 import { FORM_DATA_TEST_PREFIX } from "./constants";

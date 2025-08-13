@@ -1,12 +1,13 @@
 import React from 'react';
-import FormControl from '@mui/joy/FormControl';
-import FormLabel from '@mui/joy/FormLabel';
-
-import Input from '@mui/joy/Input';
-import { useField } from "formik";
-import { FieldTextProps } from "../../types";
+import { useField } from 'formik';
+import {
+  FormControl,
+  FormLabel,
+  Input,
+  Typography
+} from '@mui/joy';
+import { FieldTextProps } from '../../types';
 import { HelperText } from '../common';
-import Typography from '@mui/joy/Typography';
 
 export const FieldText: React.FC<FieldTextProps> = ({ name, required, label, placeholder, actions,
     helperText, ...props }) => {
