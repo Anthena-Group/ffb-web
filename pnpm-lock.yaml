@@ -54,9 +54,6 @@ importers:
       formik-form-builder:
         specifier: workspace:*
         version: link:../../packages/formik-form-builder
-      formik-from-builder:
-        specifier: ^1.0.15
-        version: 1.0.15(@types/react@19.1.9)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
       prism-react-renderer:
         specifier: ^2.3.0
         version: 2.4.1(react@19.1.1)
@@ -109,9 +106,6 @@ importers:
       formik-form-builder:
         specifier: workspace:*
         version: link:../../packages/formik-form-builder
-      formik-from-builder:
-        specifier: ^1.0.15
-        version: 1.0.15(@types/react@19.1.9)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
       react:
         specifier: ^19.1.0
         version: 19.1.1
@@ -3618,12 +3612,6 @@ packages:
   format@0.2.2:
     resolution: {integrity: sha512-wzsgA6WOq+09wrU1tsJ09udeR/YZRaeArL9e1wPbFg3GG2yDnC2ldKpxs4xunpFF9DgqCqOIra3bc1HWrJ37Ww==}
     engines: {node: '>=0.4.x'}
-
-  formik-from-builder@1.0.15:
-    resolution: {integrity: sha512-qAyvhkWVOPANpoPPXWBvOgtXm/NuoeoCL9x8vPBeUuRORIKKYgS3HMpCCmEJS/Nr/pTHg2k878B19kVQBM5d9w==}
-    peerDependencies:
-      react: ^16.8 || ^17 || ^18
-      react-dom: ^16.8 || ^17 || ^18
 
   formik@2.4.6:
     resolution: {integrity: sha512-A+2EI7U7aG296q2TLGvNapDNTZp1khVt5Vk0Q/fyfSROss0V/V6+txt2aJnwEos44IxTCW/LYAi/zgWzlevj+g==}
@@ -10677,22 +10665,6 @@ snapshots:
   form-data-encoder@2.1.4: {}
 
   format@0.2.2: {}
-
-  formik-from-builder@1.0.15(@types/react@19.1.9)(react-dom@19.1.1(react@19.1.1))(react@19.1.1):
-    dependencies:
-      '@emotion/react': 11.14.0(@types/react@19.1.9)(react@19.1.1)
-      '@emotion/styled': 11.14.1(@emotion/react@11.14.0(@types/react@19.1.9)(react@19.1.1))(@types/react@19.1.9)(react@19.1.1)
-      '@mui/icons-material': 6.5.0(@mui/material@6.5.0(@emotion/react@11.14.0(@types/react@19.1.9)(react@19.1.1))(@emotion/styled@11.14.1(@emotion/react@11.14.0(@types/react@19.1.9)(react@19.1.1))(@types/react@19.1.9)(react@19.1.1))(@types/react@19.1.9)(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(@types/react@19.1.9)(react@19.1.1)
-      '@mui/joy': 5.0.0-beta.52(@emotion/react@11.14.0(@types/react@19.1.9)(react@19.1.1))(@emotion/styled@11.14.1(@emotion/react@11.14.0(@types/react@19.1.9)(react@19.1.1))(@types/react@19.1.9)(react@19.1.1))(@types/react@19.1.9)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
-      '@mui/material': 6.5.0(@emotion/react@11.14.0(@types/react@19.1.9)(react@19.1.1))(@emotion/styled@11.14.1(@emotion/react@11.14.0(@types/react@19.1.9)(react@19.1.1))(@types/react@19.1.9)(react@19.1.1))(@types/react@19.1.9)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
-      formik: 2.4.6(@types/react@19.1.9)(react@19.1.1)
-      react: 19.1.1
-      react-dom: 19.1.1(react@19.1.1)
-      yup: 1.7.0
-    transitivePeerDependencies:
-      - '@mui/material-pigment-css'
-      - '@types/react'
-      - supports-color
 
   formik@2.4.6(@types/react@19.1.9)(react@19.1.1):
     dependencies:

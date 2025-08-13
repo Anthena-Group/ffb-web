@@ -1,0 +1,93 @@
+---
+id: basic-toggle-checkbox
+title: Basic Toggle
+sidebar_label: Basic Toggle
+sidebar_position: 2
+description: Agreement example of checkbox using formik form builder.
+---
+
+import LiveCodeBlock from "@site/src/components/live-demo"
+
+A checkbox when you need to present multiple options and expect the user to select one or more of them. It is useful for capturing preferences, eligibility, or any multi-choice input. Making it required ensures the user engages with the field before submitting.
+
+This example uses the `FormikFormBuilder` to render multiple choice for selecting the sports you love.
+The field is validated using Yup and defined in basicToggling config variable. Check [Validation Rules](/docs/getting-started/my-doc-configuration#validation-rules) for more detail.
+
+<LiveCodeBlock
+  componentName="BasicToggleCheckBox"
+  code={`
+import { Box, Button } from "@mui/joy";
+import { Formik, Form } from "formik";
+import { FormBuilder,InputTypes,useFormBuilder, type FieldType, } from "formik-form-builder";
+function BasicToggleCheckBox() {
+  const basicToggling: FieldType[] = [
+    {
+      field: "sport",
+      type: InputTypes.CHECKBOX,
+      initialValue: [],
+      groupLabel: "Choose the sports you love:",
+      validation: {
+        required: true,
+        minLength: 1,
+        minLengthRuleMsg: "Choose atleast one sport",
+      },
+      options: [
+        {
+          label: "Football",
+          value: "Football",
+        },
+        {
+          label: "Volleyball",
+          value: "Volleyball",
+        },
+        {
+          label: "BasketBall",
+          value: "BasketBall",
+        },
+        {
+          label: "Cricket",
+          value: "Cricket",
+        },
+      ],
+      muiProps: { variant: "outlined" },
+    },
+  ];
+  const { initailValues, yupSchemaValidation } = useFormBuilder(basicToggling);
+
+  return (
+    <Formik
+      initialValues={initailValues}
+      validationSchema={yupSchemaValidation}
+      onSubmit={(values, actions) => {
+        console.log(values);
+        alert(JSON.stringify(values, null, 2));
+        actions.setSubmitting(false);
+      }}
+    >
+      {({ values }) => (
+        <Form>
+          <FormBuilder
+            group="form"
+            values={values}
+            data-test="form"
+            fields={basicToggling}
+          />
+          <Box
+            width={"100%"}
+            display={"flex"}
+            justifyContent={"center"}
+            alignItems={"center"}
+          >
+            <Button variant="solid" type="submit">
+              Continue
+            </Button>
+          </Box>
+        </Form>
+      )}
+    </Formik>
+  );
+}
+export default BasicToggleCheckBox;
+
+`}
+/>
