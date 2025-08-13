@@ -24,7 +24,11 @@
     "prism-react-renderer": "^2.3.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
-    "react-live": "^4.1.8"
+    "react-live": "^4.1.8",
+    "@mui/joy": "5.0.0-beta.52",
+    "@mui/material": "^6.3.1",
+    "formik": "^2.4.6",
+    "yup": "^1.6.1"
   },
   "devDependencies": {
     "@docusaurus/module-type-aliases": "3.8.1",

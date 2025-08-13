@@ -4,8 +4,8 @@ import EmailInput from "./examples/email-input";
  import PasswordInput from "./examples/password-input";
 import PhoneNumberInput from "./examples/phone-input";
  import PANInput from "./examples/pan-input";
-import type { exampleType } from "../utils/tab-example-viewer";
-import TabExampleViewer from "../utils/tab-example-viewer";
+import type { exampleType } from "../Layout/tab-example-viewer";
+import TabExampleViewer from "../Layout/tab-example-viewer";
 
 const examples: Record<string, exampleType> = {
   firstName: {

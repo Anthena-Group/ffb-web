@@ -2,8 +2,8 @@ import GenderSelect from "./examples/gender-select";
  import CountrySelect from "./examples/country-select";
  import RoleSelect from "./examples/role-select";
  import LanguageSelect from "./examples/language-select";
-import type { exampleType } from "../utils/tab-example-viewer";
-import TabExampleViewer from "../utils/tab-example-viewer";
+import type { exampleType } from "../Layout/tab-example-viewer";
+import TabExampleViewer from "../Layout/tab-example-viewer";
 
 const examples: Record<string, exampleType> = {
   gender: {

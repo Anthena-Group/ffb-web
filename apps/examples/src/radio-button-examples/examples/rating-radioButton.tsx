@@ -3,7 +3,9 @@ import { FormikRenderer } from "formik-form-builder";
 import { rate } from "../../constants";
 
 export const Rating = () => {
+
   return (
+
     <FormikRenderer
       fields={rate}
       onSubmit={(values, actions) => {

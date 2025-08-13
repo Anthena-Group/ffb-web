@@ -4,7 +4,11 @@
   "main": "index.js",
   "private": true,
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "clean-node": "rm -rf node_modules && rm -rf apps/docs/node_modules && rm -rf apps/examples/node_modules",
+    "clean-node-win": "rmdir /s /q node_modules && rmdir /s /q apps\\docs\\node_modules && rmdir /s /q apps\\examples\\node_modules && rmdir /s /q packages\\formik-form-builder\\node_modules",
+    "clean-package-win": "rmdir /s /q packages\\formik-form-builder\\dist",
+    "windows-full-clean": "pnpm clean-node-win && pnpm clean-package-win"
   },
   "workspaces": [
     "packages/*",

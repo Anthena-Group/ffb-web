@@ -1,16 +1,19 @@
-import FormControl from '@mui/joy/FormControl';
-import FormLabel from '@mui/joy/FormLabel';
-import Grid from '@mui/joy/Grid';
-import Radio, { radioClasses } from '@mui/joy/Radio';
-import RadioGroup from '@mui/joy/RadioGroup';
-import { useField } from 'formik';
 import React from 'react';
+import { useField } from 'formik';
+import {
+  FormControl,
+  FormLabel,
+  Grid,
+  Radio,
+  radioClasses,
+  RadioGroup,
+  Typography,
+  Sheet,
+  Avatar
+} from '@mui/joy';
+import { CheckCircleRounded as CheckCircleRoundedIcon } from '@mui/icons-material';
 import { FieldRadioProps } from '../../types';
 import { HelperText } from '../common';
-import Typography from '@mui/joy/Typography';
-import Sheet from '@mui/joy/Sheet';
-import Avatar from '@mui/joy/Avatar';
-import CheckCircleRoundedIcon from '@mui/icons-material/CheckCircleRounded';
 
 
 export const FieldRadioIconVariant: React.FC<FieldRadioProps> = ({ name, groupLabel, outputType,

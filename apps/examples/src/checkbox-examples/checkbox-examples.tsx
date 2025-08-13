@@ -3,8 +3,8 @@ import Agreement from "./examples/agreement-checkbox";
 import BulkSelection from "./examples/bulk-selection";
 import ToDoExample from "./examples/to-do-list";
 import ConditionalCheckBox from "./examples/conditional-checkbox";
-import type { exampleType } from "../layout/tab-example-viewer";
-import TabExampleViewer from "../layout/tab-example-viewer";
+import type { exampleType } from "../Layout/tab-example-viewer";
+import TabExampleViewer from "../Layout/tab-example-viewer";
 import SwitchDemo from "./examples/switch-checkbox";
 
 const examples: Record<string, exampleType> = {
