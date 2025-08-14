@@ -1,10 +1,10 @@
 import { Formik, Form } from "formik";
 import { FormBuilder, useFormBuilder } from "formik-form-builder";
 import { Button, Box } from "@mui/joy";
-import { switchField } from "../../constants";
+import { giftWrapFields} from "../../constants";
 
-const SwitchDemo = () => {
-  const { initailValues, yupSchemaValidation } = useFormBuilder(switchField);
+const DisabledLogic = () => {
+  const { initailValues, yupSchemaValidation } = useFormBuilder(giftWrapFields);
 
   return (
     <Formik
@@ -18,7 +18,7 @@ const SwitchDemo = () => {
     >
       {({ values }) => (
         <Form>
-          <FormBuilder group="form" data-test="form" fields={switchField} values={values} />
+          <FormBuilder group="form" data-test="form" fields={giftWrapFields} values={values} />
           <Box display="flex" justifyContent="center" mt={2}>
             <Button type="submit" variant="solid">
               Submit
@@ -30,4 +30,4 @@ const SwitchDemo = () => {
   );
 };
 
-export default SwitchDemo;
+export default DisabledLogic;

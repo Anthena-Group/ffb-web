@@ -1,0 +1,65 @@
+---
+id: rating-radio-button
+title: Rating Radio 
+sidebar_label: Rating
+sidebar_position: 4 
+description: Rating example of radio button using formik form builder.
+---
+
+import LiveCodeBlock from "@site/src/components/live-demo"
+import { FormikRenderer } from "formik-form-builder"
+
+This field is used for rating inputs where users select a single value from an ordered scale. The column layout displays each option vertically for better readability, making it suitable for feedback, satisfaction scores, or evaluations with a clear, quantifiable outcome.
+
+This example uses the `FormikFormBuilder` to render([FormikRenderer](/docs/getting-started/my-doc-configuration#formikrenderer)).
+The field is validated using Yup and defined in rate config variable. Check [Validation Rules](/docs/getting-started/my-doc-configuration#validation-rules) for more detail.
+
+<LiveCodeBlock
+  componentName="Rating"
+  scope={{FormikRenderer}}
+  code={`
+import { Box, Button } from "@mui/joy";
+import { FormikRenderer, InputTypes, type FieldType } from "formik-form-builder";
+
+const Rating = () => {
+  const rate: FieldType[] = [
+    {
+     field: "rating",
+     type: InputTypes.RADIO,
+     direction: "column",
+     groupLabel: "Please rate your experience",
+     options: [
+        { label: "Very Bad", value: 1 },
+        { label: "Bad", value: 2 },
+        { label: "Average", value: 3 },
+        { label: "Good", value: 4 },
+        { label: "Excelent", value: 5 },
+       ],
+    }
+  ]
+  return (
+    <FormikRenderer
+      fields={rate}
+      onSubmit={(values, actions) => {
+        console.log(values);
+        alert(JSON.stringify(values, null, 2));
+        actions.setSubmitting(false);
+      }}
+    >
+      <Box
+        width={"100%"}
+        display={"flex"}
+        justifyContent={"center"}
+        alignItems={"center"}
+      >
+        <Button variant="solid" type="submit">
+          Continue
+        </Button>
+      </Box>
+    </FormikRenderer>
+  );
+};
+
+ export default Rating;
+`}
+/>

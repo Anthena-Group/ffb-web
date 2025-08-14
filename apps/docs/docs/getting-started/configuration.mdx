@@ -154,13 +154,27 @@ const { initialValues, yupSchemaValidation } = useFormBuilder(fields);
 |---------|---------|--------------|
 | `initialValue` | `object` | An object containing the default values for each field, based on the `initialValue` property in your field definitions. |
 | `yupSchemaValidation` | `Yup.ObjectSchema` | A Yup validation schema automatically built from the validation rules defined in the `fields` array. |
+
+It is not needed when using `<FormikRenderer/>`
+
 ---
 
 ## Global Settings
-### Formik Integration
+### `<FormikRenderer/>`
+The Formik component is used to manage form state, validation, and submission. You should pass this props to `<Formik/>` :
 
+|Prop   | Description|
+|-------|-----------|
+|`fields` | Array of field configurations. |
+|`onSubmit` | A callback function that is called for form submission. |
+|`onReset`(optional) | A callback function to reset from inputs. |
+
+Check `</FormikRenderer>` usage [example](/docs/components/multi-text/basic-multi-text).
+
+### Formik Integration
+ 
 #### `<Formik/>`
-The Formik component is used to manage form state, validation, and submission. You should pass this props to `<Formik/>` : 
+The Formik component is used to manage form state, validation, and submission when you want more control. You can use this for all but there is a shorter alternative when you don't need to control which is: `<FormikRenderer/>`. You should pass this props to `<Formik/>` : 
 |Prop   | Description|
 |-------|-----------|
 |`initialValues`   | The initial values for the form fields. To be passed from the destructured data of `useFormBuilder` hook. |
@@ -180,6 +194,7 @@ You should pass this global configuration props to `<FormBuilder />` :
 |`data-test`| Test identifier for automated testing. |
 |`fields`	|	Array of field configurations. |
 
+Check usage [Example.](/docs/components/checkbox/agrement-checkbox)
 
 ## Form Submission
 

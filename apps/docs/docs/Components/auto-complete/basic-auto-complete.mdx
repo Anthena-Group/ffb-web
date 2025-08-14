@@ -1,0 +1,72 @@
+---
+id: basic-auto-complete-introduction
+title: Basic Auto Complete
+sidebar_label: Basic Auto Complete
+sidebar_position: 2
+description: Basic Auto Complete example usage with formik-form-builder
+---
+
+import LiveCodeBlock from "@site/src/components/live-demo"
+import { FormikRenderer } from "formik-form-builder"
+
+This field is used for searchable, suggestion-based selection from a predefined list. It’s ideal for improving user experience when choosing from long or structured datasets, ensuring quick and accurate input.
+
+This example uses the FormikFormBuilder to render ([FormikRenderer](/docs/getting-started/my-doc-configuration#formikrenderer)). The field is validated using Yup and defined in basic config variable. Check [Validation Rules](/docs/getting-started/my-doc-configuration#validation-rules) for more detail.
+
+<LiveCodeBlock 
+componentName="BasicAuto"
+scope={{
+    FormikRenderer
+}}
+code= {`
+import { Box, Button } from "@mui/joy";
+import { FormikRenderer, InputTypes, type FieldType } from "formik-form-builder";
+
+function BasicAuto() {
+   const basic: FieldType[] = [
+     {
+        field: "countryName",
+        type: InputTypes.AUTO_COMPLETE,
+        label: "Which country are you from?",
+        initialValue: '',
+        validation: {
+            required: true,
+            message: "Please enter your country."
+        },
+        options: [
+            { label: "United States", value: "US" },
+            { label: "India", value: "IN" },
+            { label: "United Kingdom", value: "GB" },
+            { label: "Canada", value: "CA" },
+            { label: "Australia", value: "AU" },
+            { label: "Germany", value: "DE" },
+            { label: "France", value: "FR" },
+            { label: "Japan", value: "JP" },
+            { label: "China", value: "CN" },
+            { label: "Brazil", value: "BR" }
+        ],
+        muiProps: { variant: "outlined", },
+       },
+    ];
+  return (
+    <FormikRenderer
+      fields={basic}
+      onSubmit={(values, actions) => {
+        console.log(values);
+        alert(JSON.stringify(values, null, 2));
+        actions.setSubmitting(false);
+      }}
+    >
+      <Box display={"flex"} justifyContent={"center"} alignItems={"center"} >
+        <Button variant="solid" type="submit">
+          Continue
+        </Button>
+      </Box>
+    </FormikRenderer>
+  );
+}
+
+export default BasicAuto;
+
+`}
+/>

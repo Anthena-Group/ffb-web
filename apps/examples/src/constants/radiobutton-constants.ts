@@ -38,8 +38,7 @@ export const disabledRadio: FieldType[] = [
         field: "subscription",
         type: InputTypes.RADIO,
         groupLabel: "Pick a plan",
-        initialValue: "",
-        validation: { required: true },
+        initialValue: "free",
         options: [
             { label: "Free", value: "free" },
             { label: "Pro", value: "pro" },

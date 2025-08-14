@@ -1,0 +1,59 @@
+---
+id: basic-multi-text
+title: Basic MultiText
+sidebar_label: Basic MultiText
+sidebar_position: 2
+description: Basic multitext using formik form builder.
+---
+
+import LiveCodeBlock from "@site/src/components/live-demo"
+import { FormikRenderer } from "formik-form-builder"
+
+This field is used for collecting longer, detailed text responses from users. It’s ideal for open-ended inputs such as feedback, comments, descriptions, or notes, where multiple lines of text are needed for clarity.
+
+This example uses the FormikFormBuilder to render ([FormikRenderer](/docs/getting-started/my-doc-configuration#formikrenderer)). The field is validated using Yup and defined in FeedBack config variable. Check [Validation Rules](/docs/getting-started/my-doc-configuration#validation-rules) for more detail.
+
+<LiveCodeBlock 
+componentName="BasicMultiText"
+scope={{
+    FormikRenderer
+}}
+code= {`
+import { Box, Button } from "@mui/joy";
+import { FormikRenderer, InputTypes, type FieldType } from "formik-form-builder";
+
+function BasicMultiText() {
+    const FeedBack: FieldType[] = [
+      {
+        field: "feedBack",
+        type: InputTypes.MULTI_TEXT,
+        label: "Your Feedback",
+        placeholder: "Write your detailed feedback here...",
+        initialValue: '',
+        muiProps: { variant: "outlined", },
+      },
+    ];
+
+
+  return (
+    <FormikRenderer
+      fields={FeedBack}
+      onSubmit={(values, actions) => {
+        console.log(values);
+        alert(JSON.stringify(values, null, 2));
+        actions.setSubmitting(false);
+      }}
+    >
+      <Box display={"flex"} justifyContent={"center"} alignItems={"center"} >
+        <Button variant="solid" type="submit">
+          Continue
+        </Button>
+      </Box>
+    </FormikRenderer>
+  );
+}
+
+export default BasicMultiText;
+
+`}
+/>

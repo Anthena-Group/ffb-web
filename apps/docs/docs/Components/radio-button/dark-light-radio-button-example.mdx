@@ -1,0 +1,76 @@
+---
+id: dark-light-radio-button
+title: Dark light Radio 
+sidebar_label: Dark Light
+sidebar_position: 3 
+description: Dark light example of radio button using formik form builder.
+---
+
+import LiveCodeBlock from "@site/src/components/live-demo"
+
+This field is a single-choice selection with a default value set, ensuring the form starts with a preselected option. The `ICON` variant displays each choice visually, making it ideal for settings like themes, layouts, or other preferences where icons enhance clarity. You can change the icon by passing icon feild in option array.
+
+Import the icon and pass it like this 
+
+`options: [{ label: "Dark", value: "Dark", icon: <Icon/> },]`
+
+This example uses the `FormikFormBuilder` to render.
+The field is validated using Yup and defined in darkLight config variable. Check [Validation Rules](/docs/getting-started/my-doc-configuration#validation-rules) for more detail.
+
+<LiveCodeBlock
+  componentName="DarkLight"
+  code={`
+import { Box, Button } from "@mui/joy";
+import { Form, Formik } from "formik";
+import { FormBuilder, useFormBuilder, InputTypes type FieldType } from "formik-form-builder";
+
+
+  const DarkLight = () => {
+   const darkLight: FieldType[] = [
+     {
+        field: "mode",
+        type: InputTypes.RADIO,
+        initialValue: "Dark",
+        groupLabel: "Choose a theme:",
+        options: [{ label: "Dark", value: "Dark" }, { label: "Light", value: "Light" }],
+        variant:"ICON"
+     }
+    ]
+
+  const { initailValues, yupSchemaValidation } = useFormBuilder(darkLight);
+  return (
+    <Formik
+      initialValues={initailValues}
+      validationSchema={yupSchemaValidation}
+      onSubmit={(values, actions) => {
+        console.log(values), alert(JSON.stringify(values, null, 2));
+        actions.setSubmitting(false);
+      }}
+    >
+      {({ values }) => (
+        <Form>
+          <FormBuilder
+            data-test="form"
+            values={values}
+            fields={darkLight}
+            group="form"
+          />
+          <Box
+            width={"100%"}
+            display={"flex"}
+            justifyContent={"center"}
+            alignItems={"center"}
+          >
+            <Button variant="solid" type="submit">
+              Submit
+            </Button>
+          </Box>
+        </Form>
+      )}
+    </Formik>
+  );
+};
+export default DarkLight;
+
+`}
+/>

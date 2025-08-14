@@ -1,0 +1,107 @@
+---
+id: diasbled-radio-button
+title: Disabled Radio 
+sidebar_label: Disabled
+sidebar_position: 5 
+description: Disabled example of radio button using formik form builder.
+---
+
+import LiveCodeBlock from "@site/src/components/live-demo"
+import { ConditionAction, ConditionName, PostCondition } from "formik-form-builder";
+
+This setup demonstrates a conditional enablement pattern in forms. The first radio group collects a primary choice, while the second radio group remains disabled until a specific value from the first group is selected. This approach is useful for tiered selections, subscription or plan pickers, and scenarios where later options depend on earlier decisions. It guides users through a logical flow, prevents irrelevant input, and ensures the form only presents valid choices based on context. Refer [Conditional Rendering](/docs/getting-started/my-doc-configuration#conditional-rendering).
+
+This example uses the `FormikFormBuilder` to render.
+The field is validated using Yup and defined in disabledRadio config variable. Check [Validation Rules](/docs/getting-started/my-doc-configuration#validation-rules) for more detail.
+
+<LiveCodeBlock
+  componentName="DisabledRadio"
+  scope={{ ConditionAction, ConditionName, PostCondition }}
+  code={`
+import { Form, Formik } from "formik";
+import { Box, Button } from "@mui/joy";
+import { FormBuilder, useFormBuilder, ConditionAction, ConditionName, InputTypes, PostCondition, type FieldType } from "formik-form-builder";
+
+const DisabledRadio = () => {
+   
+   const disabledRadio: FieldType[] = [
+    {
+        field: "accountType",
+        type: InputTypes.RADIO,
+        groupLabel: "Select account type",
+        initialValue: "guest",
+        options: [
+            { label: "Guest", value: "guest" },
+            { label: "Registered", value: "registered" },
+        ],
+    },
+    {
+        field: "subscription",
+        type: InputTypes.RADIO,
+        groupLabel: "Pick a plan",
+        initialValue: "free",
+        options: [
+            { label: "Free", value: "free" },
+            { label: "Pro", value: "pro" },
+            { label: "Enterprise", value: "enterprise" },
+        ],
+        conditions: {
+            action: ConditionAction.ENABLE,
+            groups: [
+                {
+                    group: "radio",
+                    groupPostCondition: PostCondition.AND,
+                    logic: [
+                        {
+                            field: "accountType",
+                            value: "registered",
+                            condition: ConditionName.CONTAINS,
+                            postCondition: PostCondition.AND,
+                        },
+                    ],
+                },
+            ],
+        },
+    },
+ ];
+
+  const { initailValues, yupSchemaValidation } = useFormBuilder(disabledRadio);
+
+  return (
+    <Formik
+      initialValues={initailValues}
+      validationSchema={yupSchemaValidation}
+      onSubmit={(values, actions) => {
+        console.log(values);
+        alert(JSON.stringify(values, null, 2));
+        actions.setSubmitting(false);
+      }}
+    >
+      {({ values }) => (
+        <Form>
+          <FormBuilder
+            group="form"
+            values={values}
+            data-test="form"
+            fields={disabledRadio}
+          />
+          <Box
+            width={"100%"}
+            display={"flex"}
+            justifyContent={"center"}
+            alignItems={"center"}
+          >
+            <Button variant="solid" type="submit">
+              Continue
+            </Button>
+          </Box>
+        </Form>
+      )}
+    </Formik>
+  );
+};
+
+export default DisabledRadio;
+
+`}
+/>

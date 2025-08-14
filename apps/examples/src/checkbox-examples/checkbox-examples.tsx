@@ -5,7 +5,7 @@ import ToDoExample from "./examples/to-do-list";
 import ConditionalCheckBox from "./examples/conditional-checkbox";
 import type { exampleType } from "../Layout/tab-example-viewer";
 import TabExampleViewer from "../Layout/tab-example-viewer";
-import SwitchDemo from "./examples/switch-checkbox";
+import DisabledLogic from "./examples/disabled-logic-checkbox";
 
 const examples: Record<string, exampleType> = {
   basicToggle: {
@@ -16,9 +16,9 @@ const examples: Record<string, exampleType> = {
     label: "Agreement Checkbox",
     component: <Agreement />,
   },
-  switch: {
-    label:"Switch Checkbox",
-    component: <SwitchDemo/>
+  Disabled: {
+    label:"Disabled Checkbox",
+    component: <DisabledLogic/>
   },
   bulkSelection: {
     label: "Bulk Selection",

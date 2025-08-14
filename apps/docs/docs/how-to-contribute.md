@@ -1,5 +1,7 @@
 ---
+id: contribution
 title: Contribution
+description: How to contribute to Formik Form Builder
 sidebar_position: 4
 ---
 

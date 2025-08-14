@@ -135,20 +135,47 @@ export const bulkSelect: FieldType[] = [
   },
 ];
 
-export const switchField: FieldType[] = [
+export const giftWrapFields: FieldType[] = [
   {
-    field: "notifications",
+    field: "orderExtras",
     type: InputTypes.CHECKBOX,
     initialValue: [],
-    options: [
-      {
-        label: "Enable Notifications",
-        value: "enabled",
+    groupLabel: "Select order extras",
+    validation: {
+        required: true,
+        minLength: 1,
+        minLengthRuleMsg: "required",
+        maxLength: 1,
+        maxLengthRuleMsg: "Please select only one",
       },
+    options: [
+      { label: "Include Gift Wrap", value: "gift_wrap" },
+      { label: "Express Shipping", value: "express" },
     ],
-    muiProps: {
-      variant: "outlined",
-      color: "success",
+    muiProps: { variant: "outlined", color: "primary" },
+  },
+  {
+    field: "specialInstructions",
+    type: InputTypes.TEXT,
+    label: "Special Instructions",
+    initialValue: "",
+    conditions: {
+      action: ConditionAction.ENABLE,
+      groups: [
+        {
+          group: "gift",
+          groupPostCondition: PostCondition.AND,
+          logic: [
+            {
+              field: "orderExtras",
+              value: "gift_wrap",
+              condition: ConditionName.INCLUDES,
+              postCondition: PostCondition.AND,
+            },
+          ],
+        },
+      ],
     },
+    muiProps: { placeholder: "Enter any special instructions" },
   },
 ];
