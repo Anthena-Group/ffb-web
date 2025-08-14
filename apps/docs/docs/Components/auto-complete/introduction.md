@@ -6,7 +6,7 @@ sidebar_position: 1
 description: Introduction to auto complete usage with formik-form-builder
 ---
 
-[Autocomplete](/docs/category/auto-complete) is a text input enhanced by a panel of suggested options when users start typing.
+[Autocomplete](/docs/category/autocomplete) is a text input enhanced by a panel of suggested options when users start typing.
 
 ## Introduction
 
