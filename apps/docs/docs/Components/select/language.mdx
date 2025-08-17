@@ -1,0 +1,91 @@
+---
+id: language
+title: Language Example
+sidebar_label: Language
+---
+
+import LiveCodeBlock from '@site/src/components/live-demo';
+
+# Language Selection
+
+The **Language Select field** allows users to choose their preferred language from a dropdown. This is especially useful in applications that support **multilingual content** or need to tailor experiences based on language preferences.
+
+### Ideal Use Cases
+
+- Signup forms where users select their **preferred app language**.  
+- Profile settings to **update language preferences**.  
+- Applications with **localized content** to ensure correct translations.  
+
+
+<LiveCodeBlock
+  componentName="LanguageSelect"
+  code={`
+  import { Box, Button } from "@mui/joy";
+import { Formik, Form } from "formik";
+import { FormBuilder } from "formik-form-builder";
+
+function LanguageSelect() {
+ const languageField: FieldType[] = [
+
+  {
+  field: "language",
+  type: InputTypes.SELECT,
+  label: "Preferred Language",
+  placeholder: "Select your preferred language",
+  options: [
+    { label: "English", value: "english" },
+    { label: "Hindi", value: "hindi" },
+    { label: "Spanish", value: "spanish" },
+    { label: "Other", value: "other" },
+  ],
+  validation: {
+    required: true,
+    message: "Please select a language",
+  },
+  helperText: "Choose the language you are most comfortable with",
+  muiProps: { variant: "outlined" },
+  gridProps: { xs: 12 },
+}
+];
+
+ const { initailValues, yupSchemaValidation } = useFormBuilder(languageField);
+
+  return (
+    <Formik
+      initialValues={initailValues}
+      validationSchema={yupSchemaValidation}
+      onSubmit={(values, actions) => {
+        console.log(values);
+        alert(JSON.stringify(values, null, 2));
+        actions.setSubmitting(false);
+      }}
+    >
+      {({ values }) => (
+        <Form>
+          <FormBuilder
+            group="form"
+            values={values}
+            data-test="form"
+            fields={languageField}
+          />
+          <Box
+            width="100%"
+            display="flex"
+            justifyContent="center"
+            alignItems="center"
+            mt={2}
+          >
+            <Button variant="solid" type="submit">
+              Continue
+            </Button>
+          </Box>
+        </Form>
+      )}
+    </Formik>
+  );
+};
+
+export default LanguageSelect;
+
+`}
+/>

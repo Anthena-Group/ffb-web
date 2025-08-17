@@ -19,16 +19,16 @@
     "@docusaurus/preset-classic": "3.8.1",
     "@docusaurus/theme-live-codeblock": "^3.8.1",
     "@mdx-js/react": "^3.0.0",
+    "@mui/joy": "5.0.0-beta.52",
+    "@mui/material": "^6.3.1",
     "clsx": "^2.0.0",
+    "formik": "^2.4.6",
     "formik-form-builder": "workspace:*",
     "prism-react-renderer": "^2.3.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-live": "^4.1.8",
-    "@mui/joy": "5.0.0-beta.52",
-    "@mui/material": "^6.3.1",
-    "formik": "^2.4.6",
-    "yup": "^1.6.1"
+    "yup": "^1.7.0"
   },
   "devDependencies": {
     "@docusaurus/module-type-aliases": "3.8.1",

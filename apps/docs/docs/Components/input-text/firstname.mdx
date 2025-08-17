@@ -1,0 +1,73 @@
+---
+id: firstname
+title: First Name 
+sidebar_label: First Name
+---
+
+import LiveCodeBlock from '@site/src/components/live-demo';
+
+# First Name
+The **First Name** field is a simple text input created using the Formik Form Builder. It includes a basic validation rule to ensure the field is not left empty.
+
+
+
+The example below shows:
+- A single `firstName` input field
+- Validation to make it a required field
+- Submit button to display the entered value
+
+This example uses the `FormikFormBuilder` to render a single-line text input for collecting a user’s first name. The field is validated using Yup and defined in the firstNameField config variable. Check Validation Rules for more detail.
+
+## Live Demo
+<LiveCodeBlock
+  componentName="FirstName"
+  code={`
+import { Box, Button } from "@mui/joy";
+import { Form, Formik } from "formik";
+import { FormBuilder,  InputTypes, useFormBuilder, type FieldType, } from "formik-form-builder";
+
+  function FirstName() {
+    const firstNameField: FieldType[] = [
+  {
+    field: "firstName",
+    type: InputTypes.TEXT,
+    label: "First Name",
+    validation: {
+      required: true,
+      message: "First Name is required",
+    },
+    helperText: "Please enter your first name",
+    muiProps: {
+      variant: "outlined",
+      fullWidth: false,
+      sx: { width: "300px" },
+    },
+    gridProps: { xs: 12 },
+  },
+]
+const { initailValues, yupSchemaValidation } = useFormBuilder(firstNameField);
+  return (
+    <Formik
+      initialValues={initailValues}
+      validationSchema={yupSchemaValidation}
+       onSubmit={(values, actions) => {
+    console.log(values);
+    alert(JSON.stringify(values, null, 2));
+    actions.setSubmitting(false);
+  }}
+    >
+     {({values})=>(
+      <Form>
+        <Box sx={{ display: "flex", flexDirection: "column", gap: 2, width: 300 }}>
+          <FormBuilder fields={firstNameField} group="form" values={values}
+            data-test="form" />
+          <Button type="submit">Submit</Button>
+        </Box>
+      </Form>)}
+    </Formik>
+  );
+}
+export default FirstName
+  `}
+  />
+

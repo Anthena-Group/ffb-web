@@ -1,0 +1,90 @@
+---
+id: gender
+title: Gender Select
+sidebar_label: Gender
+---
+
+import LiveCodeBlock from '@site/src/components/live-demo';
+
+# Gender Selection
+
+The **Gender Select component** provides a simple dropdown for users to indicate their gender. This helps in personalizing user experience and collecting demographic information when required.
+
+### When to Use
+
+- During **user registration** to capture basic profile details.  
+- In **surveys or feedback forms** where demographic data is needed.  
+- In **profile update forms** for user preferences.
+
+## Live Demo
+<LiveCodeBlock
+  componentName="GenderSelect"
+  code={`
+  import { Box, Button } from "@mui/joy";
+import { Formik, Form } from "formik";
+import { FormBuilder, useFormBuilder } from "formik-form-builder";
+
+function GenderSelect() {
+  const genderField: FieldType[] = [
+  {
+    field: "gender",
+    type: InputTypes.SELECT,
+    label: "Gender",
+    placeholder: "Select your gender",
+    options: [
+      { label: "Male", value: "male" },
+      { label: "Female", value: "female" },
+      { label: "Other", value: "other" },
+    ],
+    validation: {
+      required: true,
+      message: "Please select a gender",
+    },
+    helperText: "Choose your gender from the dropdown",
+    muiProps: {
+      variant: "outlined"
+  //sx: { width: "300px" },
+    },
+    gridProps: {  xs: 12 },
+  },
+]
+  const { initailValues, yupSchemaValidation } = useFormBuilder(genderField);
+
+  return (
+    <Formik
+      initialValues={initailValues}
+      validationSchema={yupSchemaValidation}
+      onSubmit={(values, actions) => {
+        console.log(values);
+        alert(JSON.stringify(values, null, 2));
+        actions.setSubmitting(false);
+      }}
+    >
+      {({ values }) => (
+        <Form>
+          <FormBuilder
+            group="form"
+            values={values}
+            data-test="form"
+            fields={genderField}
+          />
+          <Box
+            width="100%"
+            display="flex"
+            justifyContent="center"
+            alignItems="center"
+            mt={2}
+          >
+            <Button variant="solid" type="submit">
+              Continue
+            </Button>
+          </Box>
+        </Form>
+      )}
+    </Formik>
+  );
+};
+
+export default GenderSelect;
+`}
+/>
