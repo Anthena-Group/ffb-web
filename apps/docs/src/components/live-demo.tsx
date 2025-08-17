@@ -102,6 +102,7 @@ export default function LiveCodeBlock({
         </Box>
 
         <Box
+         data-testid="live-editor-wrapper"
           sx={{
             maxHeight: expanded ? "none" : 300,
             overflow: "auto",
