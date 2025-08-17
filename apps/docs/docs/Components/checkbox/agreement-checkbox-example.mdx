@@ -1,0 +1,82 @@
+---
+id: agrement-checkbox
+title: Agreement
+sidebar_label: Agreement
+sidebar_position: 3
+description: Agreement example of checkbox using formik form builder.
+---
+
+import LiveCodeBlock from "@site/src/components/live-demo"
+
+Checkbox for single-option like accepting terms and conditions, switch, etc. It acts as a required toggle — the form won’t submit unless the user checks it. Ideal for confirmations, consent, or any “I agree” action. Clean, declarative, and easily styled via MUI props.
+
+This example uses the `FormikFormBuilder` to render.
+The field is validated using Yup and defined in termsAndAgreement config variable. Check [Validation Rules](/docs/getting-started/my-doc-configuration#validation-rules) for more detail.
+
+<LiveCodeBlock
+  componentName="Agreement"
+  code={`
+import { Box, Button } from "@mui/joy";
+import { Formik, Form } from "formik";
+import { FormBuilder, InputTypes, useFormBuilder, type FieldType, } from "formik-form-builder";
+function Agreement() {
+  const termsAndAgreement: FieldType[] = [
+    {
+      field: "termAcceptence",
+      type: InputTypes.CHECKBOX,
+      initialValue: [],
+      validation: {
+        required: true,
+        minLength: 1,
+        minLengthRuleMsg: "Accept terms and condition to continue",
+      },
+      options: [
+        {
+          label: "Accept terms and condition to continue",
+          value: "Accepted",
+        },
+      ],
+      muiProps: { variant: "outlined" },
+    },
+  ];
+
+  const { initailValues, yupSchemaValidation } = useFormBuilder(termsAndAgreement);
+
+  return (
+    <Formik
+      initialValues={initailValues}
+      validationSchema={yupSchemaValidation}
+      onSubmit={(values, actions) => {
+        console.log(values);
+        alert(JSON.stringify(values, null, 2));
+        actions.setSubmitting(false);
+      }}
+    >
+      {({ values }) => (
+        <Form>
+          <FormBuilder
+            group="form"
+            values={values}
+            data-test="form"
+            fields={termsAndAgreement}
+          />
+          <Box
+            width={"100%"}
+            display={"flex"}
+            justifyContent={"center"}
+            alignItems={"center"}
+          >
+            <Button variant="solid" type="submit">
+              Continue
+            </Button>
+          </Box>
+        </Form>
+      )}
+    </Formik>
+  );
+}
+
+export default Agreement;
+
+  `}
+/>
