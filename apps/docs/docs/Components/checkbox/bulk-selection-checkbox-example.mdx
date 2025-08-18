@@ -1,0 +1,112 @@
+---
+id: bulk-selection-checkbox
+title: Bulk Select
+sidebar_label: Bullk Select
+sidebar_position: 5
+description: Bulk selection example of checkbox using formik form builder.
+---
+
+import LiveCodeBlock from "@site/src/components/live-demo"
+import { FormControl, FormLabel, Checkbox } from "@mui/joy";
+
+Checkbox for bulk selections where users can choose multiple items from a list — like selecting products, categories, or preferences. It's ideal for use cases where multi-choice input is needed, with each selection tracked under the same field. The vertical layout and MUI props keep it flexible and styled.
+
+You will need more that just the config like `FormControl`, `Checkbox`, `FormLabel` from [MUI](https://mui.com/joy-ui/react-checkbox/)/Joy, see code below for more detail.
+
+This example uses the `FormikFormBuilder` to render multiple items for selecting.
+The field is validated using Yup and defined in BulkSelection config variable. Check [Validation Rules](/docs/getting-started/my-doc-configuration#validation-rules) for more detail.
+
+<LiveCodeBlock
+  componentName="BulkSelection"
+  scope={{
+    FormControl,
+    FormLabel,
+    Checkbox,
+  }}
+  code={`
+import { Button, FormControl, Checkbox, Box, FormLabel } from "@mui/joy";
+import { Form, Formik } from "formik";
+import { FormBuilder, useFormBuilder, InputTypes, type FieldType, } from "formik-form-builder";
+const BulkSelection = () => {
+  const itemOptions = [
+    { label: "Item A", value: "Item A" },
+    { label: "Item B", value: "Item B" },
+    { label: "Item C", value: "Item C" },
+    { label: "Item D", value: "Item D" },
+  ];
+
+  const bulkSelect: FieldType[] = [
+    {
+      field: "bulkSelecting",
+      type: InputTypes.CHECKBOX,
+      initialValue: [],
+      groupLabel: "Choose items to buy:",
+      options: itemOptions,
+      muiProps: { variant: "outlined" },
+    },
+  ];
+
+  const { initailValues, yupSchemaValidation } = useFormBuilder(bulkSelect);
+
+  const allValues = itemOptions.map((opt) => opt.value);
+
+  return (
+    <Formik
+      initialValues={initailValues}
+      validationSchema={yupSchemaValidation}
+      onSubmit={(values, actions) => {
+        console.log(values);
+        alert(JSON.stringify(values, null, 2));
+        actions.setSubmitting(false);
+      }}
+    >
+      {({ values, setFieldValue }) => {
+        const isAllSelected =
+          values.bulkSelecting?.length === itemOptions.length;
+
+        const toggleSelectAll = () => {
+          setFieldValue("bulkSelecting", isAllSelected ? [] : allValues);
+        };
+
+        return (
+          <Form>
+            <FormControl orientation="horizontal" sx={{ mb: 2 }}>
+              <Checkbox
+                checked={isAllSelected}
+                onChange={toggleSelectAll}
+                variant="outlined"
+                color="primary"
+              />
+              <FormLabel sx={{ ml: 1, fontWeight: 500 }}>Select All</FormLabel>
+            </FormControl>
+
+            <FormBuilder
+              group="form"
+              fields={bulkSelect}
+              data-test="form"
+              values={values}
+            />
+
+            <Box
+              width={"100%"}
+              display={"flex"}
+              justifyContent={"center"}
+              alignItems={"center"}
+            >
+              <Button variant="solid" type="submit">
+                Proceed
+              </Button>
+            </Box>
+          </Form>
+        );
+      }}
+    </Formik>
+  );
+};
+
+export default BulkSelection;
+
+  `}
+/>
+
+

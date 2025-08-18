@@ -1,0 +1,78 @@
+---
+id: role
+title: Role Select
+sidebar_label: Role
+---
+
+import LiveCodeBlock from '@site/src/components/live-demo';
+import { Box, Button } from '@mui/joy';
+import { Formik, Form } from 'formik';
+import { FormBuilder, InputTypes, useFormBuilder } from 'formik-form-builder';
+
+# Role Selection
+
+The **Role Select field** allows users to choose their role or designation within a system. This is commonly used in admin panels, user management forms, or signup flows where different users have different access levels.
+
+### When to Use
+
+- During **user registration** to assign roles like Admin, User, or Moderator.  
+- In **admin dashboards** to update user permissions.  
+- In **team management tools** to categorize users based on responsibilities.
+
+This example uses the `FormikFormBuilder` to render a role select field for selecting a user’s role. The field is validated using **Yup** and defined in the `roleField` config variable. Check [Validation Rules](/docs/getting-started/my-doc-configuration#validation-rules) for more detail.
+
+## Live Demo
+<LiveCodeBlock
+  componentName="RoleSelect"
+  code={`
+function RoleSelect() {
+  const roleField = [
+    {
+      field: "role",
+      type: InputTypes.SELECT,
+      label: "User Role",
+      placeholder: "Choose your role",
+      options: [
+        { label: "Select role", value: "" },
+        { label: "Admin", value: "admin" },
+        { label: "Editor", value: "editor" },
+        { label: "Viewer", value: "viewer" },
+        { label: "Other", value: "other" },
+      ],
+      validation: {
+        required: true,
+        message: "Role selection is required",
+      },
+      helperText: "Select your user role",
+      muiProps: { variant: "outlined" },
+      gridProps: { xs: 12 },
+    },
+  ];
+
+  const { initailValues, yupSchemaValidation } = useFormBuilder(roleField);
+
+  return (
+    <Formik
+      initialValues={initailValues}
+      validationSchema={yupSchemaValidation}
+      onSubmit={(values, actions) => {
+        console.log(values);
+        alert(JSON.stringify(values, null, 2));
+        actions.setSubmitting(false);
+      }}
+    >
+      {({ values }) => (
+        <Form>
+          <FormBuilder group="form" values={values} fields={roleField} />
+          <Box display="flex" justifyContent="center" mt={2}>
+            <Button type="submit" variant="solid">Continue</Button>
+          </Box>
+        </Form>
+      )}
+    </Formik>
+  );
+}
+
+<RoleSelect />
+  `}
+/>

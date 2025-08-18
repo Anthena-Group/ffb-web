@@ -1,0 +1,71 @@
+---
+id: gender-radio-button
+title: Gender Radio 
+sidebar_label: Gender
+sidebar_position: 2 
+description: Gender example of radio button using formik form builder.
+---
+
+import LiveCodeBlock from "@site/src/components/live-demo"
+
+This field is for single-choice inputs where only one option can be selected from a predefined list. It’s useful for capturing categorical data and ensuring a clear, mutually exclusive response, with validation enforcing that a choice is made.
+
+This example uses the `FormikFormBuilder` to render.
+The field is validated using Yup and defined in gender config variable. Check [Validation Rules](/docs/getting-started/my-doc-configuration#validation-rules) for more detail.
+
+<LiveCodeBlock
+  componentName="GenderRadioButton"
+  code={`
+import { Box, Button } from "@mui/joy";
+import { Form, Formik } from "formik";
+import { FormBuilder, useFormBuilder, InputTypes, type FieldType } from "formik-form-builder";
+
+const GenderRadioButton = () => {
+    const gender: FieldType[] = [
+        {
+            field: "gender",
+            type: InputTypes.RADIO,
+            groupLabel: "What's your gender?",
+            validation: { required: true, minLength: 1 },
+            options: [{ label: "Male", value: "Male" }, { label: "Female", value: "Female" }]
+        }
+    ]
+
+  const { initailValues, yupSchemaValidation } = useFormBuilder(gender);
+  return (
+    <Formik
+      initialValues={initailValues}
+      validationSchema={yupSchemaValidation}
+      onSubmit={(values, actions) => {
+        console.log(values), alert(JSON.stringify(values, null, 2));
+        actions.setSubmitting(false);
+      }}
+    >
+      {({ values }) => (
+        <Form>
+          <FormBuilder
+            data-test="form"
+            values={values}
+            fields={gender}
+            group="form"
+          />
+          <Box
+            width={"100%"}
+            display={"flex"}
+            justifyContent={"center"}
+            alignItems={"center"}
+          >
+            <Button variant="solid" type="submit">
+              Submit
+            </Button>
+          </Box>
+        </Form>
+      )}
+    </Formik>
+  );
+};
+
+export default GenderRadioButton;
+
+`}
+/>

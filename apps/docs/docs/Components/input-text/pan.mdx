@@ -1,0 +1,89 @@
+---
+id: pan
+title: PAN
+sidebar_label: PAN
+---
+
+import LiveCodeBlock from '@site/src/components/live-demo';
+
+# PAN Number
+The **PAN (Permanent Account Number)** field is used to collect a valid PAN number from the user. It is commonly required in forms related to taxation, banking, and official identification.  
+
+In this example, we have implemented a **PAN input field** with the following features:
+- Accepts a **10-character alphanumeric value**.  
+- The format must match **5 uppercase letters, followed by 4 digits, and ending with 1 uppercase letter**  
+  (e.g., `ABCDE1234F`).  
+- Displays a validation error if the entered PAN does not follow the correct pattern.  
+- Ensures the field is **mandatory** before submitting the form.  
+
+This helps maintain data integrity and ensures that only valid PAN numbers are collected in the form. 
+This example uses the `FormikFormBuilder` to render a PAN input field for collecting a user’s PAN number. The field is validated using **Yup** and defined in the `panField` config variable.  Check [Validation Rules](/docs/getting-started/my-doc-configuration#validation-rules) for more detail.
+## Live Demo
+<LiveCodeBlock
+  componentName="PAN"
+  code={`
+  import { Box, Button } from "@mui/joy";
+import { Formik, Form } from "formik";
+import { FormBuilder, useFormBuilder } from "formik-form-builder";
+
+function PAN() {
+  const panField: FieldType[] = [
+  {
+    field: "panNumber",
+    type: InputTypes.TEXT,
+    label: "PAN Number",
+    placeholder: "Enter your PAN (e.g., ABCDE1234F)",
+    validation: {
+      required: true,
+      pattern: /^[A-Z]{5}[0-9]{4}[A-Z]{1}$/,
+      message: "Enter a valid PAN number (ABCDE1234F)",
+    },
+    helperText: "PAN format: 5 letters, 4 digits, 1 letter (all uppercase)",
+    muiProps: {
+      variant: "outlined",
+      fullWidth: false,
+      sx: { width: "300px" },
+    },
+    gridProps: {xs: 12 },
+  },
+];
+  const { initailValues: initialValues, yupSchemaValidation } = useFormBuilder(panField);
+
+  return (
+    <Formik
+      initialValues={initialValues}
+      validationSchema={yupSchemaValidation}
+      onSubmit={(values, actions) => {
+        console.log(values);
+        alert(JSON.stringify(values, null, 2));
+        actions.setSubmitting(false);
+      }}
+    >
+      {({ values }) => (
+        <Form>
+          <FormBuilder
+            group="form"
+            values={values}
+            data-test="form"
+            fields={panField}
+          />
+          <Box
+            width="100%"
+            display="flex"
+            justifyContent="center"
+            alignItems="center"
+            mt={2}
+          >
+            <Button variant="solid" type="submit">
+              Submit
+            </Button>
+          </Box>
+        </Form>
+      )}
+    </Formik>
+  );
+};
+
+export default Pan;
+`}
+/>
