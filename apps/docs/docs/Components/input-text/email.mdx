@@ -1,0 +1,86 @@
+---
+id: email
+title: Email 
+sidebar_label: Email 
+---
+
+import LiveCodeBlock from '@site/src/components/live-demo';
+
+# Email 
+This example demonstrates a Formik email input field with validation. The **Email** field is used to capture a valid email address from the user. It ensures that the entered value follows the standard email format and is not left empty.
+
+This example uses the `FormikFormBuilder` to render an email input field for collecting a user’s email address. 
+The field is validated using **Yup** and defined in the `emailField` config variable. Check [Validation Rules](/docs/getting-started/my-doc-configuration#validation-rules) for more detail.
+
+## Live Demo
+<LiveCodeBlock
+  componentName="Email"
+  code={`
+  import { Box, Button } from "@mui/joy";
+import { Formik, Form, Field, ErrorMessage } from "formik";
+import * as Yup from "yup";
+
+ function Email() {
+    const emailField: FieldType[] = [
+  {
+    field: "email",
+    type: InputTypes.TEXT,
+    label: "Email",
+    validation: {
+  required: true,
+  message: "Email is required",
+  email: true, 
+  pattern: /^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/,
+patternRuleMsg: "Enter a valid email",
+},
+    helperText: "Please enter a valid email address",
+    muiProps: {
+      variant: "outlined",
+      fullWidth: false,
+      sx: { width: "300px" },
+    },
+    gridProps: { xs: 12  },
+  },
+]
+
+const { initailValues, yupSchemaValidation } = useFormBuilder(emailField);
+
+  return (
+    <Formik
+      initialValues={initailValues}
+      validationSchema={yupSchemaValidation}
+      onSubmit={(values, actions) => {
+        console.log(values);
+        alert(JSON.stringify(values, null, 2));
+        actions.setSubmitting(false);
+      }}
+    >
+      {({ values }) => (
+        <Form>
+          <FormBuilder
+            group="form"
+            values={values}
+            data-test="form"
+            fields={emailField}
+          />
+          <Box
+            width="100%"
+            display="flex"
+            justifyContent="center"
+            alignItems="center"
+            mt={2}
+          >
+            <Button variant="solid" type="submit">
+              Continue
+            </Button>
+          </Box>
+        </Form>
+      )}
+    </Formik>
+  );
+};
+
+export default Email;
+`}
+  />
+

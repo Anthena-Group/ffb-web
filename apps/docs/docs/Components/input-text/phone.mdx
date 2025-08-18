@@ -1,0 +1,92 @@
+---
+id: phone
+title: Phone
+sidebar_label: Phone Number
+---
+
+import LiveCodeBlock from '@site/src/components/live-demo';
+
+# Phone Number
+The **Phone Number field** is used to collect a valid mobile or landline number from the user. It is one of the most common inputs in registration, contact, and verification forms.  
+
+In this example, the phone number input field includes the following features:
+
+- Accepts only **numeric values**.  
+- Enforces a fixed **10-digit format** (e.g., `9876543210`).  
+- Displays a validation error if the user enters fewer or more than 10 digits.  
+- Prevents form submission unless a valid phone number is provided.  
+
+This ensures consistency in the data collected and helps in cases where phone numbers are used for **OTP verification, contact details, or account recovery**.
+This example uses the `FormikFormBuilder` to render a phone number input field for collecting a user’s phone number. The field is validated using **Yup** and defined in the `phoneField` config variable. Check [Validation Rules](/docs/getting-started/my-doc-configuration#validation-rules) for more detail.
+## Live Demo
+
+## Live Demo
+<LiveCodeBlock
+  componentName="PhoneNumber"
+  code={`
+  import { Box, Button } from "@mui/joy";
+import { Formik, Form } from "formik";
+import { FormBuilder, useFormBuilder } from "formik-form-builder";
+
+function PhoneNumber() {
+  const phoneNumberField : FieldType[] = [
+  {
+    field: "phoneNumber",
+    type: InputTypes.TEXT,
+    label: "Phone Number",
+    placeholder: "Enter your 10-digit phone number",
+    validation: {
+      required: true,
+      pattern: /^[0-9]{10}$/,
+      message: "Phone number must be exactly 10 digits",
+    },
+    helperText: "Only digits allowed, no spaces or special characters",
+    muiProps: {
+      variant: "outlined",
+      fullWidth: false,
+      sx: { width: "300px" },
+    },
+    gridProps: {xs: 12  },
+  },
+]
+
+const { initailValues: initialValues, yupSchemaValidation } = useFormBuilder(phoneNumberField);
+
+  return (
+    <Formik
+      initialValues={initialValues}
+      validationSchema={yupSchemaValidation}
+      onSubmit={(values, actions) => {
+        console.log(values);
+        alert(JSON.stringify(values, null, 2));
+        actions.setSubmitting(false);
+      }}
+    >
+      {({ values }) => (
+        <Form>
+          <FormBuilder
+            group="form"
+            values={values}
+            data-test="form"
+            fields={phoneNumberField}
+          />
+          <Box
+            width="100%"
+            display="flex"
+            justifyContent="center"
+            alignItems="center"
+            mt={2}
+          >
+            <Button variant="solid" type="submit">
+              Submit
+            </Button>
+          </Box>
+        </Form>
+      )}
+    </Formik>
+  );
+};
+
+export default PhoneNumber
+`}
+/>
