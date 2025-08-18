@@ -1,0 +1,63 @@
+---
+id: confirm-radio-button
+title: Confirmation Radio 
+sidebar_label: Confirmation
+sidebar_position: 5 
+description: Confirmation example of radio button using formik form builder.
+---
+
+import LiveCodeBlock from "@site/src/components/live-demo"
+import { FormikRenderer } from "formik-form-builder"
+
+This field is used for single-option confirmations that require explicit acknowledgment from the user before a critical action can proceed. It’s ideal for irreversible or high-impact operations, ensuring the user understands the consequences. The required validation enforces that this acknowledgment is given, adding a safeguard against accidental submissions.
+
+This example uses the `FormikFormBuilder` to render([FormikRenderer](/docs/getting-started/my-doc-configuration#formikrenderer)).
+The field is validated using Yup and defined in confirmAction config variable. Check [Validation Rules](/docs/getting-started/my-doc-configuration#validation-rules) for more detail.
+
+<LiveCodeBlock
+  componentName="Confirmation"
+  scope={{FormikRenderer}}
+  code={`
+import { Box, Button } from "@mui/joy";
+import { FormikRenderer, InputTypes type FieldType } from "formik-form-builder";
+
+const Confirmation = () => {
+const confirmAction: FieldType[] = [
+  {
+    field: "confirmDelete",
+    type: InputTypes.RADIO,
+    initialValue:"",
+    groupLabel: "This action is irreversible. Are you sure you want to delete?",
+    validation: { required: true, message: "You must acknowledge." },
+    options: [
+        { label: "I understand that this action is irreversible.", value: "confirmed" }
+    ]
+  }
+ ]
+  return (
+    <FormikRenderer
+      fields={confirmAction}
+      onSubmit={(values, actions) => {
+        console.log(values);
+        alert(JSON.stringify(values, null, 2));
+        actions.setSubmitting(false);
+      }}
+    >
+      <Box
+        width={"100%"}
+        display={"flex"}
+        justifyContent={"center"}
+        alignItems={"center"}
+      >
+        <Button variant="solid" type="submit">
+          Continue
+        </Button>
+      </Box>
+    </FormikRenderer>
+  );
+};
+
+ export default Confirmation;
+
+`}
+/>

@@ -1,0 +1,119 @@
+---
+id: conditional-checkbox
+title: Conditional checkbox
+sidebar_label: Conditional Checkbox
+sidebar_position: 4
+description: Conditional checkbox example of checkbox using formik form builder.
+---
+
+import LiveCodeBlock from "@site/src/components/live-demo"
+import {
+  ConditionAction,
+  ConditionName,
+  PostCondition,
+} from "formik-form-builder";
+
+This pattern is used when one field controls the visibility of another based on the user's response. A checkbox group collects a yes/no or multi-option answer, and a related input field appears conditionally if a specific value is selected. It’s useful for creating dynamic, context-aware forms that respond to user input. Refer [Conditional Rendering](/docs/getting-started/my-doc-configuration#conditional-rendering).
+
+This example uses the `FormikFormBuilder` to render.
+Each field is validated using Yup and defined in conditionalCheck config variable. Check [Validation Rules](/docs/getting-started/my-doc-configuration#validation-rules) for more detail.
+
+<LiveCodeBlock
+  componentName="ConditionalCheckBox"
+  scope={{
+    ConditionAction, 
+    ConditionName,
+    PostCondition
+  }}
+  code={`
+import { Box, Button } from "@mui/joy";
+import { Formik, Form } from "formik";
+import { FormBuilder, ConditionAction, ConditionName, InputTypes, useFormBuilder, PostCondition, type FieldType} from "formik-form-builder";
+
+function ConditionalCheckBox() {
+  const conditionalCheck: FieldType[] = [
+    {
+      field: "isIntern",
+      type: InputTypes.CHECKBOX,
+      initialValue: "",
+      groupLabel: "Are you a intern?",
+      validation: {
+        required: true,
+        minLength: 1,
+        minLengthRuleMsg: "required",
+        maxLength: 1,
+        maxLengthRuleMsg: "Please select either yes or no",
+      },
+      options: [
+        { label: "Yes", value: "yes" },
+        { label: "No", value: "no" },
+      ],
+      muiProps: { variant: "outlined", color: "primary" },
+    },
+
+    {
+      field: "companyName",
+      type: InputTypes.TEXT,
+      label: "Please enter the name of your company",
+      initialValue: "",
+      conditions: {
+        action: ConditionAction.SHOW,
+        groups: [
+          {
+            group: "check",
+            groupPostCondition: PostCondition.AND,
+            logic: [
+              {
+                field: "isIntern",
+                value: "yes",
+                condition: ConditionName.INCLUDES,
+                postCondition: PostCondition.AND,
+              },
+            ],
+          },
+        ],
+      },
+      muiProps: { placeholder: "Enter you company name" },
+    },
+  ];
+
+  const { initailValues, yupSchemaValidation } =
+    useFormBuilder(conditionalCheck);
+  return (
+    <Formik
+      initialValues={initailValues}
+      validationSchema={yupSchemaValidation}
+      onSubmit={(values, actions) => {
+        console.log(values);
+        alert(JSON.stringify(values, null, 2));
+        actions.setSubmitting(false);
+      }}
+    >
+      {({ values }) => (
+        <Form>
+          <FormBuilder
+            fields={conditionalCheck}
+            data-test="form"
+            group="form"
+            values={values}
+          />
+          <Box
+            width={"100%"}
+            display={"flex"}
+            justifyContent={"center"}
+            alignItems={"center"}
+          >
+            <Button variant="solid" type="submit">
+              Submit
+            </Button>
+          </Box>
+        </Form>
+      )}
+    </Formik>
+  );
+}
+
+export default ConditionalCheckBox;
+
+  `}
+/>

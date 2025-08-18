@@ -1,0 +1,85 @@
+---
+id: to-do-list-checkbox
+title: Todo List
+sidebar_label: Todo List
+sidebar_position: 3
+description: Todo list example of checkbox using formik form builder.
+---
+
+import LiveCodeBlock from "@site/src/components/live-demo"
+
+This checkbox group is suited for task or checklist-style inputs where users can mark multiple actions as selected. It works well for to-do lists, progress tracking, or any form that needs multiple step confirmations. The column layout ensures clarity, and MUI props handle the styling.
+
+This example uses the `FormikFormBuilder` to render multiple items.
+The field is validated using Yup and defined in checklistFields config variable. Check [Validation Rules](/docs/getting-started/my-doc-configuration#validation-rules) for more detail.
+
+<LiveCodeBlock
+  componentName="ToDoExample"
+  code={`
+import { Box, Button, Typography } from "@mui/joy";
+import { Formik, Form } from "formik";
+import { FormBuilder,InputTypes,useFormBuilder, type FieldType, } from "formik-form-builder";
+const ToDoExample = () => {
+  const checklistFields: FieldType[] = [
+    {
+      field: "tasks",
+      type: InputTypes.CHECKBOX,
+      initialValue: [],
+      direction: "column",
+      groupLabel: "Tasks to complete:",
+      options: [
+        { label: "Check email", value: "email" },
+        { label: "Write code", value: "code" },
+        { label: "Attend standup", value: "standup" },
+        { label: "Review PRs", value: "review" },
+      ],
+      muiProps: { variant: "outlined" },
+    },
+  ];
+
+  const { initailValues, yupSchemaValidation } =
+    useFormBuilder(checklistFields);
+
+  return (
+    <Formik
+      initialValues={initailValues}
+      validationSchema={yupSchemaValidation}
+      onSubmit={(values, actions) => {
+        console.log(values);
+        alert("Completed Tasks: " + JSON.stringify(values.tasks, null, 2));
+        actions.setSubmitting(false);
+      }}
+    >
+      {({ values }) => (
+        <Form>
+          <Typography level="h4" gutterBottom>
+            Checklist Example usage
+          </Typography>
+
+          <FormBuilder
+            group="form"
+            fields={checklistFields}
+            values={values}
+            data-test="form"
+          />
+
+          <Box
+            width={"100%"}
+            display={"flex"}
+            justifyContent={"center"}
+            alignItems={"center"}
+          >
+            <Button variant="solid" type="submit">
+              Completed
+            </Button>
+          </Box>
+        </Form>
+      )}
+    </Formik>
+  );
+};
+
+export default ToDoExample;
+
+  `}
+/>

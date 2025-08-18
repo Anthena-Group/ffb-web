@@ -1,0 +1,94 @@
+---
+id: country
+title: Country Example
+sidebar_label: Country
+---
+
+import LiveCodeBlock from '@site/src/components/live-demo';
+
+# Country Selection
+
+The **Country Select field** allows the user to choose their country from a predefined list. This field is often required in forms like signup, shipping, or profile information.
+
+## Key Features
+
+- Users can select **one country** from a list of options.  
+- The field is **mandatory**, indicated by a red asterisk beside the label.  
+- **Helper text** guides the user on what to do.  
+- Validation ensures the user **cannot submit the form** without selecting a country.
+This example uses the `FormikFormBuilder` to render a country select field for selecting a user’s country. The field is validated using **Yup** and defined in the `countryField` config variable. Check [Validation Rules](/docs/getting-started/my-doc-configuration#validation-rules) for more detail.
+## Live Demo
+
+
+<LiveCodeBlock
+  componentName="CountrySelect"
+  code={`
+  import { Box, Button } from "@mui/joy";
+import { Form, Formik } from "formik";
+import { FormBuilder, useFormBuilder } from "formik-form-builder";
+
+
+function CountrySelect() {
+  const countryField: FieldType[] = [
+  {
+    field: "country",
+    type: InputTypes.SELECT,
+    label: "Country",
+    placeholder: "Select your country",
+    options: [
+      { label: "India", value: "india" },
+      { label: "United States", value: "usa" },
+      { label: "Germany", value: "germany" },
+       { label: "Other", value: "other" },
+    ],
+    validation: {
+      required: true,
+      message: "Country is required",
+    },
+    helperText: "Pick your country from the list",
+    muiProps: { variant: "outlined"},
+    gridProps: { xs: 12},
+    
+  },
+]
+
+  const { initailValues, yupSchemaValidation } = useFormBuilder(countryField);
+
+  return (
+    <Formik
+      initialValues={initailValues}
+      validationSchema={yupSchemaValidation}
+      onSubmit={(values, actions) => {
+        console.log(values);
+        alert(JSON.stringify(values, null, 2));
+        actions.setSubmitting(false);
+      }}
+    >
+      {({ values }) => (
+        <Form>
+          <FormBuilder
+            group="form"
+            values={values}
+            data-test="form"
+            fields={countryField}
+          />
+          <Box
+            width="100%"
+            display="flex"
+            justifyContent="center"
+            alignItems="center"
+            mt={2}
+          >
+            <Button variant="solid" type="submit">
+              Continue
+            </Button>
+          </Box>
+        </Form>
+      )}
+    </Formik>
+  );
+};
+
+export default CountrySelect;
+`}
+/>

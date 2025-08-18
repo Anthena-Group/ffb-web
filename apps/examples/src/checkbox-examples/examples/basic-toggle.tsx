@@ -6,26 +6,6 @@ import { Form, Formik } from "formik";
 function BasicToggleCheckBox() {
   const {initailValues, yupSchemaValidation} = useFormBuilder(basicToggling)
   return (
-    // <FormikRenderer
-    //   fields={basicToggling}
-    //   onSubmit={(values, actions) => {
-    //     console.log(values);
-    //     alert(JSON.stringify(values, null, 2));
-    //     actions.setSubmitting(false);
-    //   }}
-    // >
-    //   <Box
-    //     width={"100%"}
-    //     display={"flex"}
-    //     justifyContent={"center"}
-    //     alignItems={"center"}
-    //   >
-    //     <Button variant="contained" type="submit">
-    //       Submit
-    //     </Button>
-    //   </Box>
-    // </FormikRenderer>
-    
         <Formik
           initialValues={initailValues}
           validationSchema={yupSchemaValidation}

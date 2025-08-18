@@ -1,0 +1,117 @@
+---
+id: preference-checkbox
+title: Preference
+sidebar_label: Preference
+sidebar_position: 6
+description: Preference example of checkbox using formik form builder.
+---
+
+import LiveCodeBlock from "@site/src/components/live-demo"
+import {
+  ConditionAction,
+  ConditionName,
+  PostCondition,
+} from "formik-form-builder";
+
+A checkbox can also be used to control the availability of other fields. For example, you may want a text input to remain disabled until the user selects a specific option (or combination of options). This approach guides users through a logical flow, ensuring they only interact with fields when they are relevant. It’s useful for scenarios like enabling special instructions, unlocking advanced settings, or revealing optional details once a prerequisite choice is made. Refer [Conditional Rendering](/docs/getting-started/my-doc-configuration#conditional-rendering).
+
+This example uses the `FormikFormBuilder` to render.
+Each field is validated using Yup and defined in giftWrapFields config variable. Check [Validation Rules](/docs/getting-started/my-doc-configuration#validation-rules) for more detail.
+
+<LiveCodeBlock
+  componentName="PreferenceCheckBox"
+  scope={{
+    ConditionAction, 
+    ConditionName,
+    PostCondition
+  }}
+  code={`
+import { Box, Button } from "@mui/joy";
+import { Formik, Form } from "formik";
+import { FormBuilder, ConditionAction, ConditionName, InputTypes, useFormBuilder, PostCondition, type FieldType} from "formik-form-builder";
+
+function PreferenceCheckBox() {
+const giftWrapFields: FieldType[] = [
+  {
+    field: "orderExtras",
+    type: InputTypes.CHECKBOX,
+    initialValue: [],
+    groupLabel: "Select order extras",
+    validation: {
+        required: true,
+        minLength: 1,
+        minLengthRuleMsg: "required",
+        maxLength: 1,
+        maxLengthRuleMsg: "Please select only one",
+      },
+    options: [
+      { label: "Include Gift Wrap", value: "gift_wrap" },
+      { label: "Express Shipping", value: "express" },
+    ],
+    muiProps: { variant: "outlined", color: "primary" },
+  },
+  {
+    field: "specialInstructions",
+    type: InputTypes.MULTI_TEXT,
+    label: "Special Instructions",
+    initialValue: "",
+    conditions: {
+      action: ConditionAction.SHOW,
+      groups: [
+        {
+          group: "gift",
+          groupPostCondition: PostCondition.AND,
+          logic: [
+            {
+              field: "orderExtras",
+              value: "gift_wrap",
+              condition: ConditionName.INCLUDES,
+              postCondition: PostCondition.AND,
+            },
+          ],
+        },
+      ],
+    },
+    muiProps: { placeholder: "Enter any special instructions" },
+  },
+];
+
+  const { initailValues, yupSchemaValidation } = useFormBuilder(giftWrapFields);
+  return (
+    <Formik
+      initialValues={initailValues}
+      validationSchema={yupSchemaValidation}
+      onSubmit={(values, actions) => {
+        console.log(values);
+        alert(JSON.stringify(values, null, 2));
+        actions.setSubmitting(false);
+      }}
+    >
+      {({ values }) => (
+        <Form>
+          <FormBuilder
+            fields={giftWrapFields}
+            data-test="form"
+            group="form"
+            values={values}
+          />
+          <Box
+            width={"100%"}
+            display={"flex"}
+            justifyContent={"center"}
+            alignItems={"center"}
+          >
+            <Button variant="solid" type="submit">
+              Submit
+            </Button>
+          </Box>
+        </Form>
+      )}
+    </Formik>
+  );
+}
+
+export default PreferenceCheckBox;
+
+  `}
+/>

@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import { LiveProvider, LiveEditor, LiveError, LivePreview } from "react-live";
 import { Box, Typography, Button, Stack } from "@mui/joy";
+import * as Yup from "yup";
 
-import { Formik, Form } from "formik";
+
+import { Formik, Form, Field, ErrorMessage } from "formik";
 import { FormBuilder, InputTypes, useFormBuilder } from "formik-form-builder";
 
 type LiveCodeBlockProps = {
@@ -21,6 +23,9 @@ const defaultScope = {
   FormBuilder,
   InputTypes,
   useFormBuilder,
+  Yup,
+  Field,          // ✅ add this
+  ErrorMessage,   // ✅ add this
 };
 
 function processCode(code: string, componentName: string) {
@@ -102,6 +107,7 @@ export default function LiveCodeBlock({
         </Box>
 
         <Box
+         data-testid="live-editor-wrapper"
           sx={{
             maxHeight: expanded ? "none" : 300,
             overflow: "auto",

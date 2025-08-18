@@ -1,0 +1,104 @@
+---
+id: conditional-radio-button
+title: Conditional Radio 
+sidebar_label: Conditional
+sidebar_position: 6 
+description: Conditional example of radio button using formik form builder.
+---
+
+import LiveCodeBlock from "@site/src/components/live-demo"
+import { ConditionAction, ConditionName, PostCondition } from "formik-form-builder";
+
+This setup uses conditional display logic, where selecting a specific option in the first radio group reveals an additional text area for further input. It’s useful for scenarios where extra details are only needed for certain choices, keeping the form clean and focused while still capturing all required information when applicable. Refer [Conditional Rendering](/docs/getting-started/my-doc-configuration#conditional-rendering).
+
+This example uses the `FormikFormBuilder` to render.
+The field is validated using Yup and defined in disabledRadio config variable. Check [Validation Rules](/docs/getting-started/my-doc-configuration#validation-rules) for more detail.
+
+<LiveCodeBlock
+  componentName="ConditionalRadioButton"
+  scope={{ ConditionAction, ConditionName, PostCondition }}
+  code={`
+import { Form, Formik } from "formik";
+import { Box, Button } from "@mui/joy";
+import { FormBuilder, useFormBuilder, ConditionAction, ConditionName, InputTypes, PostCondition, type FieldType } from "formik-form-builder";
+
+const ConditionalRadioButton = () => {
+   
+const conditionalRadio: FieldType[] = [
+    {
+        field: "planType",
+        type: InputTypes.RADIO,
+        groupLabel: "Choose your subscription plan:",
+        initialValue: ["Basic"],
+        validation: { required: true },
+        options: [
+            { label: "Basic", value: "Basic" },
+            { label: "Pro", value: "Pro" },
+            { label: "Custom", value: "Custom" }
+        ]
+    },
+    {
+        field: "planDescription",
+        type: InputTypes.MULTI_TEXT,
+        label: "Provide description for your plan:",
+        initialValue: "",
+        conditions: {
+            action: ConditionAction.SHOW,
+            groups: [
+                {
+                    group: "radio",
+                    groupPostCondition: PostCondition.AND,
+                    logic: [
+                        {
+                            field: "planType",
+                            value: "Custom",
+                            condition: ConditionName.CONTAINS,
+                            postCondition: PostCondition.AND
+                        }
+                    ]
+                }
+            ]
+        },
+        muiProps: { placeholder: "Description" }
+    }
+  ]
+
+  const { initailValues, yupSchemaValidation } = useFormBuilder(conditionalRadio);
+  return (
+    <Formik
+      initialValues={initailValues}
+      validationSchema={yupSchemaValidation}
+      onSubmit={(values, actions) => {
+        console.log(values);
+        alert(JSON.stringify(values, null, 2));
+        actions.setSubmitting(false);
+      }}
+    >
+      {({ values }) => (
+        <Form>
+          <FormBuilder
+            group="form"
+            values={values}
+            data-test="form"
+            fields={conditionalRadio}
+          />
+          <Box
+            width={"100%"}
+            display={"flex"}
+            justifyContent={"center"}
+            alignItems={"center"}
+          >
+            <Button variant="solid" type="submit">
+              Continue
+            </Button>
+          </Box>
+        </Form>
+      )}
+    </Formik>
+  );
+};
+
+export default ConditionalRadioButton;
+
+`}
+/>

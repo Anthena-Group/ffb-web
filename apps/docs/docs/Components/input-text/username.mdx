@@ -1,0 +1,97 @@
+---
+id: username
+title: Username
+sidebar_label: Username
+---
+
+import LiveCodeBlock from '@site/src/components/live-demo';
+
+# Username
+The **Username field** is used to capture a unique identifier for the user, often required during signup or login processes. In this example, the username input field includes the following features:
+
+- Accepts **alphanumeric characters** (letters and numbers).  
+- Disallows spaces and special characters to maintain simplicity.  
+- Enforces a minimum length of **3 characters** to avoid extremely short usernames.  
+- Shows a validation error if the username does not meet the rules.  
+- The field is **mandatory** before form submission (shown with a red asterisk).  
+
+This helps ensure that usernames are easy to remember, unique, and follow a consistent format across the system.
+This example uses the `FormikFormBuilder` to render a username input field for collecting a user’s username. The field is validated using **Yup** and defined in the `usernameField` config variable. Check [Validation Rules](/docs/getting-started/my-doc-configuration#validation-rules) for more detail.
+## Live Demo
+
+
+## Live Demo
+<LiveCodeBlock
+  componentName="Username"
+  code={`import { Box, Button } from "@mui/joy";
+import { Formik, Form } from "formik";
+import * as Yup from "yup";
+import { FormBuilder, FieldType, InputTypes } from "formik-form-builder";
+
+function Username() {
+
+  const initialValues = {
+    username: "",
+  };
+
+  const validationSchema = Yup.object({
+    username: Yup.string()
+      .required("Username is required")
+      .matches(
+        /^[a-zA-Z0-9_]{3,15}$/,
+        "Username must be 3–15 characters and can only contain letters, numbers, and underscores"
+      ),
+  });
+
+
+  const usernameField: FieldType[] = [
+    {
+      field: "username",
+      type: InputTypes.TEXT,
+      label: <>Username <span style={{ color: "red" }}>*</span></>, 
+      placeholder: "Enter your username",
+      helperText: "Choose a unique username",
+      muiProps: {
+        variant: "outlined",
+        fullWidth: false,
+        sx: {
+          width: "300px",
+          borderRadius: "8px",
+        },
+      },
+      gridProps: { xs: 12 },
+    },
+  ];
+
+  return (
+    <Formik
+      initialValues={initialValues}
+      validationSchema={validationSchema}
+      onSubmit={(values, actions) => {
+        console.log(values);
+        alert(JSON.stringify(values, null, 2));
+        actions.setSubmitting(false);
+      }}
+    >
+      {({ values }) => (
+        <Form>
+          <FormBuilder
+            group="form"
+            values={values}
+            data-test="form"
+            fields={usernameField}
+          />
+          <Box display="flex" justifyContent="center" alignItems="center" mt={2}>
+            <Button variant="solid" type="submit">
+              Continue
+            </Button>
+          </Box>
+        </Form>
+      )}
+    </Formik>
+  );
+}
+
+export default Username;
+`}
+/>
