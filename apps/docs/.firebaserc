@@ -1,0 +1,15 @@
+{
+  "projects": {
+    "default": "agprojects"
+  },
+  "targets": {
+    "agprojects": {
+      "hosting": {
+        "formik-form-builder": [
+          "formik-form-builder"
+        ]
+      }
+    }
+  },
+  "etags": {}
+}
