@@ -1,69 +1,105 @@
-# React + TypeScript + Vite
+# Formik Form Builder
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+**Formik Form Builder** is a configuration-driven form library built on **Formik**, **MUI** (Material UI or Joy UI), and **Yup**.  
+It allows you to create fully functional, validated forms using just a JSON configuration—no repetitive boilerplate.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Features
 
-## Expanding the ESLint configuration
+- **Declarative & JSON-driven**: Define fields, layout, and validations via a single JSON object.
+- **Built-in validation**: Supports Yup validation rules.
+- **Multiple input types**: Text, Multi-text, Checkbox, Radio, Select, AutoComplete, Dropdown, etc.
+- **Conditional rendering**: Show, hide, enable, or disable fields dynamically.
+- **MUI & Joy UI styling**: Fully compatible with Material UI and Joy themes.
+- **Extensible**: Add custom components, validation rules, or UI tweaks.
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+---
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## Installation
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm install formik-form-builder
+# or
+yarn add formik-form-builder
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+**Peer dependencies**:  
+- `formik`  
+- `yup`  
+- `@mui/material` or `@mui/joy`  
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+---
 
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
+## Quick Example
+
+```tsx
+import { Box, Button } from "@mui/joy";
+import { Formik } from "formik";
+import { FormBuilder, InputTypes, useFormBuilder } from "formik-form-builder";
+
+function FullNameForm() {
+  const fields = [
+    {
+      field: "name",
+      type: InputTypes.TEXT,
+      initialValue: "",
+      label: "Full Name",
+      validation: { required: true, message: "Required" },
     },
-  },
-])
+  ];
+
+  const { initialValues, yupSchemaValidation } = useFormBuilder(fields);
+
+  return (
+    <Formik
+      initialValues={initialValues}
+      validationSchema={yupSchemaValidation}
+      onSubmit={(values, actions) => {
+        console.log(values);
+        alert(JSON.stringify(values, null, 2));
+        actions.setSubmitting(false);
+      }}
+    >
+      {({ values }) => (
+        <form>
+          <FormBuilder group="form" values={values} fields={fields} />
+          <Box mt={2} display="flex" justifyContent="center">
+            <Button type="submit">Continue</Button>
+          </Box>
+        </form>
+      )}
+    </Formik>
+  );
+}
+
+export default FullNameForm;
 ```
+
+---
+
+## Usage
+
+- **`<FormikRenderer />`**: Quick setup for a full form, including Formik integration, validation, and submission.
+- **`<FormBuilder />`**: Render form fields based on your field config.
+- **`useFormBuilder`**: Generates `initialValues` and Yup schema from your field config for custom Formik setups.
+
+---
+
+## Field Configuration
+
+Each field is defined by an object with:
+
+- `field` – unique key  
+- `type` – input type (`TEXT`, `CHECKBOX`, `RADIO`, etc.)  
+- `initialValue` – default value  
+- `label` / `groupLabel` – display labels  
+- `validation` – Yup rules  
+- `options` – for choice-based fields  
+- `conditions` – dynamic show/hide/enable/disable rules  
+- `muiProps` – additional MUI/Joy props  
+- etc based on the needs
+
+For more detail, please see the **full documentation**: [Docs](https://link.com)
+
+---

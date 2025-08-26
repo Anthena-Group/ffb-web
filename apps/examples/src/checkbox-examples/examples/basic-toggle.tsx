@@ -1,10 +1,33 @@
 import { Box, Button } from "@mui/joy";
-import { FormBuilder, useFormBuilder } from "formik-form-builder";
+import { FormBuilder, InputTypes, useFormBuilder, type FieldType } from "formik-form-builder";
 import { basicToggling } from "../../constants";
 import { Form, Formik } from "formik";
+import { useState } from "react";
 
 function BasicToggleCheckBox() {
-  const {initailValues, yupSchemaValidation} = useFormBuilder(basicToggling)
+  const [form, setForm] = useState<FieldType[]>(basicToggling);
+
+  const adDynamicValue = ()=>{
+    setForm((prev)=>[...prev,  {
+    field: "isIntern",
+    type: InputTypes.CHECKBOX,
+    initialValue: "",
+    groupLabel: "Are you a intern?",
+    validation: {
+      required: true,
+      minLength: 1,
+      minLengthRuleMsg: "required",
+      maxLength: 1,
+      maxLengthRuleMsg: "Please select either yes or no",
+    },
+    options: [
+      { label: "Yes", value: "yes" },
+      { label: "No", value: "no" },
+    ],
+    muiProps: { variant: "outlined", color: "primary" },
+  },])
+  }
+  const {initailValues, yupSchemaValidation} = useFormBuilder(form)
   return (
         <Formik
           initialValues={initailValues}
@@ -21,7 +44,7 @@ function BasicToggleCheckBox() {
                 group="form"
                 values={values}
                 data-test="form"
-                fields={basicToggling}
+                fields={form}
               />
               <Box
                 width={"100%"}
@@ -31,6 +54,9 @@ function BasicToggleCheckBox() {
               >
                 <Button variant="solid" type="submit">
                   Continue
+                </Button>
+                <Button variant="solid" onClick={adDynamicValue} >
+                  Add
                 </Button>
               </Box>
             </Form>

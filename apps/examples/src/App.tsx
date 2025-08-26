@@ -2,21 +2,24 @@ import { useState } from "react";
 import { Box, Button, Stack, Typography, Divider } from "@mui/joy";
 import { CheckboxExamples } from "./checkbox-examples";
 import { RadioButtonExamples } from "./radio-button-examples";
-import TextInputExamples from './text-input-examples/text-input-examples';
-import SelectInputExamples from './select-input-examples/select-input-examples';
+import TextInputExamples from "./text-input-examples/text-input-examples";
+import SelectInputExamples from "./select-input-examples/select-input-examples";
 
 import { AutoCompleteExamples } from "./auto-complete-examples";
 import { MultiTextExamples } from "./multi-text-examples";
+import CheckboxBuilder from "./json-generator/checkbox-json-generator";
+import ValidationBuilder from "./json-generator/validator";
+import ConditionBuilder from "./json-generator/conditional";
 
 const examples: Record<string, { label: string; component: React.ReactNode }> =
   {
-Select: {
+    Select: {
       label: "Select",
-      component: <SelectInputExamples/>
+      component: <SelectInputExamples />,
     },
-     text: {
+    text: {
       label: "Text",
-      component: <TextInputExamples/>
+      component: <TextInputExamples />,
     },
     checkbox: {
       label: "Checkbox",
@@ -26,14 +29,28 @@ Select: {
       label: "Radio Button",
       component: <RadioButtonExamples />,
     },
-    autoComplete : {
+    autoComplete: {
       label: "Auto Complete",
-      component: <AutoCompleteExamples/>
+      component: <AutoCompleteExamples />,
     },
-    multiText : {
+    multiText: {
       label: "MultiText",
-      component: <MultiTextExamples/>
-    }
+      component: <MultiTextExamples />,
+    },
+    generate: {
+      label: "Checkbox Generator",
+      component: <CheckboxBuilder />,
+    },
+    validator: {
+      label: "Validation Generator",
+      component: (
+        <ValidationBuilder onConfirm={(rules) => console.log(rules)} />
+      ),
+    },
+    conditional: {
+      label: "Condition Generator",
+      component: <ConditionBuilder onConfirm={(rules) => console.log(rules)} />,
+    },
   };
 
 const App = () => {
