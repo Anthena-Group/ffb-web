@@ -23,7 +23,7 @@ const assignObjectFields = (
 
 export const useFormBuilder = (fields: FieldType[]) => {
   const schemaFields: Record<string, any> = {};
-  const initailValues: FormikValues = {};
+  const initialValues: FormikValues = {};
   const nestedFields: { [key: string]: string } = {};
 
   fields.forEach((field) => {
@@ -138,10 +138,10 @@ export const useFormBuilder = (fields: FieldType[]) => {
     if (field.field.split('.').length > 1) {
       nestedFields[field.field.split('.')[0]] = 'val';
       assignObjectFields(field.field, validator, schemaFields);
-      assignObjectFields(field.field, field.initialValue, initailValues);
+      assignObjectFields(field.field, field.initialValue, initialValues);
     } else {
       schemaFields[field.field] = validator;
-      initailValues[field.field] = field.initialValue;
+      initialValues[field.field] = field.initialValue;
     }
   });
 
@@ -152,6 +152,6 @@ export const useFormBuilder = (fields: FieldType[]) => {
 
   return {
     yupSchemaValidation: Yup.object().shape(schemaFields),
-    initailValues,
+    initialValues,
   };
 };
