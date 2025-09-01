@@ -7,9 +7,8 @@ import SelectInputExamples from "./select-input-examples/select-input-examples";
 
 import { AutoCompleteExamples } from "./auto-complete-examples";
 import { MultiTextExamples } from "./multi-text-examples";
-import CheckboxBuilder from "./json-generator/checkbox-json-generator";
-import ValidationBuilder from "./json-generator/validator";
-import ConditionBuilder from "./json-generator/conditional";
+import { CheckboxBuilder, ConditionBuilder, GridPropsBuilder, ValidationBuilder } from "./json-generator";
+
 
 const examples: Record<string, { label: string; component: React.ReactNode }> =
   {
@@ -50,6 +49,10 @@ const examples: Record<string, { label: string; component: React.ReactNode }> =
     conditional: {
       label: "Condition Generator",
       component: <ConditionBuilder onConfirm={(rules) => console.log(rules)} />,
+    },
+    gridProps: {
+      label: "Grid Props Generator",
+      component: <GridPropsBuilder onConfirm={(rules) => console.log(rules)} />,
     },
   };
 

@@ -10,12 +10,8 @@ import {
   Box,
 } from "@mui/joy";
 import DeleteIcon from "@mui/icons-material/Delete";
+import type { GridPropKey, GridPropsBuilderProps } from "../../types";
 
-type GridPropKey = "xs" | "sm" | "md" | "lg" | "xl";
-
-interface GridPropsBuilderProps {
-  onConfirm: (props: Partial<Record<GridPropKey, number | "auto">>) => void;
-}
 
 export default function GridPropsBuilder({ onConfirm }: GridPropsBuilderProps) {
   const [draftProps, setDraftProps] = useState<

@@ -15,9 +15,9 @@ import {
   InputTypes,
   type FieldCheckboxType,
 } from "formik-form-builder";
-import ValidationBuilder from "./validator";
-import ConditionBuilder from "./conditional";
-import GridPropsBuilder from "./gridProps";
+import ValidationBuilder from "../validator/validator";
+import ConditionBuilder from "../conditional/conditional";
+import GridPropsBuilder from "../grid-props/gridProps";
 
 export default function CheckboxBuilder() {
   const [configObj, setConfigObj] = useState<
@@ -26,7 +26,7 @@ export default function CheckboxBuilder() {
     }
   >({
     field: "",
-    type: InputTypes.CHECKBOX as InputTypes.CHECKBOX,
+    type: InputTypes.CHECKBOX,
     initialValue: [],
     options: [{ label: "", value: "" }],
     muiProps: {},
@@ -37,6 +37,20 @@ export default function CheckboxBuilder() {
   );
 
   const [initialInput, setInitialInput] = useState("");
+
+  const handleReset = () => {
+  setConfigObj({
+    field: "",
+    type: InputTypes.CHECKBOX,
+    initialValue: [],
+    options: [{ label: "", value: "" }],
+    muiProps: {},
+  });
+  setFinalConfig({});
+  setInitialInput("");
+};
+
+
 
   // generic field update
   const handleChange = (key: keyof FieldCheckboxType, value: any) => {
@@ -259,7 +273,7 @@ export default function CheckboxBuilder() {
               >
                 Generate Config
               </Button>
-              <Button type="reset" color="danger" fullWidth>
+              <Button color="danger" onClick={handleReset} fullWidth>
                 Reset
               </Button>
             </Box>

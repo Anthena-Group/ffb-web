@@ -100,6 +100,6 @@ Each field is defined by an object with:
 - `muiProps` – additional MUI/Joy props  
 - etc based on the needs
 
-For more detail, please see the **full documentation**: [Docs](https://link.com)
+For more detail, please see the **full documentation**: [Docs](https://formik-form-builder.web.app/)
 
 ---
