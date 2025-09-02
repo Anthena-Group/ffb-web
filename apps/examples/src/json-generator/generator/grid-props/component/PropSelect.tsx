@@ -20,7 +20,9 @@ export default function PropSelect({
           </Option>
         ))}
       </Select>
-      <Button onClick={onAdd}>Add</Button>
+      <Button onClick={onAdd} disabled={!selectedKey}>
+        Add
+      </Button>
     </Stack>
   );
 }
