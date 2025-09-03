@@ -1,0 +1,17 @@
+export const conditionNameList = [
+    { value: "EQUALS", sign: "=" },
+    { value: "NOT_EQUALS", sign: "≠" },
+    { value: "GREATER_THAN", sign: ">" },
+    { value: "LESS_THAN", sign: "<" },
+    { value: "GREATER_THAN_OR_EQUAL", sign: ">=" },
+    { value: "LESS_THAN_OR_EQUAL", sign: "<=" },
+    { value: "CONTAINS", sign: "Contains" },
+    { value: "NOT_CONTAINS", sign: "Not contains" },
+    { value: "STARTS_WITH", sign: "Starts with" },
+    { value: "ENDS_WITH", sign: "Ends with" },
+    { value: "IS_EMPTY", sign: "Is empty" },
+    { value: "IS_NOT_EMPTY", sign: "Is not empty" },
+    { value: "INCLUDES", sign: "Includes" },
+    { value: "NOT_INCLUDES", sign: "Not includes" },
+    { value: "ARRAY_EQUALS", sign: "Array equals" },
+];
