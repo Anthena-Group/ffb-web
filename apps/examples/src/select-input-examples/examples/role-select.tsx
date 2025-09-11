@@ -4,11 +4,11 @@ import { FormBuilder, useFormBuilder } from "formik-form-builder";
 import { roleField } from "../../constants";
 
 const RoleInput = () => {
-  const { initailValues, yupSchemaValidation } = useFormBuilder(roleField);
+  const { initialValues, yupSchemaValidation } = useFormBuilder(roleField);
 
   return (
     <Formik
-      initialValues={initailValues}
+      initialValues={initialValues}
       validationSchema={yupSchemaValidation}
       onSubmit={(values, actions) => {
         console.log(values);

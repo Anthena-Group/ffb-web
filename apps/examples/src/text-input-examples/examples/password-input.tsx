@@ -4,7 +4,7 @@ import { FormBuilder, useFormBuilder } from "formik-form-builder";
 import { passwordField } from "../../constants";
 
 const PasswordInput = () => {
-  const { initailValues: initialValues, yupSchemaValidation } = useFormBuilder(passwordField);
+  const { initialValues, yupSchemaValidation } = useFormBuilder(passwordField);
 
   return (
     <Formik

@@ -4,11 +4,11 @@ import { Button, Box } from "@mui/joy";
 import { giftWrapFields} from "../../constants";
 
 const DisabledLogic = () => {
-  const { initailValues, yupSchemaValidation } = useFormBuilder(giftWrapFields);
+  const { initialValues, yupSchemaValidation } = useFormBuilder(giftWrapFields);
 
   return (
     <Formik
-      initialValues={initailValues}
+      initialValues={initialValues}
       validationSchema={yupSchemaValidation}
       onSubmit={(values, actions) => {
         console.log(values);

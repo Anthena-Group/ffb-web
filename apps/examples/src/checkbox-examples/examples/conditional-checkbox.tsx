@@ -4,11 +4,11 @@ import { FormBuilder, useFormBuilder } from "formik-form-builder";
 import { conditionalCheck } from "../../constants";
 
 function ConditionalCheckBox() {
-  const { initailValues, yupSchemaValidation } =
+  const { initialValues, yupSchemaValidation } =
     useFormBuilder(conditionalCheck);
   return (
     <Formik
-      initialValues={initailValues}
+      initialValues={initialValues}
       validationSchema={yupSchemaValidation}
       onSubmit={(values, actions) => {
         console.log(values);

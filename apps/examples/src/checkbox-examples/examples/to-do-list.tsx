@@ -4,12 +4,12 @@ import { FormBuilder, useFormBuilder } from "formik-form-builder";
 import { checklistFields } from "../../constants";
 
 const ToDoExample = () => {
-  const { initailValues, yupSchemaValidation } =
+  const { initialValues, yupSchemaValidation } =
     useFormBuilder(checklistFields);
 
   return (
     <Formik
-      initialValues={initailValues}
+      initialValues={initialValues}
       validationSchema={yupSchemaValidation}
       onSubmit={(values, actions) => {
         console.log(values);

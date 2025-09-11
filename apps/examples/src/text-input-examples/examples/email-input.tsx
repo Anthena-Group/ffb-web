@@ -5,11 +5,11 @@ import { emailField } from "../../constants";
 
 const EmailInput = () => {
   // useFormBuilder takes the field definition and returns initialValues and validation schema
-  const { initailValues, yupSchemaValidation } = useFormBuilder(emailField);
+  const { initialValues, yupSchemaValidation } = useFormBuilder(emailField);
 
   return (
     <Formik
-      initialValues={initailValues}
+      initialValues={initialValues}
       validationSchema={yupSchemaValidation}
       onSubmit={(values, actions) => {
         console.log(values);

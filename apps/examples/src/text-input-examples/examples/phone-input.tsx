@@ -4,7 +4,7 @@ import { FormBuilder, useFormBuilder } from "formik-form-builder";
 import { phoneNumberField } from "../../constants";
 
 const PhoneNumberInput = () => {
-  const { initailValues: initialValues, yupSchemaValidation } = useFormBuilder(phoneNumberField);
+  const { initialValues, yupSchemaValidation } = useFormBuilder(phoneNumberField);
 
   return (
     <Formik

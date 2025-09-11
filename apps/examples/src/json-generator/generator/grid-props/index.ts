@@ -1,1 +1,0 @@
-export { default as GridPropsBuilder } from "./gridProps"

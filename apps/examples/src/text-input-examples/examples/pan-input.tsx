@@ -4,7 +4,7 @@ import { FormBuilder, useFormBuilder } from "formik-form-builder";
 import { panField } from "../../constants";
 
 const PanInput = () => {
-  const { initailValues: initialValues, yupSchemaValidation } = useFormBuilder(panField);
+  const { initialValues: initialValues, yupSchemaValidation } = useFormBuilder(panField);
 
   return (
     <Formik
