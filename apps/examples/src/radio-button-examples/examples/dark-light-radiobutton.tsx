@@ -1,13 +1,32 @@
-import { FormBuilder, useFormBuilder } from "formik-form-builder";
-import { darkLight } from "../../constants";
+import {
+  FormBuilder,
+  InputTypes,
+  useFormBuilder,
+  type FieldType,
+} from "formik-form-builder";
+// import { darkLight } from "../../constants";
 import { Form, Formik } from "formik";
 import { Box, Button } from "@mui/joy";
+import { DarkMode, LightMode } from "@mui/icons-material";
 
 export const DarkLight = () => {
-  const { initailValues, yupSchemaValidation } = useFormBuilder(darkLight);
+  const darkLight: FieldType[] = [
+    {
+      field: "darkLight",
+      type: InputTypes.RADIO,
+      initialValue: "Dark",
+      groupLabel: "Choose a theme:",
+      options: [
+        { label: "Dark", value: "Dark", icon: <DarkMode /> },
+        { label: "Light", value: "Light", icon: <LightMode /> },
+      ],
+      variant: "ICON",
+    },
+  ];
+  const { initialValues, yupSchemaValidation } = useFormBuilder(darkLight);
   return (
     <Formik
-      initialValues={initailValues}
+      initialValues={initialValues}
       validationSchema={yupSchemaValidation}
       onSubmit={(values, actions) => {
         console.log(values), alert(JSON.stringify(values, null, 2));

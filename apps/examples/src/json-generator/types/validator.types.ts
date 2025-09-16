@@ -15,37 +15,32 @@ export interface ValidationBuilderProps {
     onConfirm: (rules: ValidationRule) => void;
 }
 
-export interface PatternFieldProps {
-    draftRules: ValidationRule;
-    onUpdate: OnUpdate;
+export interface PatternRuleProps {
+    message?: string;
+    onMessageChange: (val: string) => void;
+    onPatternChange: (regex: RegExp) => void;
     onDelete: () => void;
 }
 
-export interface PositiveFieldProps {
-    draftRules: ValidationRule;
-    onUpdate: OnUpdate;
+export interface PositiveRuleProps {
+    message?: string;
+    onChange: (val: string) => void;
     onDelete: () => void;
 }
 
-export interface RequiredFieldProps {
-    draftRules: ValidationRule;
-    onUpdate: OnUpdate;
+export interface RequiredRuleProps {
+    message?: string;
+    onChange: (val: string) => void;
     onDelete: () => void;
 }
 
-export interface RuleFieldProps {
-    ruleKey: ValidationRuleType;
-    draftRules: ValidationRule;
-    onUpdate: OnUpdate;
+export interface NumericRuleProps {
+    label: string;
+    value?: number;
+    message?: string;
+    onValueChange: (val: number) => void;
+    onMessageChange: (val: string) => void;
     onDelete: () => void;
 }
 
-export interface RuleSelectProps {
-    selectedRule: ValidationRuleType | null;
-    setSelectedRule: (val: ValidationRuleType | null) => void;
-    draftRules: ValidationRule;
-    availableRules: ValidationRuleType[];
-    onAdd: () => void;
-}
 
-export type OnUpdate = <K extends keyof ValidationRule>(field: K, value: ValidationRule[K]) => void;

@@ -9,10 +9,10 @@ import { termsAndAgreement } from "../../constants";
 
 function Agreement() {
  
-  const { initailValues, yupSchemaValidation } = useFormBuilder(termsAndAgreement);
+  const { initialValues, yupSchemaValidation } = useFormBuilder(termsAndAgreement);
   return (
     <Formik
-      initialValues={initailValues}
+      initialValues={initialValues}
       validationSchema={yupSchemaValidation}
       onSubmit={(values, actions) => {
         console.log(values);

@@ -4,10 +4,10 @@ import { Form, Formik } from "formik";
 import { Box, Button } from "@mui/joy";
 
 export const DisabledRadio = () => {
-  const { initailValues, yupSchemaValidation } = useFormBuilder(disabledRadio);
+  const { initialValues, yupSchemaValidation } = useFormBuilder(disabledRadio);
   return (
     <Formik
-      initialValues={initailValues}
+      initialValues={initialValues}
       validationSchema={yupSchemaValidation}
       onSubmit={(values, actions) => {
         console.log(values);

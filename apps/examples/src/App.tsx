@@ -7,12 +7,18 @@ import SelectInputExamples from "./select-input-examples/select-input-examples";
 
 import { AutoCompleteExamples } from "./auto-complete-examples";
 import { MultiTextExamples } from "./multi-text-examples";
-import { CheckboxBuilder, ConditionBuilder, GridPropsBuilder, ValidationBuilder } from "./json-generator";
-
+import {
+  CheckboxBuilder,
+  ConditionBuilder,
+  GridPropsBuilder,
+  OptionBuilder,
+  ValidationBuilder,
+} from "./json-generator";
+import { RadioButtonBuilder } from "./json-generator/component/radio-button";
 
 const examples: Record<string, { label: string; component: React.ReactNode }> =
   {
-    Select: {
+    select: {
       label: "Select",
       component: <SelectInputExamples />,
     },
@@ -53,6 +59,15 @@ const examples: Record<string, { label: string; component: React.ReactNode }> =
     gridProps: {
       label: "Grid Props Generator",
       component: <GridPropsBuilder onConfirm={(rules) => console.log(rules)} />,
+    },
+    option: {
+      label: "Option Generator",
+      component: <OptionBuilder onConfirm={(rules) => console.log(rules)} />,
+    },
+
+    Radio: {
+      label: "Radio Button generate",
+      component: <RadioButtonBuilder />,
     },
   };
 

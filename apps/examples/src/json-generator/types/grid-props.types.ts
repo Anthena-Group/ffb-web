@@ -1,17 +1,11 @@
 export type GridPropKey = "xs" | "sm" | "md" | "lg" | "xl";
 
-export interface PropSelectProps {
-  selectedKey: GridPropKey | "";
-  remainingKeys: GridPropKey[];
-  onChange: (val: GridPropKey | "") => void;
-  onAdd: () => void
-}
 
 export interface PropFieldProps {
   propKey: GridPropKey;
   value: number | "auto" | "";
-  onUpdate: (Key: GridPropKey, value: string) => void;
-  onDelete: (Key: GridPropKey) => void;
+  onChange: (key: GridPropKey, value: string) => void;
+  onDelete: (key: GridPropKey) => void;
 }
 
 export interface GridPropsBuilderProps {

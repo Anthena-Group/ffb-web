@@ -4,11 +4,11 @@ import { Form, Formik } from "formik";
 import { Box, Button } from "@mui/joy";
 
 export const ConditionalRadioButton = () => {
-  const { initailValues, yupSchemaValidation } =
+  const { initialValues, yupSchemaValidation } =
     useFormBuilder(conditionalRadio);
   return (
     <Formik
-      initialValues={initailValues}
+      initialValues={initialValues}
       validationSchema={yupSchemaValidation}
       onSubmit={(values, actions) => {
         console.log(values);

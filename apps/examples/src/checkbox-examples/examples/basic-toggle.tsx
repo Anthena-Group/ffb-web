@@ -3,10 +3,10 @@ import { FormBuilder, useFormBuilder } from "formik-form-builder";
 import { basicToggling } from "../../constants";
 import { Form, Formik } from "formik";
 function BasicToggleCheckBox() {
-  const { initailValues, yupSchemaValidation } = useFormBuilder(basicToggling);
+  const { initialValues, yupSchemaValidation } = useFormBuilder(basicToggling);
   return (
     <Formik
-      initialValues={initailValues}
+      initialValues={initialValues}
       validationSchema={yupSchemaValidation}
       onSubmit={(values, actions) => {
         console.log(values);

@@ -4,10 +4,10 @@ import { FormBuilder, useFormBuilder } from "formik-form-builder";
 import { gender } from "../../constants";
 
 export const GenderRadioButton = () => {
-  const { initailValues, yupSchemaValidation } = useFormBuilder(gender);
+  const { initialValues, yupSchemaValidation } = useFormBuilder(gender);
   return (
     <Formik
-      initialValues={initailValues}
+      initialValues={initialValues}
       validationSchema={yupSchemaValidation}
       onSubmit={(values, actions) => {
         console.log(values), alert(JSON.stringify(values, null, 2));

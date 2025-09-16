@@ -4,11 +4,11 @@ import { FormBuilder, useFormBuilder } from "formik-form-builder";
 import { genderField } from "../../constants";
 
 const GenderInput = () => {
-  const { initailValues, yupSchemaValidation } = useFormBuilder(genderField);
+  const { initialValues, yupSchemaValidation } = useFormBuilder(genderField);
 
   return (
     <Formik
-      initialValues={initailValues}
+      initialValues={initialValues}
       validationSchema={yupSchemaValidation}
       onSubmit={(values, actions) => {
         console.log(values);
