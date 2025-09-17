@@ -1,40 +1,56 @@
 import { useState } from "react";
 import { Box, Button, Stack, Typography, Divider } from "@mui/joy";
-import { CheckboxExamples } from "./checkbox-examples";
-import { RadioButtonExamples } from "./radio-button-examples";
-import TextInputExamples from './text-input-examples/text-input-examples';
-import SelectInputExamples from './select-input-examples/select-input-examples';
+//import { CheckboxExamples } from "./checkbox-examples";
+//import { RadioButtonExamples } from "./radio-button-examples";
+//import TextInputExamples from './text-input-examples/text-input-examples';
+//import SelectInputExamples from './select-input-examples/select-input-examples';
+import TextInputGenerator from "./textInput-json-generator/TextInputGenerator";
+//import DynamicFieldGenerator from "./textInput-json-generator/DynamicFieldGenerator";
 
-import { AutoCompleteExamples } from "./auto-complete-examples";
-import { MultiTextExamples } from "./multi-text-examples";
+
+
+//import { AutoCompleteExamples } from "./auto-complete-examples";
+//import { MultiTextExamples } from "./multi-text-examples";
+//import SelectGenerator from "./select-generator";
 
 const examples: Record<string, { label: string; component: React.ReactNode }> =
   {
-Select: {
-      label: "Select",
-      component: <SelectInputExamples/>
-    },
-     text: {
-      label: "Text",
-      component: <TextInputExamples/>
-    },
-    checkbox: {
-      label: "Checkbox",
-      component: <CheckboxExamples />,
-    },
-    radio: {
-      label: "Radio Button",
-      component: <RadioButtonExamples />,
-    },
-    autoComplete : {
-      label: "Auto Complete",
-      component: <AutoCompleteExamples/>
-    },
-    multiText : {
-      label: "MultiText",
-      component: <MultiTextExamples/>
-    }
-  };
+// Select: {
+//       label: "Select",
+//       component: <SelectInputExamples/>
+//     },
+//      text: {
+//       label: "Text",
+//       component: <TextInputExamples/>
+//     },
+//     checkbox: {
+//       label: "Checkbox",
+//       component: <CheckboxExamples />,
+//     },
+//     radio: {
+//       label: "Radio Button",
+//       component: <RadioButtonExamples />,
+//     },
+//     autoComplete : {
+//       label: "Auto Complete",
+//       component: <AutoCompleteExamples/>
+//     },
+//     multiText : {
+//       label: "MultiText",
+//       component: <MultiTextExamples/>
+//     },
+
+  textInputGenerator: {
+    label: "TextInput Generator",
+    component: <TextInputGenerator />,
+  },
+
+  // SelectGenerator: {
+  //   label: "Select Generator",
+  //   component: <SelectGenerator />,
+  // },
+};
+
 
 const App = () => {
   const keys = Object.keys(examples);

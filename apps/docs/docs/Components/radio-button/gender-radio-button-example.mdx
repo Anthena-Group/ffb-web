@@ -25,8 +25,9 @@ const GenderRadioButton = () => {
         {
             field: "gender",
             type: InputTypes.RADIO,
+            initialValue: "",
             groupLabel: "What's your gender?",
-            validation: { required: true, minLength: 1 },
+            validation: { required: true, message: "Please select your gender"},
             options: [{ label: "Male", value: "Male" }, { label: "Female", value: "Female" }]
         }
     ]

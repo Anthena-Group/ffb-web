@@ -26,6 +26,7 @@ const confirmAction: FieldType[] = [
   {
     field: "confirmDelete",
     type: InputTypes.RADIO,
+    initialValue:"",
     groupLabel: "This action is irreversible. Are you sure you want to delete?",
     validation: { required: true, message: "You must acknowledge." },
     options: [
