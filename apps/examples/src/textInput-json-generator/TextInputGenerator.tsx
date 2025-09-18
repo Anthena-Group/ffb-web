@@ -1,10 +1,9 @@
 import { useState, useRef, useEffect } from "react";
 import { TextField, Checkbox, Radio, Select, MenuItem } from "@mui/material";
 import Autocomplete from "@mui/material/Autocomplete";
-import { MUIProps } from "./MUIProps"; // controls for mui + input props
+import { MUIProps } from "./MUIProps"; 
 import { fieldConfigs } from "./fieldConfigs";
 
-// ✅ Input types 
 const inputTypeDefaults: Record<string, any> = {
   text: { type: "text", label: "Text Field" },
   email: { type: "email", label: "Email" },
@@ -15,7 +14,7 @@ const inputTypeDefaults: Record<string, any> = {
   time: { type: "time", label: "Time" },
 };
 
-export default function TextInputGenerator() {
+export default function TextInputGenerator({ onConfigChange }: { onConfigChange?: (cfg: any) => void }) {
   const [componentType, setComponentType] = useState("text");
   const [config, setConfig] = useState({
     field: "",
@@ -28,30 +27,25 @@ export default function TextInputGenerator() {
   const [errorMessage, setErrorMessage] = useState("");
   const inputRef = useRef<HTMLInputElement | null>(null);
 
-  // ✅ Autofocus logic
+  // Auto focus if prop is set
   useEffect(() => {
     if (config.muiProps.autoFocus && inputRef.current) {
       inputRef.current.focus();
     }
   }, [config.muiProps.autoFocus]);
 
+  // Whenever config changes → send full JSON to parent
+  useEffect(() => {
+    if (onConfigChange) {
+      onConfigChange(config);
+    }
+  }, [config, onConfigChange]);
+
   const updateField = (key: string, value: any) =>
     setConfig((prev) => ({ ...prev, [key]: value }));
 
-  const toggleMuiProp = (prop: string, type: string, value?: any) => {
-    setConfig((prev) => {
-      const newProps = { ...prev.muiProps };
-      if (type === "boolean") newProps[prop] = !newProps[prop];
-      else if (type === "select" || type === "text" || type === "array")
-        newProps[prop] = value ?? newProps[prop];
-
-      // Prevent Select from keeping `color` (since it’s not supported)
-      if (componentType === "select") {
-        delete newProps.color;
-      }
-
-      return { ...prev, muiProps: newProps };
-    });
+  const updateMuiProps = (newMuiProps: Record<string, any>) => {
+    setConfig((prev) => ({ ...prev, muiProps: newMuiProps }));
   };
 
   const validateInput = (value: string) => {
@@ -105,7 +99,6 @@ export default function TextInputGenerator() {
     backgroundColor: "#fff",
   };
 
-  // Render preview based on selected component
   const renderPreview = () => {
     const props = config.muiProps;
     switch (componentType) {
@@ -115,11 +108,11 @@ export default function TextInputGenerator() {
             inputRef={inputRef}
             label={config.label}
             type={config.type || "text"}
-            value={props.value ?? ""}
+            value={props.value ?? ""} 
             required={config.required}
             autoFocus={props.autoFocus}
             onChange={(e) => {
-              toggleMuiProp("value", "text", e.target.value);
+              updateMuiProps({ ...props, value: e.target.value });
               validateInput(e.target.value);
             }}
             error={!!props.error || !!errorMessage}
@@ -142,7 +135,7 @@ export default function TextInputGenerator() {
             required={config.required}
             autoFocus={props.autoFocus}
             onChange={(e) => {
-              toggleMuiProp("value", "text", e.target.value);
+              updateMuiProps({ ...props, value: e.target.value });
               validateInput(e.target.value);
             }}
             error={!!props.error || !!errorMessage}
@@ -158,7 +151,7 @@ export default function TextInputGenerator() {
         return (
           <Checkbox
             checked={!!props.checked}
-            onChange={() => toggleMuiProp("checked", "boolean")}
+            onChange={() => updateMuiProps({ ...props, checked: !props.checked })}
             {...props}
           />
         );
@@ -169,14 +162,8 @@ export default function TextInputGenerator() {
               <label key={idx} style={{ marginRight: 12 }}>
                 <Radio
                   checked={props.value === opt}
-                  onChange={() => toggleMuiProp("value", "text", opt)}
-                  id={props.id}
-                  name={props.name}
-                  color={props.color || "primary"}
-                  size={props.size || "medium"}
-                  disabled={props.disabled}
-                  autoFocus={props.autoFocus}
-                  required={config.required}
+                  onChange={() => updateMuiProps({ ...props, value: opt })}
+                  {...props}
                 />
                 {opt}
               </label>
@@ -188,18 +175,10 @@ export default function TextInputGenerator() {
           <div>
             <label>{config.label}</label>
             <Select
-              id={props.id}
-              name={props.name}
               value={props.value || ""}
-              onChange={(e) => toggleMuiProp("value", "text", e.target.value)}
+              onChange={(e) => updateMuiProps({ ...props, value: e.target.value })}
               displayEmpty
-              fullWidth={props.fullWidth}
-              required={config.required}
-              autoFocus={props.autoFocus}
-              error={!!props.error}
-              variant={props.variant || "outlined"}
-              size={props.size || "medium"}
-              disabled={props.disabled}
+              {...props}
               sx={{ mt: 2, minWidth: 200 }}
             >
               {(props.options || ["Option 1", "Option 2"]).map((opt: string, idx: number) => (
@@ -218,53 +197,33 @@ export default function TextInputGenerator() {
       case "autocomplete":
         return (
           <Autocomplete
-            id={props.id}
             options={props.options || ["Option 1", "Option 2"]}
             value={props.value || ""}
-            onChange={(_, newValue) => toggleMuiProp("value", "text", newValue)}
+            onChange={(_, newValue) => updateMuiProps({ ...props, value: newValue })}
             renderInput={(params) => (
               <TextField
                 {...params}
                 label={config.label}
                 placeholder={props.placeholder}
-                variant={props.variant || "outlined"}
-                size={props.size || "medium"}
-                color={props.color || "primary"}
-                error={!!props.error}
-                helperText={props.helperText}
-                required={config.required}
-                fullWidth={props.fullWidth}
-                autoFocus={props.autoFocus}
-                disabled={props.disabled}
+                {...props}
               />
             )}
             sx={{ mt: 2, minWidth: 200 }}
           />
         );
-      
       default:
         return <p>Select a component type to preview</p>;
     }
   };
 
   return (
-    <div
-      style={{
-        display: "flex",
-        padding: 24,
-        fontFamily: "Arial, sans-serif",
-        backgroundColor: "#f5f5f5",
-      }}
-    >
-      {/* Left: Config controls */}
+    <div style={{ display: "flex", padding: 24, fontFamily: "Arial, sans-serif", backgroundColor: "#f5f5f5" }}>
       <div style={{ flex: 1, maxHeight: "90vh", overflowY: "auto", paddingRight: 16 }}>
         <h2>Field Builder</h2>
-        {/* Field Name */}
         <div style={cardStyle}>
           <label>Field name</label>
           <input value={config.field} onChange={(e) => updateField("field", e.target.value)} style={inputStyle} />
         </div>
-        {/* Component Type */}
         <div style={cardStyle}>
           <label>Component Type</label>
           <select
@@ -272,15 +231,7 @@ export default function TextInputGenerator() {
             onChange={(e) => {
               const newType = e.target.value;
               setComponentType(newType);
-              //  Reset config whenever a new component is chosen
-              setConfig({
-                field: "",
-                type: "",
-                label: "",
-                required: false,
-                requiredMessage: "",
-                muiProps: {},
-              });
+              setConfig({ field: "", type: "", label: "", required: false, requiredMessage: "", muiProps: {} });
               setErrorMessage("");
             }}
             style={inputStyle}
@@ -292,7 +243,6 @@ export default function TextInputGenerator() {
             ))}
           </select>
         </div>
-        {/* Input Type (only for text components) */}
         {componentType === "text" && (
           <div style={cardStyle}>
             <label>Input Type</label>
@@ -319,35 +269,21 @@ export default function TextInputGenerator() {
             </select>
           </div>
         )}
-        {/* Label */}
         <div style={cardStyle}>
           <label>Label</label>
           <input value={config.label} onChange={(e) => updateField("label", e.target.value)} style={inputStyle} />
         </div>
-        {/* ---------- Props (MUI + Input) ---------- */}
-        <MUIProps
-          muiProps={config.muiProps}
-          toggleMuiProp={toggleMuiProp}
-          config={config}
-          setConfig={setConfig}
-          componentType={componentType}
+        <MUIProps 
+          muiProps={config.muiProps} 
+          setMuiProps={updateMuiProps}
+          componentType={componentType} 
         />
       </div>
-      {/* Right: Live Preview & JSON */}
       <div style={{ flex: 1, paddingLeft: 16 }}>
         <h3>Live Preview</h3>
         {renderPreview()}
         <h3>Preview Config</h3>
-        <pre
-          style={{
-            background: "#f9f9f9",
-            padding: 14,
-            borderRadius: 10,
-            height: 400,
-            overflow: "auto",
-            fontSize: 14,
-          }}
-        >
+        <pre style={{ background: "#f9f9f9", padding: 14, borderRadius: 10, height: 400, overflow: "auto", fontSize: 14 }}>
           {JSON.stringify(config, null, 2)}
         </pre>
       </div>

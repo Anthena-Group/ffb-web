@@ -6,11 +6,11 @@ import { firstNameField } from "../../constants";
 
 const FirstNameInput = () => {
 
-  const { initailValues, yupSchemaValidation } = useFormBuilder(firstNameField);
+  const { initialValues, yupSchemaValidation } = useFormBuilder(firstNameField);
 
   return (
     <Formik
-      initialValues={initailValues}
+      initialValues={initialValues}
       validationSchema={yupSchemaValidation}
       onSubmit={(values, actions) => {
         console.log(values);

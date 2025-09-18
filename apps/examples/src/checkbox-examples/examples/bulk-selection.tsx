@@ -7,13 +7,13 @@ import {
 import { bulkSelect, itemOptions } from "../../constants";
 
 const BulkSelection = () => {
-  const { initailValues, yupSchemaValidation } = useFormBuilder(bulkSelect);
+  const { initialValues, yupSchemaValidation } = useFormBuilder(bulkSelect);
 
   const allValues = itemOptions.map((opt) => opt.value);
 
   return (
     <Formik
-      initialValues={initailValues}
+      initialValues={initialValues}
       validationSchema={yupSchemaValidation}
       onSubmit={(values, actions) => {
         console.log(values);

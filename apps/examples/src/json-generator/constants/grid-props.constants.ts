@@ -1,0 +1,1 @@
+export const GRID_PROP_KEYS = ["xs", "sm", "md", "lg", "xl"];

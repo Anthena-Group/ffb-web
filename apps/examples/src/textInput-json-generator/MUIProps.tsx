@@ -1,11 +1,6 @@
-import React, { useEffect, useRef } from "react";
+import React from "react";
 import Switch from "@mui/joy/Switch";
-import {
-  sizeOptions,
-  variantOptions,
-  colorOptions,
-  colorMap,
-} from "./fieldConfigs";
+import { sizeOptions, variantOptions, colorOptions, colorMap } from "./fieldConfigs";
 
 const cardStyle: React.CSSProperties = {
   padding: 16,
@@ -28,42 +23,15 @@ const inputStyle: React.CSSProperties = {
 
 interface MUIPropsComponentProps {
   muiProps: Record<string, any>;
-  toggleMuiProp: (prop: string, type: string, value?: any) => void;
-  config: any;
-  setConfig: React.Dispatch<React.SetStateAction<any>>;
+  setMuiProps: (props: Record<string, any>) => void;
   componentType?: string;
 }
 
 export const MUIProps: React.FC<MUIPropsComponentProps> = ({
   muiProps,
-  toggleMuiProp,
-  config,
-  setConfig,
+  setMuiProps,
   componentType,
 }) => {
-  const inputRef = useRef<HTMLInputElement | null>(null);
-
-  // Autofocus logic
-  useEffect(() => {
-    if (config.muiProps.autoFocus && inputRef.current) {
-      inputRef.current.focus();
-    }
-  }, [config.muiProps.autoFocus]);
-
-  const updateInputProps = (key: string, value: any) => {
-    setConfig((prev: any) => ({
-      ...prev,
-      muiProps: {
-        ...prev.muiProps,
-        inputProps: {
-          ...prev.muiProps.inputProps,
-          [key]: value,
-        },
-      },
-    }));
-  };
-
-  // ---------- Props per component ----------
   let booleanProps: string[] = [];
   let textProps: string[] = [];
   let showInputProps: string[] = [];
@@ -98,63 +66,42 @@ export const MUIProps: React.FC<MUIPropsComponentProps> = ({
     ];
   }
 
+  // helper to update props immutably
+  const updateProp = (key: string, value: any) => {
+    setMuiProps({ ...muiProps, [key]: value });
+  };
+
   return (
-    <div
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        gap: 12,
-        marginBottom: 12,
-      }}
-    >
-      {/* Boolean switches */}
+    <div style={{ display: "flex", flexDirection: "column", gap: 12, marginBottom: 12 }}>
+      {/* Boolean props as toggles */}
       {booleanProps.map((prop) => (
         <div
           key={prop}
-          style={{
-            ...cardStyle,
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "space-between",
-          }}
+          style={{ ...cardStyle, display: "flex", alignItems: "center", justifyContent: "space-between" }}
         >
-          <div style={{ fontWeight: 700, textTransform: "capitalize" }}>
-            {prop}
-          </div>
+          <div style={{ fontWeight: 700, textTransform: "capitalize" }}>{prop}</div>
           <Switch
             checked={!!muiProps[prop]}
-            onChange={() => toggleMuiProp(prop, "boolean")}
+            onChange={() => updateProp(prop, !muiProps[prop])}
             size="md"
           />
         </div>
       ))}
 
-      {/* Text props */}
+      {/* Text props as input boxes */}
       {textProps.map((prop) => (
-        <div
-          key={prop}
-          style={{ ...cardStyle, display: "flex", flexDirection: "column" }}
-        >
-          <div
-            style={{
-              fontWeight: 700,
-              textTransform: "capitalize",
-              marginBottom: 6,
-            }}
-          >
-            {prop}
-          </div>
+        <div key={prop} style={{ ...cardStyle, display: "flex", flexDirection: "column" }}>
+          <div style={{ fontWeight: 700, textTransform: "capitalize", marginBottom: 6 }}>{prop}</div>
           <input
-            ref={prop === "id" && muiProps.autoFocus ? inputRef : null}
             value={muiProps[prop] || ""}
-            onChange={(e) => toggleMuiProp(prop, "text", e.target.value)}
+            onChange={(e) => updateProp(prop, e.target.value)}
             style={inputStyle}
             placeholder={`Enter ${prop}`}
           />
         </div>
       ))}
 
-      {/* Size */}
+      {/* Size options */}
       {sizeOptions.length > 0 && (
         <div style={{ ...cardStyle, display: "flex", flexDirection: "column" }}>
           <label style={{ fontWeight: 700 }}>Size</label>
@@ -165,14 +112,11 @@ export const MUIProps: React.FC<MUIPropsComponentProps> = ({
                 style={{
                   padding: "6px 12px",
                   borderRadius: 8,
-                  border:
-                    muiProps.size === opt
-                      ? "2px solid #1976d2"
-                      : "1px solid #ccc",
+                  border: muiProps.size === opt ? "2px solid #1976d2" : "1px solid #ccc",
                   background: muiProps.size === opt ? "#e3f2fd" : "#fff",
                   marginRight: 8,
                 }}
-                onClick={() => toggleMuiProp("size", "select", opt)}
+                onClick={() => updateProp("size", opt)}
               >
                 {opt}
               </button>
@@ -181,7 +125,7 @@ export const MUIProps: React.FC<MUIPropsComponentProps> = ({
         </div>
       )}
 
-      {/* Variant */}
+      {/* Variant options */}
       {componentType !== "checkbox" && componentType !== "radio" && (
         <div style={{ ...cardStyle, display: "flex", flexDirection: "column" }}>
           <label style={{ fontWeight: 700 }}>Variant</label>
@@ -192,15 +136,11 @@ export const MUIProps: React.FC<MUIPropsComponentProps> = ({
                 style={{
                   padding: "6px 12px",
                   borderRadius: 8,
-                  border:
-                    muiProps.variant === opt
-                      ? "2px solid #1976d2"
-                      : "1px solid #ccc",
-                  background:
-                    muiProps.variant === opt ? "#e3f2fd" : "#fff",
+                  border: muiProps.variant === opt ? "2px solid #1976d2" : "1px solid #ccc",
+                  background: muiProps.variant === opt ? "#e3f2fd" : "#fff",
                   marginRight: 8,
                 }}
-                onClick={() => toggleMuiProp("variant", "select", opt)}
+                onClick={() => updateProp("variant", opt)}
               >
                 {opt}
               </button>
@@ -209,115 +149,56 @@ export const MUIProps: React.FC<MUIPropsComponentProps> = ({
         </div>
       )}
 
-      {/* Color */}
-      {componentType !== "select" && (
+      {/* Color options */}
+      {componentType !== "checkbox" && componentType !== "radio" && (
         <div style={{ ...cardStyle, display: "flex", flexDirection: "column" }}>
           <label style={{ fontWeight: 700 }}>Color</label>
-          <div style={{ display: "flex", marginTop: 6 }}>
-            {colorOptions.map((col) => (
-              <div
-                key={col}
+          <div style={{ display: "flex", marginTop: 6, flexWrap: "wrap" }}>
+            {colorOptions.map((opt) => (
+              <button
+                key={opt}
                 style={{
-                  width: 28,
-                  height: 28,
-                  borderRadius: "50%",
-                  backgroundColor: colorMap[col] || col,
+                  padding: "6px 12px",
+                  borderRadius: 8,
+                  border: muiProps.color === opt ? "2px solid #1976d2" : "1px solid #ccc",
+                  background: muiProps.color === opt ? colorMap[opt] || "#e3f2fd" : "#fff",
+                  color: "#000",
                   marginRight: 8,
-                  border:
-                    muiProps.color === col
-                      ? "3px solid #1976d2"
-                      : "1px solid #ccc",
-                  cursor: "pointer",
+                  marginBottom: 6,
                 }}
-                onClick={() => toggleMuiProp("color", "select", col)}
-              />
+                onClick={() => updateProp("color", opt)}
+              >
+                {opt}
+              </button>
             ))}
           </div>
         </div>
       )}
 
-      {/* Input Props */}
+      {/* inputProps */}
       {showInputProps.length > 0 && (
-        <>
-          <h3>Input Props</h3>
-          <div
-            style={{ display: "flex", flexDirection: "column", gap: 12 }}
-          >
-            {showInputProps.includes("readOnly") && (
-              <div
-                style={{
-                  ...cardStyle,
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "space-between",
-                }}
-              >
-                <div style={{ fontWeight: 700 }}>readOnly</div>
-                <Switch
-                  checked={!!muiProps.inputProps?.readOnly}
-                  onChange={() =>
-                    updateInputProps(
-                      "readOnly",
-                      !muiProps.inputProps?.readOnly
-                    )
-                  }
-                  size="md"
-                />
-              </div>
-            )}
-
-            {showInputProps.includes("minLength") && (
-              <div style={cardStyle}>
-                <label>minLength</label>
-                <input
-                  type="number"
-                  value={muiProps.inputProps?.minLength || ""}
-                  onChange={(e) =>
-                    updateInputProps(
-                      "minLength",
-                      e.target.value ? Number(e.target.value) : undefined
-                    )
-                  }
-                  style={inputStyle}
-                  placeholder="Enter minimum length"
-                />
-              </div>
-            )}
-
-            {showInputProps.includes("maxLength") && (
-              <div style={cardStyle}>
-                <label>maxLength</label>
-                <input
-                  type="number"
-                  value={muiProps.inputProps?.maxLength || ""}
-                  onChange={(e) =>
-                    updateInputProps(
-                      "maxLength",
-                      e.target.value ? Number(e.target.value) : undefined
-                    )
-                  }
-                  style={inputStyle}
-                  placeholder="Enter maximum length"
-                />
-              </div>
-            )}
-
-            {showInputProps.includes("pattern") && (
-              <div style={cardStyle}>
-                <label>pattern</label>
-                <input
-                  type="text"
-                  value={muiProps.inputProps?.pattern || ""}
-                  onChange={(e) =>
-                    updateInputProps("pattern", e.target.value)
-                  }
-                  style={inputStyle}
-                  placeholder="Enter regex pattern"
-                />
-              </div>
-            )}
-          </div>
-        </>
+        <div style={{ ...cardStyle }}>
+          <label style={{ fontWeight: 700, display: "block", marginBottom: 6 }}>
+            inputProps
+          </label>
+          {showInputProps.map((prop) => (
+            <div key={prop} style={{ display: "flex", flexDirection: "column", marginBottom: 8 }}>
+              <span style={{ fontSize: 13, marginBottom: 4 }}>{prop}</span>
+              <input
+                type="text"
+                value={muiProps.inputProps?.[prop] || ""}
+                onChange={(e) =>
+                  setMuiProps({
+                    ...muiProps,
+                    inputProps: { ...muiProps.inputProps, [prop]: e.target.value },
+                  })
+                }
+                style={inputStyle}
+                placeholder={`Enter ${prop}`}
+              />
+            </div>
+          ))}
+        </div>
       )}
     </div>
   );

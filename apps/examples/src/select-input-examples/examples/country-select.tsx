@@ -4,11 +4,11 @@ import { FormBuilder, useFormBuilder } from "formik-form-builder";
 import { countryField } from "../../constants";
 
 const CountryInput = () => {
-  const { initailValues, yupSchemaValidation } = useFormBuilder(countryField);
+  const { initialValues, yupSchemaValidation } = useFormBuilder(countryField);
 
   return (
     <Formik
-      initialValues={initailValues}
+      initialValues={initialValues}
       validationSchema={yupSchemaValidation}
       onSubmit={(values, actions) => {
         console.log(values);
