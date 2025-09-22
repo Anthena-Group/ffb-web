@@ -1,0 +1,40 @@
+import BasicToggleCheckBox from "./examples/basic-toggle";
+import Agreement from "./examples/agreement-checkbox";
+import BulkSelection from "./examples/bulk-selection";
+import ToDoExample from "./examples/to-do-list";
+import ConditionalCheckBox from "./examples/conditional-checkbox";
+
+import DisabledLogic from "./examples/disabled-logic-checkbox";
+import type { exampleType } from "../../layout/tab-example-viewer";
+import TabExampleViewer from "../../layout/tab-example-viewer";
+
+const examples: Record<string, exampleType> = {
+  basicToggle: {
+    label: "Basic Toggle",
+    component: <BasicToggleCheckBox />,
+  },
+  agreement: {
+    label: "Agreement Checkbox",
+    component: <Agreement />,
+  },
+  Disabled: {
+    label: "Disabled Checkbox",
+    component: <DisabledLogic />,
+  },
+  bulkSelection: {
+    label: "Bulk Selection",
+    component: <BulkSelection />,
+  },
+  todo: {
+    label: "To-do List",
+    component: <ToDoExample />,
+  },
+  conditional: {
+    label: "Conditional Checkbox",
+    component: <ConditionalCheckBox />,
+  },
+};
+
+const CheckboxExamples = () => <TabExampleViewer examples={examples} />;
+
+export default CheckboxExamples;

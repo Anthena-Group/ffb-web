@@ -11,10 +11,9 @@ import {
   RequiredRule,
 } from "./validation-rule";
 import { useValidationBuilder } from "../../../hooks";
+import React from "react";
 
-export default function ValidationBuilder({
-  onConfirm,
-}: ValidationBuilderProps) {
+function ValidationBuilder({ onConfirm }: ValidationBuilderProps) {
   const {
     draftRules,
     selectedRule,
@@ -104,8 +103,12 @@ export default function ValidationBuilder({
               label={key}
               value={(draftRules as any)[key]}
               message={(draftRules as any)[`${key}RuleMsg`]}
-              onValueChange={(val) => updateRule(key as ValidationRuleType, val)}
-              onMessageChange={(val) => updateRule(`${key}RuleMsg` as ValidationRuleType, val)}
+              onValueChange={(val) =>
+                updateRule(key as ValidationRuleType, val)
+              }
+              onMessageChange={(val) =>
+                updateRule(`${key}RuleMsg` as ValidationRuleType, val)
+              }
               onDelete={() => deleteRule(key as ValidationRuleType)}
             />
           );
@@ -123,3 +126,5 @@ export default function ValidationBuilder({
     </Stack>
   );
 }
+
+export default React.memo(ValidationBuilder);

@@ -1,107 +1,98 @@
-import { Box, Button } from "@mui/joy";
-import { Form, Formik } from "formik";
+import { Box, Button, Card, CardContent, Stack, Typography } from "@mui/joy";
+import { useConfigBuilder } from "../../hooks";
+import { InputTypes, type FieldRadioType } from "formik-form-builder";
+import RadioConfigFields from "./radio-config-fields";
 import {
-  FormBuilder,
-  InputTypes,
-  useFormBuilder,
-  type FieldType,
-} from "formik-form-builder";
-
-
-// Yet to be done 
+  ConditionBuilder,
+  ConfigPreview,
+  GridPropsBuilder,
+  LivePreview,
+  OptionBuilder,
+  ValidationBuilder,
+} from "../common";
+import { useCallback } from "react";
 
 function RadioButtonBuilder() {
-  const generic: FieldType[] = [
-    {
-      field: "field",
-      type: InputTypes.TEXT,
-      initialValue: "",
-      label: "Enter field name: ",
-      placeholder: "FieldName",
-      validation: { required: true, message: "Field name is required." },
-    },
-    {
-      field: "groupLabel",
-      type: InputTypes.TEXT,
-      initialValue: "",
-      placeholder: "Group Label",
-      label: "Enter Group label name: ",
-    },
-    {
-      field: "helperText",
-      type: InputTypes.TEXT,
-      initialValue: "",
-      placeholder: "Helper Text",
-      label: "Enter helperText: ",
-    },
-    {
-      field: "direction",
-      type: InputTypes.SELECT,
-      initialValue: "",
-      label: "Choose direction: ",
-      options: [
-        { label: "Row", value: "row" },
-        { label: "Column", value: "column" },
-      ],
-      muiProps: { placeholder: "Select Direction" },
-    },
-    {
-      field: "variant",
-      type: InputTypes.SELECT,
-      initialValue: "",
-      label: "Choose variant: ",
-      options: [
-        { label: "Default", value: "DEFAULT" },
-        { label: "Icon", value: "ICON" },
-      ],
-      muiProps: { placeholder: "Select variant" },
-    },
-    {
-      field: "outputType",
-      type: InputTypes.SELECT,
-      initialValue: "",
-      label: "Choose output type: ",
-      options: [
-        { label: "String", value: "string" },
-        { label: "Number", value: "number" },
-        { label: "Boolean", value: "boolean" },
-      ],
-      muiProps: { placeholder: "Select output type" },
-    },
-  ];
+  const {
+    config,
+    finalConfig,
+    initialInput,
+    setInitialInput,
+    handleChange,
+    handleAddConfig,
+    handleReset,
+  } = useConfigBuilder<FieldRadioType>({
+    field: "",
+    type: InputTypes.RADIO,
+    initialValue: [],
+    variant: "DEFAULT",
+    label: "",
+    options: [{ label: "", value: "" }],
+    groupLabel: "",
+    helperText: "",
+    gridProps: {},
+    validation: {},
+    conditions: undefined,
+  });
 
-  const { initialValues, yupSchemaValidation } = useFormBuilder(generic);
+  const onOptionsConfirm = useCallback(
+    (props: unknown) => handleChange("options", props),
+    [handleChange]
+  );
+  const onGridPropsConfirm = useCallback(
+    (props: unknown) => handleChange("gridProps", props),
+    [handleChange]
+  );
+  const onValidationConfirm = useCallback(
+    (rules: unknown) => handleChange("validation", rules),
+    [handleChange]
+  );
+  const onConditionsConfirm = useCallback(
+    (rules: unknown) => handleChange("conditions", rules),
+    [handleChange]
+  );
+
   return (
-    <Formik
-      initialValues={initialValues}
-      validationSchema={yupSchemaValidation}
-      onSubmit={(values, actions) => {
-        console.log(values);
-        alert(JSON.stringify(values, null, 2));
-        actions.setSubmitting(false);
-      }}
-    >
-      {({ values }) => (
-        <Form>
-          <FormBuilder
-            group="form"
-            values={values}
-            data-test="form"
-            fields={generic}
+    <Stack direction={"column"} spacing={4} sx={{ p: 4, maxWidth: 850 }}>
+      <Card variant="outlined" sx={{ flex: 1 }}>
+        <CardContent>
+          <Typography level="h2" sx={{ mb: 3 }}>
+            Radio Field Builder
+          </Typography>
+          <RadioConfigFields
+            config={config as FieldRadioType}
+            initialInput={initialInput}
+            onChange={handleChange}
+            setInitialInput={setInitialInput}
           />
+          <OptionBuilder
+            onConfirm={onOptionsConfirm}
+            type={config.type}
+            variant={config.variant}
+          />
+          <GridPropsBuilder onConfirm={onGridPropsConfirm} />
+          <ValidationBuilder onConfirm={onValidationConfirm} />
+          <ConditionBuilder onConfirm={onConditionsConfirm} />
           <Box
-            width={"100%"}
-            display={"flex"}
-            justifyContent={"center"}
-            alignItems={"center"}
+            display="flex"
+            alignItems="center"
+            justifyContent="space-around"
+            mt={2}
           >
-            <Button variant="solid" type="submit">
-              Continue
+            <Button color="success" onClick={handleAddConfig}>
+              Generate Config
+            </Button>
+            <Button color="danger" onClick={handleReset}>
+              Reset
             </Button>
           </Box>
-        </Form>
-      )}
-    </Formik>
+        </CardContent>
+      </Card>
+      <Stack direction="row" spacing={3}>
+        <ConfigPreview finalConfig={finalConfig as FieldRadioType} />
+        <LivePreview finalConfig={finalConfig as FieldRadioType} />
+      </Stack>
+    </Stack>
   );
 }
 

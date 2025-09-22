@@ -4,8 +4,9 @@ import { ConditionAction } from "formik-form-builder";
 import type { ConditionBuilderProps } from "../../../types";
 import { useConditionBuilder } from "../../../hooks";
 import { GroupCard } from "./card";
+import React from "react";
 
-export default function ConditionBuilder({ onConfirm }: ConditionBuilderProps) {
+function ConditionBuilder({ onConfirm }: ConditionBuilderProps) {
   const {
     action,
     setAction,
@@ -70,3 +71,5 @@ export default function ConditionBuilder({ onConfirm }: ConditionBuilderProps) {
     </Stack>
   );
 }
+
+export default React.memo(ConditionBuilder);

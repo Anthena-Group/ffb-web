@@ -3,8 +3,9 @@ import type { GridPropKey, GridPropsBuilderProps } from "../../../types";
 import { useGridPropsBuilder } from "../../../hooks";
 import { GRID_PROP_KEYS } from "../../../constants";
 import { GridPropRow } from "./props";
+import React from "react";
 
-export default function GridPropsBuilder({ onConfirm }: GridPropsBuilderProps) {
+function GridPropsBuilder({ onConfirm }: GridPropsBuilderProps) {
   const {
     draftProps,
     selectedKey,
@@ -25,7 +26,7 @@ export default function GridPropsBuilder({ onConfirm }: GridPropsBuilderProps) {
         <Select
           placeholder="Select Grid Prop"
           value={selectedKey}
-          onChange={(_, val) => setSelectedKey(val as any)}
+          onChange={(_, val) => setSelectedKey(val as GridPropKey)}
         >
           {remainingKeys.map((k) => (
             <Option key={k} value={k}>
@@ -58,3 +59,5 @@ export default function GridPropsBuilder({ onConfirm }: GridPropsBuilderProps) {
     </Stack>
   );
 }
+
+export default React.memo(GridPropsBuilder);

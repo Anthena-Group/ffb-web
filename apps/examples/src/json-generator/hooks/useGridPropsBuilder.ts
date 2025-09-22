@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import type { GridPropKey } from "../types";
 
 export function useGridPropsBuilder() {
@@ -7,32 +7,36 @@ export function useGridPropsBuilder() {
   >({});
   const [selectedKey, setSelectedKey] = useState<GridPropKey | "">("");
 
-  const addProp = () => {
-    if (!selectedKey || draftProps[selectedKey]) return;
-    setDraftProps((prev) => ({ ...prev, [selectedKey]: "" }));
+  const addProp = useCallback(() => {
+    setDraftProps(prev => {
+      if (!selectedKey || prev[selectedKey]) return prev;
+      return { ...prev, [selectedKey]: "" };
+    });
     setSelectedKey("");
-  };
+  }, [selectedKey]);
 
-  const updateProps = (key: GridPropKey, value: string) => {
-    setDraftProps((prev) => ({
+  const updateProps = useCallback((key: GridPropKey, value: string) => {
+    setDraftProps(prev => ({
       ...prev,
       [key]: value === "auto" ? "auto" : Number(value),
     }));
-  };
+  }, []);
 
-  const deleteProps = (key: GridPropKey) => {
-    const newProps = { ...draftProps };
-    delete newProps[key];
-    setDraftProps(newProps);
-  };
+  const deleteProps = useCallback((key: GridPropKey) => {
+    setDraftProps(prev => {
+      const newProps = { ...prev };
+      delete newProps[key];
+      return newProps;
+    });
+  }, []);
 
-  const confirmProps = () => {
+  const confirmProps = useCallback(() => {
     const finalProps: Partial<Record<GridPropKey, number | "auto">> = {};
     Object.entries(draftProps).forEach(([k, v]) => {
       if (v !== "") finalProps[k as GridPropKey] = v as number | "auto";
     });
     return finalProps;
-  };
+  }, [draftProps]);
 
   return {
     draftProps,

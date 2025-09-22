@@ -10,10 +10,11 @@ import {
   Typography,
 } from "@mui/joy";
 import { PostCondition } from "formik-form-builder";
-import { LogicRow } from "./logic-row";
 import type { GroupCardProps } from "../../../../types";
+import React from "react";
+import LogicRow from "./logic-row";
 
-export function GroupCard({
+function GroupCard({
   group,
   groupIndex,
   groupsLength,
@@ -89,3 +90,5 @@ export function GroupCard({
     </Box>
   );
 }
+
+export default React.memo(GroupCard);

@@ -1,20 +1,21 @@
 import { useState } from "react";
 import { Box, Button, Stack, Typography, Divider } from "@mui/joy";
-import { CheckboxExamples } from "./checkbox-examples";
-import { RadioButtonExamples } from "./radio-button-examples";
-import TextInputExamples from "./text-input-examples/text-input-examples";
-import SelectInputExamples from "./select-input-examples/select-input-examples";
-
-import { AutoCompleteExamples } from "./auto-complete-examples";
-import { MultiTextExamples } from "./multi-text-examples";
 import {
   CheckboxBuilder,
   ConditionBuilder,
   GridPropsBuilder,
   OptionBuilder,
+  RadioButtonBuilder,
   ValidationBuilder,
 } from "./json-generator";
-import { RadioButtonBuilder } from "./json-generator/component/radio-button";
+import {
+  AutoCompleteExamples,
+  CheckboxExamples,
+  MultiTextExamples,
+  RadioButtonExamples,
+  SelectInputExamples,
+  TextInputExamples,
+} from "./all-examples";
 
 const examples: Record<string, { label: string; component: React.ReactNode }> =
   {
@@ -66,7 +67,7 @@ const examples: Record<string, { label: string; component: React.ReactNode }> =
     },
 
     Radio: {
-      label: "Radio Button generate",
+      label: "Radio Button Generator",
       component: <RadioButtonBuilder />,
     },
   };

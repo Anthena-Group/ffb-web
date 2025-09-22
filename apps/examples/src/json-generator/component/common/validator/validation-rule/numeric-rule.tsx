@@ -1,8 +1,9 @@
 import { Stack, Typography, Input, IconButton } from "@mui/joy";
 import DeleteIcon from "@mui/icons-material/Delete";
 import type { NumericRuleProps } from "../../../../types";
+import React from "react";
 
-export function NumericRule({
+function NumericRule({
   label,
   value,
   message,
@@ -30,3 +31,5 @@ export function NumericRule({
     </Stack>
   );
 }
+
+export default React.memo(NumericRule);

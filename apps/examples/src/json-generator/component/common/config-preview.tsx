@@ -1,10 +1,21 @@
 import { Card, CardContent, Typography } from "@mui/joy";
-
-interface Props {
-  finalConfig: any;
+import type { FieldType } from "formik-form-builder";
+import { useMemo } from "react";
+interface ConfigPreviewProps {
+  finalConfig: Partial<FieldType>;
 }
 
-export function ConfigPreview({ finalConfig }: Props) {
+export function ConfigPreview({ finalConfig }: ConfigPreviewProps) {
+  const prettyConfig = useMemo(
+    () =>
+      JSON.stringify(
+        finalConfig,
+        (_key, value) => (value instanceof RegExp ? value.source : value),
+        2
+      ),
+    [finalConfig]
+  );
+
   return (
     <Card variant="outlined" sx={{ flex: 1 }}>
       <CardContent>
@@ -18,11 +29,7 @@ export function ConfigPreview({ finalConfig }: Props) {
             borderRadius: 6,
           }}
         >
-          {JSON.stringify(
-            finalConfig,
-            (_key, value) => (value instanceof RegExp ? value.source : value),
-            2
-          )}
+          {prettyConfig}
         </pre>
       </CardContent>
     </Card>

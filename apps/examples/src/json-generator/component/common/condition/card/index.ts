@@ -1,2 +1,2 @@
-export * from "./logic-row"
-export * from "./group-card"
+export { default as LogicRow } from "./logic-row"
+export { default as GroupCard } from "./group-card"

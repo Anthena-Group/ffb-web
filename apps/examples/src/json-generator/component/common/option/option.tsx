@@ -11,15 +11,10 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import * as MuiIcons from "@mui/icons-material";
 import type { ExtendedOptionType, OptionBuilderProps } from "../../../types";
 import { useOptionBuilder } from "../../../hooks";
-import { DynamicIcon } from "./dynamic-icon";
-import { useState } from "react";
+import React, { useState } from "react";
 import AutorenewIcon from "@mui/icons-material/Autorenew";
 
-export default function OptionBuilder({
-  onConfirm,
-  type,
-  variant,
-}: OptionBuilderProps) {
+function OptionBuilder({ onConfirm, type, variant }: OptionBuilderProps) {
   const {
     options,
     handleOptionChange,
@@ -30,12 +25,21 @@ export default function OptionBuilder({
   } = useOptionBuilder();
 
   const showIconField = type === "radio" && variant === "ICON";
-
   const [isLabel, setIsLabel] = useState<boolean>(true);
+
+  const [iconInputs, setIconInputs] = useState<string[]>([]);
 
   const handleIsLabel = (option: ExtendedOptionType) => {
     isLabel ? (option.label = "") : (option.title = "");
     setIsLabel((prev) => !prev);
+  };
+
+  const handleIconInputChange = (index: number, val: string) => {
+    setIconInputs((prev) => {
+      const next = [...prev];
+      next[index] = val;
+      return next;
+    });
   };
 
   return (
@@ -89,27 +93,29 @@ export default function OptionBuilder({
             }
           />
 
-          {/* Search icons */}
+          {/* Icon Search */}
           {showIconField && (
             <Autocomplete
               freeSolo
               placeholder="Search icons..."
-              options={getIconSuggestions((opt.icon as string) || "")}
-              value={opt.icon || null}
-              onChange={(_, val) =>
-                handleOptionChange(index, "icon", (val as string) || "")
-              }
-              onInputChange={(_, val) =>
-                handleOptionChange(index, "icon", val || "")
-              }
+              options={getIconSuggestions(iconInputs[index] || "")}
+              value={iconInputs[index] || ""}
+              onInputChange={(_, val) => {
+                handleIconInputChange(index, val);
+              }}
+              onChange={(_, val) => {
+                if (val && typeof val === "string" && val in MuiIcons) {
+                  const IconComp = (MuiIcons as any)[val];
+                  handleOptionChange(index, "icon", <IconComp />);
+                  handleIconInputChange(index, val);
+                } else {
+                  handleOptionChange(index, "icon", null);
+                  handleIconInputChange(index, "");
+                }
+              }}
               isOptionEqualToValue={(option, value) => option === value}
               sx={{ minWidth: 150 }}
             />
-          )}
-
-          {/* Render Icon */}
-          {opt.icon && (opt.icon as string) in MuiIcons && (
-            <DynamicIcon name={opt.icon as string} />
           )}
 
           {/* Remove option */}
@@ -141,3 +147,5 @@ export default function OptionBuilder({
     </Stack>
   );
 }
+
+export default React.memo(OptionBuilder);
