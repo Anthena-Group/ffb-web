@@ -1,6 +1,7 @@
 ---
 id: introduction
 title: Input Text
+sidebar_position: 1
 sidebar_label: Introduction
 ---
 
