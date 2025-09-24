@@ -1,64 +1,75 @@
 import { useState } from "react";
 import { Box, Button, Stack, Typography, Divider } from "@mui/joy";
-//import { CheckboxExamples } from "./checkbox-examples";
-//import { RadioButtonExamples } from "./radio-button-examples";
-//import TextInputExamples from './text-input-examples/text-input-examples';
-//import SelectInputExamples from './select-input-examples/select-input-examples';
-import TextInputGenerator from "./textInput-json-generator/TextInputGenerator";
-//import DynamicFieldGenerator from "./textInput-json-generator/DynamicFieldGenerator";
+// import { CheckboxExamples } from "./checkbox-examples";
+// import { RadioButtonExamples } from "./radio-button-examples";
+// import TextInputExamples from './text-input-examples/text-input-examples';
+// import SelectInputExamples from './select-input-examples/select-input-examples';
+// import TextInputGenerator from "./textInput-json-generator/TextInputGenerator";
+// import DynamicFieldGenerator from "./textInput-json-generator/DynamicFieldGenerator";
+// import { AutoCompleteExamples } from "./auto-complete-examples";
+// import { MultiTextExamples } from "./multi-text-examples";
+// import SelectGenerator from "./select-generator";
 
-
-
-//import { AutoCompleteExamples } from "./auto-complete-examples";
-//import { MultiTextExamples } from "./multi-text-examples";
-//import SelectGenerator from "./select-generator";
-
-const examples: Record<string, { label: string; component: React.ReactNode }> =
-  {
-// Select: {
-//       label: "Select",
-//       component: <SelectInputExamples/>
-//     },
-//      text: {
-//       label: "Text",
-//       component: <TextInputExamples/>
-//     },
-//     checkbox: {
-//       label: "Checkbox",
-//       component: <CheckboxExamples />,
-//     },
-//     radio: {
-//       label: "Radio Button",
-//       component: <RadioButtonExamples />,
-//     },
-//     autoComplete : {
-//       label: "Auto Complete",
-//       component: <AutoCompleteExamples/>
-//     },
-//     multiText : {
-//       label: "MultiText",
-//       component: <MultiTextExamples/>
-//     },
-
-  textInputGenerator: {
-    label: "TextInput Generator",
-    component: <TextInputGenerator />,
-  },
-  
-
-  // SelectGenerator: {
-  //   label: "Select Generator",
-  //   component: <SelectGenerator />,
-  // },
-};
-
-
+import { MUIProps } from "./json-generator/component/common/mui-props";
+import { TextInputGenerator } from "./json-generator";
 const App = () => {
+  // State for the MUIProps component
+  const [muiPropsState, setMuiPropsState] = useState<any>({});
+
+  // Define your examples object
+  const examples: Record<string, { label: string; component: React.ReactNode }> = {
+    // Uncomment and add other examples when ready
+    // Select: {
+    //   label: "Select",
+    //   component: <SelectInputExamples />,
+    // },
+    // text: {
+    //   label: "Text",
+    //   component: <TextInputExamples />,
+    // },
+    // checkbox: {
+    //   label: "Checkbox",
+    //   component: <CheckboxExamples />,
+    // },
+    // radio: {
+    //   label: "Radio Button",
+    //   component: <RadioButtonExamples />,
+    // },
+    // autoComplete: {
+    //   label: "Auto Complete",
+    //   component: <AutoCompleteExamples />,
+    // },
+    // multiText: {
+    //   label: "MultiText",
+    //   component: <MultiTextExamples />,
+    // },
+    // textInputGenerator: {
+    //   label: "TextInput Generator",
+    //   component: <TextInputGenerator />,
+    // },
+    muiProps: {
+      label: "MUI Props",
+      component: (
+        <MUIProps
+          muiProps={muiPropsState}
+          setMuiProps={setMuiPropsState}
+          componentType="text" // change this to "checkbox", "radio", etc. as needed
+        />
+      ),
+    },
+    TextINputGenerator: {
+      label: "Input Generator",
+      component: <TextInputGenerator />,
+    },
+  };
+
+  // Selected example key
   const keys = Object.keys(examples);
   const [selected, setSelected] = useState(keys[0]);
 
   return (
     <Box sx={{ display: "flex" }}>
+      {/* Sidebar */}
       <Box
         sx={{
           borderRight: "1px solid #ddd",
@@ -66,7 +77,7 @@ const App = () => {
           minWidth: 200,
         }}
       >
-        <Typography level="h3" sx={{ mb: 1 }} textAlign={"center"}>
+        <Typography level="h3" sx={{ mb: 1 }} textAlign="center">
           Components
         </Typography>
         <Divider sx={{ mb: 2 }} />
@@ -84,6 +95,7 @@ const App = () => {
         </Stack>
       </Box>
 
+      {/* Main content */}
       <Box sx={{ flex: 1, p: 4 }}>{examples[selected].component}</Box>
     </Box>
   );
