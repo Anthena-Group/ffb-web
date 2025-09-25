@@ -6,7 +6,7 @@ import { useConditionBuilder } from "../../../hooks";
 import { GroupCard } from "./card";
 import React from "react";
 
-function ConditionBuilder({ onConfirm }: ConditionBuilderProps) {
+function ConditionBuilder({ onChange }: ConditionBuilderProps) {
   const {
     action,
     setAction,
@@ -17,14 +17,10 @@ function ConditionBuilder({ onConfirm }: ConditionBuilderProps) {
     addLogic,
     deleteLogic,
     addGroup,
-  } = useConditionBuilder();
-
-  const handleConfirm = () => {
-    onConfirm({ action: action as ConditionAction, groups });
-  };
+  } = useConditionBuilder(onChange);
 
   return (
-    <Stack spacing={3}>
+    <Stack spacing={3} mt={2}>
       <Typography level="h4">Conditions:</Typography>
 
       <Stack direction="row" spacing={2} alignItems="center">
@@ -59,13 +55,6 @@ function ConditionBuilder({ onConfirm }: ConditionBuilderProps) {
       <Box display="flex" alignItems="center" justifyContent="space-evenly">
         <Button startDecorator={<Add />} onClick={addGroup}>
           Add Group
-        </Button>
-        <Button
-          color="success"
-          onClick={handleConfirm}
-          disabled={action === ""}
-        >
-          Confirm
         </Button>
       </Box>
     </Stack>

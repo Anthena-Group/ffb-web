@@ -1,1 +1,0 @@
-export const availableIcons = ["Add", "Delete", "Check", "Close", "Star"];

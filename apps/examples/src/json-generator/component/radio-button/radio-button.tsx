@@ -1,6 +1,19 @@
-import { Box, Button, Card, CardContent, Stack, Typography } from "@mui/joy";
+import {
+  Box,
+  Button,
+  Card,
+  CardContent,
+  Stack,
+  Typography,
+  type GridProps,
+} from "@mui/joy";
 import { useConfigBuilder } from "../../hooks";
-import { InputTypes, type FieldRadioType } from "formik-form-builder";
+import {
+  InputTypes,
+  type ConditionType,
+  type FieldRadioType,
+  type ValidationRule,
+} from "formik-form-builder";
 import RadioConfigFields from "./radio-config-fields";
 import {
   ConditionBuilder,
@@ -11,6 +24,7 @@ import {
   ValidationBuilder,
 } from "../common";
 import { useCallback } from "react";
+import type { ExtendedOptionType } from "../../types";
 
 function RadioButtonBuilder() {
   const {
@@ -35,20 +49,20 @@ function RadioButtonBuilder() {
     conditions: undefined,
   });
 
-  const onOptionsConfirm = useCallback(
-    (props: unknown) => handleChange("options", props),
+  const onOptionsChange = useCallback(
+    (props: ExtendedOptionType[]) => handleChange("options", props),
     [handleChange]
   );
-  const onGridPropsConfirm = useCallback(
-    (props: unknown) => handleChange("gridProps", props),
+  const onGridPropsChange = useCallback(
+    (props: GridProps) => handleChange("gridProps", props),
     [handleChange]
   );
-  const onValidationConfirm = useCallback(
-    (rules: unknown) => handleChange("validation", rules),
+  const onValidationChange = useCallback(
+    (rules: ValidationRule) => handleChange("validation", rules),
     [handleChange]
   );
-  const onConditionsConfirm = useCallback(
-    (rules: unknown) => handleChange("conditions", rules),
+  const onConditionsChange = useCallback(
+    (rules: ConditionType) => handleChange("conditions", rules),
     [handleChange]
   );
 
@@ -66,13 +80,13 @@ function RadioButtonBuilder() {
             setInitialInput={setInitialInput}
           />
           <OptionBuilder
-            onConfirm={onOptionsConfirm}
+            onChange={onOptionsChange}
             type={config.type}
             variant={config.variant}
           />
-          <GridPropsBuilder onConfirm={onGridPropsConfirm} />
-          <ValidationBuilder onConfirm={onValidationConfirm} />
-          <ConditionBuilder onConfirm={onConditionsConfirm} />
+          <GridPropsBuilder onChange={onGridPropsChange} />
+          <ValidationBuilder onChange={onValidationChange} />
+          <ConditionBuilder onChange={onConditionsChange} />
           <Box
             display="flex"
             alignItems="center"

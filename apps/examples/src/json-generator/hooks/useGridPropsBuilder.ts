@@ -1,11 +1,16 @@
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 import type { GridPropKey } from "../types";
+import type { GridProps } from "@mui/joy";
 
-export function useGridPropsBuilder() {
+export function useGridPropsBuilder(onChange: (props: GridProps) => void) {
   const [draftProps, setDraftProps] = useState<
     Partial<Record<GridPropKey, number | "auto" | "">>
   >({});
   const [selectedKey, setSelectedKey] = useState<GridPropKey | "">("");
+
+  useEffect(() => {
+    onChange(confirmProps());
+  }, [draftProps, selectedKey]);
 
   const addProp = useCallback(() => {
     setDraftProps(prev => {

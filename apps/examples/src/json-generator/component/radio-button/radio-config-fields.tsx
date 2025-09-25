@@ -1,20 +1,13 @@
 import { Input, Select, Option, Box, Stack } from "@mui/joy";
-import { type FieldRadioType } from "formik-form-builder";
 import React from "react";
-
-interface Props {
-  config: FieldRadioType;
-  initialInput: string;
-  onChange: (key: keyof FieldRadioType, value: any) => void;
-  setInitialInput: (val: string) => void;
-}
+import type { RadioFieldsProps } from "../../types";
 
 function RadioConfigFields({
   config,
   initialInput,
   onChange,
   setInitialInput,
-}: Props) {
+}: RadioFieldsProps) {
   return (
     <Stack spacing={2}>
       <Box
@@ -55,6 +48,7 @@ function RadioConfigFields({
 
       <Stack direction="row" spacing={2}>
         <Select
+          value={config.direction || null}
           onChange={(_, val) => onChange("direction", val)}
           placeholder="Direction"
           sx={{ flex: 1 }}
@@ -64,6 +58,7 @@ function RadioConfigFields({
         </Select>
 
         <Select
+          value={config.outputType || null}
           onChange={(_, val) => onChange("outputType", val)}
           placeholder="Output Type"
           sx={{ flex: 1 }}
@@ -73,6 +68,7 @@ function RadioConfigFields({
           <Option value="boolean">Boolean</Option>
         </Select>
         <Select
+          value={config.variant || null}
           onChange={(_, val) => onChange("variant", val)}
           placeholder="Variant"
           sx={{ flex: 1 }}

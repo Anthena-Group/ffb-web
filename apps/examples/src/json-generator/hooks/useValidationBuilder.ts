@@ -1,8 +1,8 @@
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 import type { ValidationRule } from "formik-form-builder";
 import type { ValidationRuleType } from "../types";
 
-export function useValidationBuilder() {
+export function useValidationBuilder(onChange: (rule: ValidationRule) => void) {
   const [draftRules, setDraftRules] = useState<ValidationRule>({});
   const [selectedRule, setSelectedRule] = useState<ValidationRuleType | null>(null);
 
@@ -17,6 +17,10 @@ export function useValidationBuilder() {
     "moreThan",
     "lessThan",
   ];
+
+  useEffect(() => {
+    onChange(confirmRules())
+  }, [draftRules, selectedRule])
 
   const addRule = useCallback(() => {
     if (!selectedRule) return;
@@ -42,7 +46,7 @@ export function useValidationBuilder() {
   }, [selectedRule, draftRules]);
 
   const updateRule = useCallback(
-    (key: keyof ValidationRule, value: any) => {
+    (key: keyof ValidationRule, value: boolean | string | number | RegExp | undefined) => {
       setDraftRules((prev) => ({ ...prev, [key]: value }));
     },
     []
@@ -54,7 +58,7 @@ export function useValidationBuilder() {
         const newDraft = { ...prev };
         delete newDraft[key];
         if (key === "required") delete newDraft["message"];
-        delete (newDraft as any)[`${key}RuleMsg`];
+        delete (newDraft as ValidationRule)[`${key}RuleMsg` as keyof ValidationRule];
         return newDraft;
       });
     },

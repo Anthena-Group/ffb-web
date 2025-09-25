@@ -1,11 +1,11 @@
 import {
-  Box,
   Button,
   Input,
   Stack,
   Typography,
   IconButton,
   Autocomplete,
+  Box,
 } from "@mui/joy";
 import DeleteIcon from "@mui/icons-material/Delete";
 import * as MuiIcons from "@mui/icons-material";
@@ -14,15 +14,14 @@ import { useOptionBuilder } from "../../../hooks";
 import React, { useState } from "react";
 import AutorenewIcon from "@mui/icons-material/Autorenew";
 
-function OptionBuilder({ onConfirm, type, variant }: OptionBuilderProps) {
+function OptionBuilder({ onChange, type, variant }: OptionBuilderProps) {
   const {
     options,
     handleOptionChange,
     addOption,
     removeOption,
-    getValidOptions,
     getIconSuggestions,
-  } = useOptionBuilder();
+  } = useOptionBuilder(onChange);
 
   const showIconField = type === "radio" && variant === "ICON";
   const [isLabel, setIsLabel] = useState<boolean>(true);
@@ -43,8 +42,21 @@ function OptionBuilder({ onConfirm, type, variant }: OptionBuilderProps) {
   };
 
   return (
-    <Stack spacing={2}>
-      <Typography level="h4">Options</Typography>
+    <Stack spacing={2} mt={2}>
+      <Box display={"flex"} gap={3}>
+        <Typography level="h4">Options</Typography>
+        <Button
+          onClick={addOption}
+          disabled={
+            !(
+              options[options.length - 1].label ||
+              options[options.length - 1].title
+            )?.trim() || !String(options[options.length - 1].value ?? "").trim()
+          }
+        >
+          Add option
+        </Button>
+      </Box>
 
       {options.map((opt, index) => (
         <Stack key={index} direction="row" spacing={1} alignItems="center">
@@ -126,24 +138,6 @@ function OptionBuilder({ onConfirm, type, variant }: OptionBuilderProps) {
           )}
         </Stack>
       ))}
-
-      <Box display="flex" justifyContent="space-evenly" alignItems="center">
-        <Button
-          onClick={addOption}
-          disabled={
-            !(
-              options[options.length - 1].label ||
-              options[options.length - 1].title
-            )?.trim() || !String(options[options.length - 1].value ?? "").trim()
-          }
-        >
-          Add more option
-        </Button>
-
-        <Button color="success" onClick={() => onConfirm(getValidOptions())}>
-          Confirm
-        </Button>
-      </Box>
     </Stack>
   );
 }

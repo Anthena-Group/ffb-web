@@ -1,6 +1,19 @@
 import { useCallback } from "react";
-import { Card, CardContent, Typography, Stack, Box, Button } from "@mui/joy";
-import { InputTypes, type FieldCheckboxType } from "formik-form-builder";
+import {
+  Card,
+  CardContent,
+  Typography,
+  Stack,
+  Box,
+  Button,
+  type GridProps,
+} from "@mui/joy";
+import {
+  InputTypes,
+  type ConditionType,
+  type FieldCheckboxType,
+  type ValidationRule,
+} from "formik-form-builder";
 
 import {
   CheckboxConfigField,
@@ -12,6 +25,7 @@ import {
   ValidationBuilder,
 } from "..";
 import { useConfigBuilder } from "../../hooks";
+import type { ExtendedOptionType } from "../../types";
 
 export default function CheckboxBuilder() {
   const {
@@ -36,20 +50,20 @@ export default function CheckboxBuilder() {
   });
 
   //  callbacks
-  const onOptionsConfirm = useCallback(
-    (props: unknown) => handleChange("options", props),
+  const onOptionsChange = useCallback(
+    (props: ExtendedOptionType[]) => handleChange("options", props),
     [handleChange]
   );
-  const onGridPropsConfirm = useCallback(
-    (props: unknown) => handleChange("gridProps", props),
+  const onGridPropsChange = useCallback(
+    (props: GridProps) => handleChange("gridProps", props),
     [handleChange]
   );
-  const onValidationConfirm = useCallback(
-    (rules: unknown) => handleChange("validation", rules),
+  const onValidationChange = useCallback(
+    (rules: ValidationRule) => handleChange("validation", rules),
     [handleChange]
   );
-  const onConditionsConfirm = useCallback(
-    (rules: unknown) => handleChange("conditions", rules),
+  const onConditionsChange = useCallback(
+    (rules: ConditionType) => handleChange("conditions", rules),
     [handleChange]
   );
 
@@ -68,10 +82,10 @@ export default function CheckboxBuilder() {
             setInitialInput={setInitialInput}
           />
 
-          <OptionBuilder onConfirm={onOptionsConfirm} type={config.type} />
-          <GridPropsBuilder onConfirm={onGridPropsConfirm} />
-          <ValidationBuilder onConfirm={onValidationConfirm} />
-          <ConditionBuilder onConfirm={onConditionsConfirm} />
+          <OptionBuilder onChange={onOptionsChange} type={config.type} />
+          <GridPropsBuilder onChange={onGridPropsChange} />
+          <ValidationBuilder onChange={onValidationChange} />
+          <ConditionBuilder onChange={onConditionsChange} />
 
           <Box
             display="flex"

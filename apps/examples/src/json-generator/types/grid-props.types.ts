@@ -1,3 +1,5 @@
+import type { GridProps } from "@mui/joy";
+
 export type GridPropKey = "xs" | "sm" | "md" | "lg" | "xl";
 
 
@@ -9,5 +11,5 @@ export interface PropFieldProps {
 }
 
 export interface GridPropsBuilderProps {
-  onConfirm: (props: Partial<Record<GridPropKey, number | "auto">>) => void;
+  onChange: (gridProps: GridProps) => void;
 }

@@ -9,10 +9,11 @@ import {
   Stack,
   Typography,
 } from "@mui/joy";
-import { PostCondition } from "formik-form-builder";
+
 import type { GroupCardProps } from "../../../../types";
 import React from "react";
 import LogicRow from "./logic-row";
+import { PostCondition } from "formik-form-builder";
 
 function GroupCard({
   group,

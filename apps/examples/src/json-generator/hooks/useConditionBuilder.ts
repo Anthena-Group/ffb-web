@@ -1,13 +1,14 @@
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 import {
   ConditionAction,
   ConditionName,
   PostCondition,
   type ConditionGroup,
   type ConditionLogic,
+  type ConditionType,
 } from "formik-form-builder";
 
-export function useConditionBuilder() {
+export function useConditionBuilder(onChange: (condition: ConditionType) => void) {
   const [action, setAction] = useState<ConditionAction | "">("");
   const [groups, setGroups] = useState<ConditionGroup[]>([
     {
@@ -24,8 +25,12 @@ export function useConditionBuilder() {
     },
   ]);
 
+  useEffect(() => {
+    onChange({ action: action as ConditionAction, groups });
+  }, [action, groups]);
+
   const updateGroup = useCallback(
-    (index: number, key: keyof ConditionGroup, value: any) => {
+    (index: number, key: keyof ConditionGroup, value: ConditionGroup[keyof ConditionGroup]) => {
       setGroups((prev) =>
         prev.map((g, i) => (i === index ? { ...g, [key]: value } : g))
       );
@@ -38,16 +43,16 @@ export function useConditionBuilder() {
   }, []);
 
   const updateLogic = useCallback(
-    (groupIndex: number, logicIndex: number, key: keyof ConditionLogic, value: any) => {
+    (groupIndex: number, logicIndex: number, key: keyof ConditionLogic, value: ConditionLogic[keyof ConditionLogic]) => {
       setGroups((prev) =>
         prev.map((group, i) =>
           i === groupIndex
             ? {
-                ...group,
-                logic: group.logic.map((l, li) =>
-                  li === logicIndex ? { ...l, [key]: value } : l
-                ),
-              }
+              ...group,
+              logic: group.logic.map((l, li) =>
+                li === logicIndex ? { ...l, [key]: value } : l
+              ),
+            }
             : group
         )
       );
@@ -64,17 +69,17 @@ export function useConditionBuilder() {
         prev.map((group, index) =>
           index === groupIndex
             ? {
-                ...group,
-                logic: [
-                  ...group.logic,
-                  {
-                    field: "",
-                    value: undefined,
-                    condition: ConditionName.EQUALS,
-                    postCondition: PostCondition.AND,
-                  },
-                ],
-              }
+              ...group,
+              logic: [
+                ...group.logic,
+                {
+                  field: "",
+                  value: undefined,
+                  condition: ConditionName.EQUALS,
+                  postCondition: PostCondition.AND,
+                },
+              ],
+            }
             : group
         )
       );

@@ -1,16 +1,7 @@
 import { Input, Select, Option, Box, Stack } from "@mui/joy";
-import {
-  CHECK_BOX_VALUE_TYPE,
-  type FieldCheckboxType,
-} from "formik-form-builder";
+import { CHECK_BOX_VALUE_TYPE } from "formik-form-builder";
 import React from "react";
-
-interface CheckboxConfigFieldProps {
-  config: FieldCheckboxType;
-  initialInput: string;
-  onChange: (key: keyof FieldCheckboxType, value: any) => void;
-  setInitialInput: (val: string) => void;
-}
+import type { CheckboxConfigFieldProps } from "../../types";
 
 function CheckboxConfigField({
   config,

@@ -1,11 +1,15 @@
-import { useMemo, useState, useCallback } from "react";
+import { useMemo, useState, useCallback, useEffect } from "react";
 import * as MuiIcons from "@mui/icons-material";
 import type { ExtendedOptionType } from "../types";
 
-export function useOptionBuilder() {
+export function useOptionBuilder(onChange: (opts: ExtendedOptionType[]) => void) {
   const [options, setOptions] = useState<ExtendedOptionType[]>([
     { label: "", value: "" },
   ]);
+
+  useEffect(() => {
+    if (onChange) onChange(getValidOptions());
+  }, [options]);
 
   const allIcons = useMemo(() => Object.keys(MuiIcons), []);
 
@@ -23,6 +27,8 @@ export function useOptionBuilder() {
     },
     []
   );
+
+
 
   const addOption = useCallback(() => {
     const last = options[options.length - 1];

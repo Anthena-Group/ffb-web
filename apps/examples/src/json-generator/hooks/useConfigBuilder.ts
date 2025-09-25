@@ -1,10 +1,6 @@
 import { useReducer, useState, useCallback } from "react";
 import type { FieldType } from "formik-form-builder";
-import { cleanConfig } from "../utils";
-
-type Action<T> =
-    | { type: "CHANGE"; key: keyof T; value: any }
-    | { type: "RESET"; payload: T };
+import type { Action } from "../types";
 
 function configReducer<T extends FieldType>(state: T, action: Action<T>): T {
     switch (action.type) {
@@ -37,25 +33,41 @@ export function useConfigBuilder<T extends FieldType>(initialConfig: T) {
     }, [initialConfig]);
 
     const handleAddConfig = useCallback(() => {
-        let nextInitialValue: unknown = config.initialValue;
+        let nextInitialValue: string | number | boolean | string[] | number[] | boolean[] | undefined =
+            config.initialValue;
 
         if (Array.isArray(config.initialValue)) {
-            nextInitialValue = initialInput.trim()
-                ? Array.from(
-                    new Set([...(config.initialValue ?? []), initialInput.trim()])
-                )
-                : config.initialValue;
+            if (typeof config.initialValue[0] === "string") {
+                nextInitialValue = initialInput.trim()
+                    ? Array.from(new Set([...(config.initialValue as string[]), initialInput.trim()]))
+                    : config.initialValue;
+            } else if (typeof config.initialValue[0] === "number") {
+                const parsed = Number(initialInput);
+                if (!isNaN(parsed)) {
+                    nextInitialValue = Array.from(new Set([...(config.initialValue as number[]), parsed]));
+                }
+            } else if (typeof config.initialValue[0] === "boolean") {
+                const normalized = initialInput.trim().toLowerCase();
+                if (normalized === "true" || normalized === "false") {
+                    const parsed = normalized === "true";
+                    nextInitialValue = Array.from(new Set([...(config.initialValue as boolean[]), parsed]));
+                }
+            }
         } else if (typeof config.initialValue === "string") {
             nextInitialValue = initialInput.trim();
         } else if (typeof config.initialValue === "number") {
             const parsed = Number(initialInput);
             nextInitialValue = isNaN(parsed) ? config.initialValue : parsed;
+        } else if (typeof config.initialValue === "boolean") {
+            const normalized = initialInput.trim().toLowerCase();
+            if (normalized === "true") nextInitialValue = true;
+            else if (normalized === "false") nextInitialValue = false;
         }
+
 
         const updatedConfig = { ...config, initialValue: nextInitialValue };
 
-        const cleaned = cleanConfig(updatedConfig, ["initialValue", "pattern"]);
-        setFinalConfig(cleaned);
+        setFinalConfig(updatedConfig);
     }, [config, initialInput]);
 
 
@@ -69,3 +81,4 @@ export function useConfigBuilder<T extends FieldType>(initialConfig: T) {
         handleReset,
     };
 }
+
