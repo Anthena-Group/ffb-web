@@ -1,10 +1,11 @@
-import { Box, Button, Stack, Typography, Select, Option } from "@mui/joy";
+import { Button, Stack, Typography, Select, Option } from "@mui/joy";
 import type { GridPropKey, GridPropsBuilderProps } from "../../../types";
 import { useGridPropsBuilder } from "../../../hooks";
 import { GRID_PROP_KEYS } from "../../../constants";
 import { GridPropRow } from "./props";
+import React from "react";
 
-export default function GridPropsBuilder({ onConfirm }: GridPropsBuilderProps) {
+function GridPropsBuilder({ onChange }: GridPropsBuilderProps) {
   const {
     draftProps,
     selectedKey,
@@ -12,20 +13,19 @@ export default function GridPropsBuilder({ onConfirm }: GridPropsBuilderProps) {
     addProp,
     updateProps,
     deleteProps,
-    confirmProps,
-  } = useGridPropsBuilder();
+  } = useGridPropsBuilder(onChange);
 
   const remainingKeys = GRID_PROP_KEYS.filter((k) => !(k in draftProps));
 
   return (
-    <Stack spacing={2}>
+    <Stack spacing={2} mt={2}>
       <Typography level="h4">Grid Props:</Typography>
 
       <Stack direction="row" spacing={2}>
         <Select
           placeholder="Select Grid Prop"
           value={selectedKey}
-          onChange={(_, val) => setSelectedKey(val as any)}
+          onChange={(_, val) => setSelectedKey(val as GridPropKey)}
         >
           {remainingKeys.map((k) => (
             <Option key={k} value={k}>
@@ -48,13 +48,8 @@ export default function GridPropsBuilder({ onConfirm }: GridPropsBuilderProps) {
           onDelete={deleteProps}
         />
       ))}
-
-      {/* Confirm */}
-      <Box display="flex" justifyContent="center" alignItems="center">
-        <Button color="success" onClick={() => onConfirm(confirmProps())}>
-          Confirm
-        </Button>
-      </Box>
     </Stack>
   );
 }
+
+export default React.memo(GridPropsBuilder);

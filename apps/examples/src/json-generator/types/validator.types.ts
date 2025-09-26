@@ -12,7 +12,7 @@ export type ValidationRuleType =
     | "lessThan";
 
 export interface ValidationBuilderProps {
-    onConfirm: (rules: ValidationRule) => void;
+    onChange: (rules: ValidationRule) => void;
 }
 
 export interface PatternRuleProps {

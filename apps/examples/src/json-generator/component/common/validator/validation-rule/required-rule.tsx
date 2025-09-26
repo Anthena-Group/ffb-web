@@ -13,7 +13,7 @@ export function RequiredRule({
       <Input
         placeholder="Message"
         value={message ?? ""}
-        onChange={(e) => onChange(e.target.value)}
+        onChange={(e) => onChange( e.target.value )}
       />
       <IconButton onClick={onDelete}>
         <DeleteIcon />

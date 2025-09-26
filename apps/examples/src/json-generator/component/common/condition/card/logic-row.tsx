@@ -11,8 +11,9 @@ import {
 import { ConditionName, PostCondition } from "formik-form-builder";
 import { conditionNameList } from "../../../../constants";
 import type { LogicRowProps } from "../../../../types";
+import React from "react";
 
-export function LogicRow({
+function LogicRow({
   logic,
   groupIndex,
   logicIndex,
@@ -130,3 +131,5 @@ export function LogicRow({
     </Stack>
   );
 }
+
+export default React.memo(LogicRow);

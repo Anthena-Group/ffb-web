@@ -1,41 +1,79 @@
-import { useState } from "react";
+import { useReducer, useState, useCallback } from "react";
 import type { FieldType } from "formik-form-builder";
-import { cleanConfig } from "../utils";
+import type { Action } from "../types";
+
+function configReducer<T extends FieldType>(state: T, action: Action<T>): T {
+    switch (action.type) {
+        case "CHANGE":
+            if (state[action.key] === action.value) return state;
+            return { ...state, [action.key]: action.value };
+        case "RESET":
+            return action.payload;
+        default:
+            return state;
+    }
+}
 
 export function useConfigBuilder<T extends FieldType>(initialConfig: T) {
-    const [config, setConfig] = useState<T>(initialConfig);
+    const [config, dispatch] = useReducer(configReducer<T>, initialConfig);
     const [finalConfig, setFinalConfig] = useState<Partial<T>>({});
     const [initialInput, setInitialInput] = useState("");
 
-    const handleChange = (key: keyof T, value: any) => {
-        setConfig((prev) => ({ ...prev, [key]: value }));
-    };
+    const handleChange = useCallback(
+        (key: keyof T, value: unknown) => {
+            dispatch({ type: "CHANGE", key, value });
+        },
+        []
+    );
 
-    const handleReset = () => {
-        setConfig(initialConfig);
+    const handleReset = useCallback(() => {
+        dispatch({ type: "RESET", payload: initialConfig });
         setFinalConfig({});
         setInitialInput("");
-    };
+    }, [initialConfig]);
 
-    const handleAddConfig = () => {
-        const combinedInitialValues = initialInput.trim()
-            ? Array.from(
-                new Set([...(config.initialValue as any[] || []), initialInput.trim()])
-            )
-            : config.initialValue;
+    const handleAddConfig = useCallback(() => {
+        let nextInitialValue: string | number | boolean | string[] | number[] | boolean[] | undefined =
+            config.initialValue;
 
-        const updatedConfig = { ...config, initialValue: combinedInitialValues };
+        if (Array.isArray(config.initialValue)) {
+            if (typeof config.initialValue[0] === "string") {
+                nextInitialValue = initialInput.trim()
+                    ? Array.from(new Set([...(config.initialValue as string[]), initialInput.trim()]))
+                    : config.initialValue;
+            } else if (typeof config.initialValue[0] === "number") {
+                const parsed = Number(initialInput);
+                if (!isNaN(parsed)) {
+                    nextInitialValue = Array.from(new Set([...(config.initialValue as number[]), parsed]));
+                }
+            } else if (typeof config.initialValue[0] === "boolean") {
+                const normalized = initialInput.trim().toLowerCase();
+                if (normalized === "true" || normalized === "false") {
+                    const parsed = normalized === "true";
+                    nextInitialValue = Array.from(new Set([...(config.initialValue as boolean[]), parsed]));
+                }
+            }
+        } else if (typeof config.initialValue === "string") {
+            nextInitialValue = initialInput.trim();
+        } else if (typeof config.initialValue === "number") {
+            const parsed = Number(initialInput);
+            nextInitialValue = isNaN(parsed) ? config.initialValue : parsed;
+        } else if (typeof config.initialValue === "boolean") {
+            const normalized = initialInput.trim().toLowerCase();
+            if (normalized === "true") nextInitialValue = true;
+            else if (normalized === "false") nextInitialValue = false;
+        }
 
-        // clean config here
-        console.log(updatedConfig)
-        setFinalConfig(cleanConfig(updatedConfig, ["initialValue", "pattern"]));
-    };
+
+        const updatedConfig = { ...config, initialValue: nextInitialValue };
+
+        setFinalConfig(updatedConfig);
+    }, [config, initialInput]);
+
 
     return {
         config,
-        setConfig,
         finalConfig,
-        setFinalConfig,
         initialInput,
         setInitialInput,
         handleChange,

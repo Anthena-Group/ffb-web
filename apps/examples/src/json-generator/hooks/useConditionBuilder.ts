@@ -1,13 +1,14 @@
-import { useState } from "react";
+import { useState, useCallback, useEffect } from "react";
 import {
   ConditionAction,
   ConditionName,
   PostCondition,
   type ConditionGroup,
   type ConditionLogic,
+  type ConditionType,
 } from "formik-form-builder";
 
-export function useConditionBuilder() {
+export function useConditionBuilder(onChange: (condition: ConditionType) => void) {
   const [action, setAction] = useState<ConditionAction | "">("");
   const [groups, setGroups] = useState<ConditionGroup[]>([
     {
@@ -24,44 +25,50 @@ export function useConditionBuilder() {
     },
   ]);
 
-  const updateGroup = (index: number, key: keyof ConditionGroup, value: any) => {
-    setGroups((prev) =>
-      prev.map((g, i) => (i === index ? { ...g, [key]: value } : g))
-    );
-  };
+  useEffect(() => {
+    onChange({ action: action as ConditionAction, groups });
+  }, [action, groups]);
 
-  const deleteGroup = (index: number) => {
+  const updateGroup = useCallback(
+    (index: number, key: keyof ConditionGroup, value: ConditionGroup[keyof ConditionGroup]) => {
+      setGroups((prev) =>
+        prev.map((g, i) => (i === index ? { ...g, [key]: value } : g))
+      );
+    },
+    []
+  );
+
+  const deleteGroup = useCallback((index: number) => {
     setGroups((prev) => prev.filter((_, i) => i !== index));
-  };
+  }, []);
 
-  const updateLogic = (
-    groupIndex: number,
-    logicIndex: number,
-    key: keyof ConditionLogic,
-    value: any
-  ) => {
-    setGroups((prev) =>
-      prev.map((group, i) =>
-        i === groupIndex
-          ? {
+  const updateLogic = useCallback(
+    (groupIndex: number, logicIndex: number, key: keyof ConditionLogic, value: ConditionLogic[keyof ConditionLogic]) => {
+      setGroups((prev) =>
+        prev.map((group, i) =>
+          i === groupIndex
+            ? {
               ...group,
               logic: group.logic.map((l, li) =>
                 li === logicIndex ? { ...l, [key]: value } : l
               ),
             }
-          : group
-      )
-    );
-  };
+            : group
+        )
+      );
+    },
+    []
+  );
 
-  const addLogic = (groupIndex: number) => {
-    const lastLogic = groups[groupIndex].logic.at(-1)!;
-    if (!lastLogic.field || !lastLogic.value) return;
+  const addLogic = useCallback(
+    (groupIndex: number) => {
+      const lastLogic = groups[groupIndex].logic.at(-1)!;
+      if (!lastLogic.field || !lastLogic.value) return;
 
-    setGroups((prev) =>
-      prev.map((group, index) =>
-        index === groupIndex
-          ? {
+      setGroups((prev) =>
+        prev.map((group, index) =>
+          index === groupIndex
+            ? {
               ...group,
               logic: [
                 ...group.logic,
@@ -73,12 +80,14 @@ export function useConditionBuilder() {
                 },
               ],
             }
-          : group
-      )
-    );
-  };
+            : group
+        )
+      );
+    },
+    [groups]
+  );
 
-  const deleteLogic = (groupIndex: number, logicIndex: number) => {
+  const deleteLogic = useCallback((groupIndex: number, logicIndex: number) => {
     setGroups((prev) =>
       prev.map((group, index) =>
         index === groupIndex
@@ -86,9 +95,9 @@ export function useConditionBuilder() {
           : group
       )
     );
-  };
+  }, []);
 
-  const addGroup = () => {
+  const addGroup = useCallback(() => {
     const lastGroup = groups.at(-1);
     const groupLogic = lastGroup?.logic.at(-1);
     if (!groupLogic?.field || !groupLogic.value) return;
@@ -108,7 +117,7 @@ export function useConditionBuilder() {
         ],
       },
     ]);
-  };
+  }, [groups]);
 
   return {
     action,

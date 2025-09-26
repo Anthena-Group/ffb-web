@@ -1,14 +1,14 @@
 ---
 id: to-do-list-checkbox
-title: Todo List
-sidebar_label: Todo List
+title: To-do List
+sidebar_label: To-do List
 sidebar_position: 3
-description: Todo list example of checkbox using formik form builder.
+description: To-do list example of checkbox using formik form builder.
 ---
 
 import LiveCodeBlock from "@site/src/components/live-demo"
 
-This checkbox group is suited for task or checklist-style inputs where users can mark multiple actions as selected. It works well for to-do lists, progress tracking, or any form that needs multiple step confirmations. The column layout ensures clarity, and MUI props handle the styling.
+This checkbox group is suited for tasks or checklist-style inputs where users can mark multiple actions. It works well for to-do lists, progress tracking, or any form that needs multiple step confirmations. The column layout ensures clarity, and MUI props handle the styling.
 
 This example uses the `FormikFormBuilder` to render multiple items.
 The field is validated using Yup and defined in checklistFields config variable. Check [Validation Rules](/docs/getting-started/my-doc-configuration#validation-rules) for more detail.
@@ -30,7 +30,7 @@ const ToDoExample = () => {
       options: [
         { label: "Check email", value: "email" },
         { label: "Write code", value: "code" },
-        { label: "Attend standup", value: "standup" },
+        { label: "Attend stand-up", value: "standup" },
         { label: "Review PRs", value: "review" },
       ],
       muiProps: { variant: "outlined" },
@@ -53,7 +53,7 @@ const ToDoExample = () => {
       {({ values }) => (
         <Form>
           <Typography level="h4" gutterBottom>
-            Checklist Example usage
+            Checklist Example Usage
           </Typography>
 
           <FormBuilder

@@ -1,9 +1,8 @@
-import { useState } from "react";
+import { useState, useCallback, useEffect } from "react";
 import type { ValidationRule } from "formik-form-builder";
 import type { ValidationRuleType } from "../types";
 
-
-export function useValidationBuilder() {
+export function useValidationBuilder(onChange: (rule: ValidationRule) => void) {
   const [draftRules, setDraftRules] = useState<ValidationRule>({});
   const [selectedRule, setSelectedRule] = useState<ValidationRuleType | null>(null);
 
@@ -19,43 +18,58 @@ export function useValidationBuilder() {
     "lessThan",
   ];
 
-  const addRule = () => {
+  useEffect(() => {
+    onChange(confirmRules())
+  }, [draftRules, selectedRule])
+
+  const addRule = useCallback(() => {
     if (!selectedRule) return;
     if (draftRules.hasOwnProperty(selectedRule)) return;
 
-    if (selectedRule === "required") {
-      setDraftRules((prev) => ({ ...prev, required: true, message: "" }));
-    } else if (selectedRule === "isPositive") {
-      setDraftRules((prev) => ({ ...prev, isPositive: true, isPositiveRuleMsg: "" }));
-    } else if (selectedRule === "pattern") {
-      setDraftRules((prev) => ({ ...prev, pattern: /.+/, patternRuleMsg: "" }));
-    } else {
-      setDraftRules((prev) => ({
-        ...prev,
-        [selectedRule]: undefined,
-        [`${selectedRule}RuleMsg`]: "",
-      }));
-    }
+    setDraftRules((prev) => {
+      if (selectedRule === "required") {
+        return { ...prev, required: true, message: "" };
+      } else if (selectedRule === "isPositive") {
+        return { ...prev, isPositive: true, isPositiveRuleMsg: "" };
+      } else if (selectedRule === "pattern") {
+        return { ...prev, pattern: /.+/, patternRuleMsg: "" };
+      } else {
+        return {
+          ...prev,
+          [selectedRule]: undefined,
+          [`${selectedRule}RuleMsg`]: "",
+        };
+      }
+    });
 
     setSelectedRule(null);
-  };
+  }, [selectedRule, draftRules]);
 
-  const updateRule = (key: keyof ValidationRule, value: any) => {
-    setDraftRules((prev) => ({ ...prev, [key]: value }));
-  };
+  const updateRule = useCallback(
+    (key: keyof ValidationRule, value: boolean | string | number | RegExp | undefined) => {
+      setDraftRules((prev) => ({ ...prev, [key]: value }));
+    },
+    []
+  );
 
-  const deleteRule = (key: ValidationRuleType) => {
-    const newDraft = { ...draftRules };
-    delete newDraft[key];
-    delete (newDraft as any)[`${key}RuleMsg`];
-    setDraftRules(newDraft);
-  };
+  const deleteRule = useCallback(
+    (key: ValidationRuleType) => {
+      setDraftRules((prev) => {
+        const newDraft = { ...prev };
+        delete newDraft[key];
+        if (key === "required") delete newDraft["message"];
+        delete (newDraft as ValidationRule)[`${key}RuleMsg` as keyof ValidationRule];
+        return newDraft;
+      });
+    },
+    []
+  );
 
-  const confirmRules = () => {
+  const confirmRules = useCallback(() => {
     return Object.fromEntries(
       Object.entries(draftRules).filter(([_, v]) => v !== undefined && v !== "")
     ) as ValidationRule;
-  };
+  }, [draftRules]);
 
   return {
     draftRules,

@@ -10,23 +10,18 @@ const config: Config = {
     v4: true, 
   },
 
-  // Set the production url of your site here
   url: 'https://your-docusaurus-site.example.com',
   // Set the /<baseUrl>/ pathname under which your site is served
   // For GitHub pages deployment, it is often '/<projectName>/'
   baseUrl: '/',
 
-  // GitHub pages deployment config.
-  // If you aren't using GitHub pages, you don't need these.
   organizationName: 'Anthena Group', // Usually your GitHub org/user name.
   projectName: 'formik-form-builder', // Usually your repo name.
 
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
 
-  // Even if you don't use internationalization, you can use this field to set
-  // useful metadata like html lang. For example, if your site is Chinese, you
-  // may want to replace "en" with "zh-Hans".
+// Translate page
   i18n: {
     defaultLocale: "en",
     locales: ["en"],
@@ -63,7 +58,8 @@ const config: Config = {
       title: 'Formik Form Builder',
       logo: {
         alt: 'My Site Logo',
-        src: 'img/logo.png.jpg',
+        src: 'img/lightModeLogo.png',
+        srcDark: 'img/darkModeLogo.png',
       },
       hideOnScroll: true,
       items: [
@@ -76,7 +72,7 @@ const config: Config = {
 
         { to: '/blog', label: 'Blog', position: 'left' },
         {
-          href: 'https://github.com/Anthena-Group/formik-from-builder',
+          href: 'https://github.com/Anthena-Group/ffb-web',
           className: "header-github-logo",
           "arial-label": "Github repository",
           position: 'right',
@@ -90,11 +86,11 @@ const config: Config = {
           title: 'Docs',
           items: [
             {
-              label: 'Intorduction',
+              label: 'Introduction',
               to: '/docs/intro',
             },
             {
-              label: 'Geting Started',
+              label: 'Getting Started',
               to: '/docs/category/getting-started',
             },
             {
@@ -112,15 +108,15 @@ const config: Config = {
           items: [
             {
               label: 'Stack Overflow',
-              href: 'https://stackoverflow.com/questions/tagged/docusaurus',
+              href: '#',
             },
             {
               label: 'Discord',
-              href: 'https://discordapp.com/invite/docusaurus',
+              href: 'https://discord.gg/YxhWTrbq',
             },
             {
               label: 'X',
-              href: 'https://x.com/docusaurus',
+              href: '#',
             },
           ],
         },
@@ -133,7 +129,7 @@ const config: Config = {
             },
             {
               label: 'GitHub',
-              href: 'https://github.com/Anthena-Group/formik-from-builder',
+              href: 'https://github.com/Anthena-Group/ffb-web',
             },
           ],
         },
