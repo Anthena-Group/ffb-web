@@ -103,3 +103,8 @@ Each field is defined by an object with:
 For more detail, please see the **full documentation**: [Docs](https://formik-form-builder.web.app/)
 
 ---
+### Gaps
+
+The Gap: Build a simple, visual workflow builder inside your product. When Form is Submitted → Send templated email to user → Add row to Google Sheet → Send Slack message to #sales channel. This keeps the user inside your ecosystem and solves a much larger business problem than just data collection.
+
+---
