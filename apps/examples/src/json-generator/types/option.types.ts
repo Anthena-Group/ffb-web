@@ -5,7 +5,7 @@ export type ExtendedOptionType = OptionType & {
 };
 
 export type OptionBuilderProps = {
-    onConfirm: (options: OptionType[]) => void;
+    onChange: (options: OptionType[]) => void;
     type?: InputTypes;
     variant?: "ICON" | "DEFAULT";
 };

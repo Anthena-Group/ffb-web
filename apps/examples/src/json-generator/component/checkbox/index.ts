@@ -1,2 +1,2 @@
 export { default as CheckboxBuilder } from "./checkbox"
-export { default as ConfigFields } from "./config-fields"
+export { default as CheckboxConfigField } from "./checkbox-config-fields"

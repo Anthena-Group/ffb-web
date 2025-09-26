@@ -4,8 +4,9 @@ import { ConditionAction } from "formik-form-builder";
 import type { ConditionBuilderProps } from "../../../types";
 import { useConditionBuilder } from "../../../hooks";
 import { GroupCard } from "./card";
+import React from "react";
 
-export default function ConditionBuilder({ onConfirm }: ConditionBuilderProps) {
+function ConditionBuilder({ onChange }: ConditionBuilderProps) {
   const {
     action,
     setAction,
@@ -16,14 +17,10 @@ export default function ConditionBuilder({ onConfirm }: ConditionBuilderProps) {
     addLogic,
     deleteLogic,
     addGroup,
-  } = useConditionBuilder();
-
-  const handleConfirm = () => {
-    onConfirm({ action: action as ConditionAction, groups });
-  };
+  } = useConditionBuilder(onChange);
 
   return (
-    <Stack spacing={3}>
+    <Stack spacing={3} mt={2}>
       <Typography level="h4">Conditions:</Typography>
 
       <Stack direction="row" spacing={2} alignItems="center">
@@ -59,14 +56,9 @@ export default function ConditionBuilder({ onConfirm }: ConditionBuilderProps) {
         <Button startDecorator={<Add />} onClick={addGroup}>
           Add Group
         </Button>
-        <Button
-          color="success"
-          onClick={handleConfirm}
-          disabled={action === ""}
-        >
-          Confirm
-        </Button>
       </Box>
     </Stack>
   );
 }
+
+export default React.memo(ConditionBuilder);

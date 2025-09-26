@@ -1,4 +1,4 @@
-import { Box, Button, Stack, Typography, Select, Option } from "@mui/joy";
+import { Button, Stack, Typography, Select, Option } from "@mui/joy";
 import type {
   ValidationBuilderProps,
   ValidationRuleType,
@@ -11,10 +11,10 @@ import {
   RequiredRule,
 } from "./validation-rule";
 import { useValidationBuilder } from "../../../hooks";
+import React from "react";
+import type { ValidationRule } from "formik-form-builder";
 
-export default function ValidationBuilder({
-  onConfirm,
-}: ValidationBuilderProps) {
+function ValidationBuilder({ onChange }: ValidationBuilderProps) {
   const {
     draftRules,
     selectedRule,
@@ -23,11 +23,10 @@ export default function ValidationBuilder({
     addRule,
     updateRule,
     deleteRule,
-    confirmRules,
-  } = useValidationBuilder();
+  } = useValidationBuilder(onChange);
 
   return (
-    <Stack spacing={2}>
+    <Stack spacing={2} mt={2}>
       <Typography level="h4">Validation:</Typography>
 
       {/* Add Rule */}
@@ -102,10 +101,16 @@ export default function ValidationBuilder({
             <NumericRule
               key={key}
               label={key}
-              value={(draftRules as any)[key]}
-              message={(draftRules as any)[`${key}RuleMsg`]}
-              onValueChange={(val) => updateRule(key as ValidationRuleType, val)}
-              onMessageChange={(val) => updateRule(`${key}RuleMsg` as ValidationRuleType, val)}
+              value={draftRules[key as keyof ValidationRule] as number}
+              message={
+                draftRules[`${key}RuleMsg` as keyof ValidationRule] as string
+              }
+              onValueChange={(val) =>
+                updateRule(key as ValidationRuleType, val)
+              }
+              onMessageChange={(val) =>
+                updateRule(`${key}RuleMsg` as ValidationRuleType, val)
+              }
               onDelete={() => deleteRule(key as ValidationRuleType)}
             />
           );
@@ -113,13 +118,8 @@ export default function ValidationBuilder({
 
         return null;
       })}
-
-      {/* Confirm */}
-      <Box display="flex" justifyContent="center" alignItems="center">
-        <Button color="success" onClick={() => onConfirm(confirmRules())}>
-          Confirm
-        </Button>
-      </Box>
     </Stack>
   );
 }
+
+export default React.memo(ValidationBuilder);

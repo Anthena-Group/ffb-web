@@ -3,20 +3,26 @@ import { Formik, Form } from "formik";
 import {
   FormBuilder,
   useFormBuilder,
-  type FieldCheckboxType,
+  type FieldType,
 } from "formik-form-builder";
+import { useMemo } from "react";
 
-interface Props {
-  finalConfig: Partial<FieldCheckboxType>;
+interface LivePreviewProps {
+  finalConfig: Partial<FieldType>;
 }
 
-export function LivePreview({ finalConfig }: Props) {
+export function LivePreview({ finalConfig }: LivePreviewProps) {
   const hasConfig = Object.keys(finalConfig).length > 0;
-  const { initialValues, yupSchemaValidation } = hasConfig
-    ? useFormBuilder([finalConfig as FieldCheckboxType])
-    : { initialValues: {}, yupSchemaValidation: undefined };
+
+  const { initialValues, yupSchemaValidation } = useMemo(() => {
+    if (!hasConfig) {
+      return { initialValues: {}, yupSchemaValidation: undefined };
+    }
+    return useFormBuilder([finalConfig as FieldType]);
+  }, [hasConfig, finalConfig]);
 
   if (!hasConfig) return null;
+
 
   return (
     <Card variant="outlined" sx={{ flex: 1 }}>
@@ -37,7 +43,7 @@ export function LivePreview({ finalConfig }: Props) {
                 group="form"
                 values={values}
                 data-test="form"
-                fields={[finalConfig as FieldCheckboxType]}
+                fields={[finalConfig as FieldType]}
               />
               <Box
                 width="100%"

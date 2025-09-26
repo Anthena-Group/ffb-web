@@ -2,7 +2,6 @@ import { Stack, Typography, Input, IconButton } from "@mui/joy";
 import DeleteIcon from "@mui/icons-material/Delete";
 import type { PatternRuleProps } from "../../../../types";
 
-
 export function PatternRule({
   message,
   onMessageChange,

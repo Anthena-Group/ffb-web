@@ -1,46 +1,62 @@
 import {
-  Box,
   Button,
   Input,
   Stack,
   Typography,
   IconButton,
   Autocomplete,
+  Box,
 } from "@mui/joy";
 import DeleteIcon from "@mui/icons-material/Delete";
 import * as MuiIcons from "@mui/icons-material";
 import type { ExtendedOptionType, OptionBuilderProps } from "../../../types";
 import { useOptionBuilder } from "../../../hooks";
-import { DynamicIcon } from "./dynamic-icon";
-import { useState } from "react";
+import React, { useState } from "react";
 import AutorenewIcon from "@mui/icons-material/Autorenew";
 
-export default function OptionBuilder({
-  onConfirm,
-  type,
-  variant,
-}: OptionBuilderProps) {
+function OptionBuilder({ onChange, type, variant }: OptionBuilderProps) {
   const {
     options,
     handleOptionChange,
     addOption,
     removeOption,
-    getValidOptions,
     getIconSuggestions,
-  } = useOptionBuilder();
+  } = useOptionBuilder(onChange);
 
   const showIconField = type === "radio" && variant === "ICON";
-
   const [isLabel, setIsLabel] = useState<boolean>(true);
+
+  const [iconInputs, setIconInputs] = useState<string[]>([]);
 
   const handleIsLabel = (option: ExtendedOptionType) => {
     isLabel ? (option.label = "") : (option.title = "");
     setIsLabel((prev) => !prev);
   };
 
+  const handleIconInputChange = (index: number, val: string) => {
+    setIconInputs((prev) => {
+      const next = [...prev];
+      next[index] = val;
+      return next;
+    });
+  };
+
   return (
-    <Stack spacing={2}>
-      <Typography level="h4">Options</Typography>
+    <Stack spacing={2} mt={2}>
+      <Box display={"flex"} gap={3}>
+        <Typography level="h4">Options</Typography>
+        <Button
+          onClick={addOption}
+          disabled={
+            !(
+              options[options.length - 1].label ||
+              options[options.length - 1].title
+            )?.trim() || !String(options[options.length - 1].value ?? "").trim()
+          }
+        >
+          Add option
+        </Button>
+      </Box>
 
       {options.map((opt, index) => (
         <Stack key={index} direction="row" spacing={1} alignItems="center">
@@ -89,27 +105,29 @@ export default function OptionBuilder({
             }
           />
 
-          {/* Search icons */}
+          {/* Icon Search */}
           {showIconField && (
             <Autocomplete
               freeSolo
               placeholder="Search icons..."
-              options={getIconSuggestions((opt.icon as string) || "")}
-              value={opt.icon || null}
-              onChange={(_, val) =>
-                handleOptionChange(index, "icon", (val as string) || "")
-              }
-              onInputChange={(_, val) =>
-                handleOptionChange(index, "icon", val || "")
-              }
+              options={getIconSuggestions(iconInputs[index] || "")}
+              value={iconInputs[index] || ""}
+              onInputChange={(_, val) => {
+                handleIconInputChange(index, val);
+              }}
+              onChange={(_, val) => {
+                if (val && typeof val === "string" && val in MuiIcons) {
+                  const IconComp = (MuiIcons as any)[val];
+                  handleOptionChange(index, "icon", <IconComp />);
+                  handleIconInputChange(index, val);
+                } else {
+                  handleOptionChange(index, "icon", null);
+                  handleIconInputChange(index, "");
+                }
+              }}
               isOptionEqualToValue={(option, value) => option === value}
               sx={{ minWidth: 150 }}
             />
-          )}
-
-          {/* Render Icon */}
-          {opt.icon && (opt.icon as string) in MuiIcons && (
-            <DynamicIcon name={opt.icon as string} />
           )}
 
           {/* Remove option */}
@@ -120,24 +138,8 @@ export default function OptionBuilder({
           )}
         </Stack>
       ))}
-
-      <Box display="flex" justifyContent="space-evenly" alignItems="center">
-        <Button
-          onClick={addOption}
-          disabled={
-            !(
-              options[options.length - 1].label ||
-              options[options.length - 1].title
-            )?.trim() || !String(options[options.length - 1].value ?? "").trim()
-          }
-        >
-          Add more option
-        </Button>
-
-        <Button color="success" onClick={() => onConfirm(getValidOptions())}>
-          Confirm
-        </Button>
-      </Box>
     </Stack>
   );
 }
+
+export default React.memo(OptionBuilder);

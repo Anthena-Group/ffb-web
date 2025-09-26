@@ -4,13 +4,13 @@ export type GroupCardProps = {
   group: ConditionGroup;
   groupIndex: number;
   groupsLength: number;
-  updateGroup: (index: number, key: keyof ConditionGroup, value: any) => void;
+  updateGroup: (index: number, key: keyof ConditionGroup, value: ConditionGroup[keyof ConditionGroup]) => void;
   deleteGroup: (index: number) => void;
   updateLogic: (
     groupIndex: number,
     logicIndex: number,
     key: keyof ConditionLogic,
-    value: any
+    value: ConditionLogic[keyof ConditionLogic]
   ) => void;
   addLogic: (groupIndex: number) => void;
   deleteLogic: (groupIndex: number, logicIndex: number) => void;
@@ -24,12 +24,12 @@ export type LogicRowProps = {
     groupIndex: number,
     logicIndex: number,
     key: keyof ConditionLogic,
-    value: any
+    value: ConditionLogic[keyof ConditionLogic]
   ) => void;
   deleteLogic: (groupIndex: number, logicIndex: number) => void;
   disableDelete: boolean;
 };
 
 export interface ConditionBuilderProps {
-  onConfirm: (conditions: ConditionType) => void;
+  onChange: (conditions: ConditionType) => void;
 }
