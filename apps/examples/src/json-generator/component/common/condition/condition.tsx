@@ -27,7 +27,7 @@ function ConditionBuilder({ onChange }: ConditionBuilderProps) {
         <Typography>Action:</Typography>
         <Select
           placeholder="Select action"
-          value={action as ConditionAction}
+          value={action as ConditionAction }
           onChange={(_, val) => setAction(val as ConditionAction)}
         >
           {Object.values(ConditionAction).map((a) => (

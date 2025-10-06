@@ -9,7 +9,7 @@ import {
 } from "formik-form-builder";
 
 export function useConditionBuilder(onChange: (condition: ConditionType) => void) {
-  const [action, setAction] = useState<ConditionAction | "">("");
+  const [action, setAction] = useState<ConditionAction >(ConditionAction.SHOW);
   const [groups, setGroups] = useState<ConditionGroup[]>([
     {
       group: "group1",

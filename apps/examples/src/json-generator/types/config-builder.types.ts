@@ -1,3 +1,3 @@
-export type Action<T> =
-    | { type: "CHANGE"; key: keyof T; value: unknown }
-    | { type: "RESET"; payload: T };
+export type Action<FieldType> =
+    | { type: "CHANGE"; key: keyof FieldType; value: unknown }
+    | { type: "RESET"; payload: FieldType };

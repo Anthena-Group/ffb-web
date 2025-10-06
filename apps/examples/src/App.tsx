@@ -50,20 +50,20 @@ const examples: Record<string, { label: string; component: React.ReactNode }> =
     validator: {
       label: "Validation Generator",
       component: (
-        <ValidationBuilder onConfirm={(rules) => console.log(rules)} />
+        <ValidationBuilder onChange={(rules) => console.log(rules)} />
       ),
     },
     conditional: {
       label: "Condition Generator",
-      component: <ConditionBuilder onConfirm={(rules) => console.log(rules)} />,
+      component: <ConditionBuilder onChange={(rules) => console.log(rules)} />,
     },
     gridProps: {
       label: "Grid Props Generator",
-      component: <GridPropsBuilder onConfirm={(rules) => console.log(rules)} />,
+      component: <GridPropsBuilder onChange={(rules) => console.log(rules)} />,
     },
     option: {
       label: "Option Generator",
-      component: <OptionBuilder onConfirm={(rules) => console.log(rules)} />,
+      component: <OptionBuilder onChange={(rules) => console.log(rules)} />,
     },
 
     Radio: {
