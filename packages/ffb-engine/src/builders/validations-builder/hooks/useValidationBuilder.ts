@@ -2,8 +2,8 @@ import { useState, useCallback, useEffect } from "react";
 import type { ValidationRule } from "formik-form-builder";
 import type { ValidationRuleType } from "../types";
 
-export function useValidationBuilder(onChange: (rule: ValidationRule) => void) {
-  const [draftRules, setDraftRules] = useState<ValidationRule>({});
+export function useValidationBuilder(onChange: (rule: ValidationRule) => void, defaultRules?: ValidationRule) {
+  const [draftRules, setDraftRules] = useState<ValidationRule>(defaultRules ?? {});
   const [selectedRule, setSelectedRule] = useState<ValidationRuleType | null>(null);
 
   const availableRules: ValidationRuleType[] = [
@@ -73,6 +73,7 @@ export function useValidationBuilder(onChange: (rule: ValidationRule) => void) {
 
   return {
     draftRules,
+    setDraftRules,
     selectedRule,
     setSelectedRule,
     availableRules,

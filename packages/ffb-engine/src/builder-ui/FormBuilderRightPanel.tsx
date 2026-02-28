@@ -1,3 +1,4 @@
+// FormBuilderRightPanel.tsx
 import * as React from "react";
 import {
   Box,
@@ -88,10 +89,19 @@ interface PanelProps {
 
 // --- Helper Components ---
 
-/** * PropertyRow: Standardizes the vertical spacing and label styling 
+/**
+ * PropertyRow: Standardizes the vertical spacing and label styling
  * for a premium "Inspector" look.
  */
-const PropertyRow = ({ label, children, description }: { label: string; children: React.ReactNode; description?: string }) => (
+const PropertyRow = ({
+  label,
+  children,
+  description,
+}: {
+  label: string;
+  children: React.ReactNode;
+  description?: string;
+}) => (
   <Box>
     <Typography
       level="body-xs"
@@ -131,7 +141,8 @@ export function FormBuilderRightPanel({
       sx={{
         width: rightOpen ? 380 : 0,
         flexBasis: rightOpen ? 380 : 0,
-        transition: "width 0.25s cubic-bezier(0.4, 0, 0.2, 1), flex-basis 0.25s cubic-bezier(0.4, 0, 0.2, 1)",
+        transition:
+          "width 0.25s cubic-bezier(0.4, 0, 0.2, 1), flex-basis 0.25s cubic-bezier(0.4, 0, 0.2, 1)",
         borderLeft: rightOpen ? "1px solid" : "none",
         borderColor: "divider",
         display: "flex",
@@ -168,8 +179,12 @@ export function FormBuilderRightPanel({
             <Tune sx={{ fontSize: 18 }} />
           </Box>
           <Box>
-            <Typography level="title-md" sx={{ fontWeight: 800 }}>Inspector</Typography>
-            <Typography level="body-xs" sx={{ opacity: 0.6 }}>Field configuration</Typography>
+            <Typography level="title-md" sx={{ fontWeight: 800 }}>
+              Inspector
+            </Typography>
+            <Typography level="body-xs" sx={{ opacity: 0.6 }}>
+              Field configuration
+            </Typography>
           </Box>
         </Stack>
 
@@ -201,7 +216,7 @@ function FieldSettingsPanel({
   green,
   typeMeta,
 }: Omit<PanelProps, "rightOpen" | "setRightOpen">) {
-  // Fix: Explicitly manage tab index to prevent sync issues between different field selections
+  // Explicitly manage tab index to prevent sync issues
   const [tabIndex, setTabIndex] = React.useState(0);
 
   // Reset to first tab when selecting a new field
@@ -221,13 +236,11 @@ function FieldSettingsPanel({
           gap: 1.5,
           opacity: 0.5,
           textAlign: "center",
-          p: 4
+          p: 4,
         }}
       >
         <Settings sx={{ fontSize: 40 }} />
-        <Typography level="body-sm">
-          Select an element on the canvas to edit its properties.
-        </Typography>
+        <Typography level="body-sm">Select an element on the canvas to edit its properties.</Typography>
       </Box>
     );
   }
@@ -235,12 +248,40 @@ function FieldSettingsPanel({
   const t = selected.type;
 
   // Logic checks
-  const showPlaceholder = [InputTypes.TEXT, InputTypes.MULTI_TEXT, InputTypes.AUTO_COMPLETE, InputTypes.DATE].includes(t);
-  const showOptions = [InputTypes.SELECT, InputTypes.DROPDOWN, InputTypes.AUTO_COMPLETE, InputTypes.RADIO, InputTypes.CHECKBOX].includes(t);
+  const showPlaceholder = [
+    InputTypes.TEXT,
+    InputTypes.MULTI_TEXT,
+    InputTypes.AUTO_COMPLETE,
+    InputTypes.DATE,
+  ].includes(t);
+
+  const showOptions = [
+    InputTypes.SELECT,
+    InputTypes.DROPDOWN,
+    InputTypes.AUTO_COMPLETE,
+    InputTypes.RADIO,
+    InputTypes.CHECKBOX,
+  ].includes(t);
+
   const showDirection = t === InputTypes.CHECKBOX || t === InputTypes.RADIO;
   const showOutputType = t === InputTypes.RADIO;
   const showVariant = t === InputTypes.RADIO;
   const showValueType = t === InputTypes.CHECKBOX;
+
+  // Small helper for consistent tab styling
+  const tabSx = (idx: number) => ({
+    borderRadius: "lg",
+    flex: 1,
+    minHeight: 36,
+    transition: "0.2s",
+    ...(tabIndex === idx
+      ? {
+          bgcolor: "background.surface",
+          color: green.accent,
+          boxShadow: "0 2px 8px rgba(0,0,0,0.06)",
+        }
+      : {}),
+  });
 
   return (
     <Stack spacing={2.5}>
@@ -259,7 +300,16 @@ function FieldSettingsPanel({
           <Typography level="body-xs" fontWeight="800" sx={{ color: "neutral.500" }}>
             ACTIVE FIELD
           </Typography>
-          <Chip size="sm" variant="solid" sx={{ bgcolor: green.accent, color: "#fff", fontWeight: 700, borderRadius: "md" }}>
+          <Chip
+            size="sm"
+            variant="solid"
+            sx={{
+              bgcolor: green.accent,
+              color: "#fff",
+              fontWeight: 700,
+              borderRadius: "md",
+            }}
+          >
             {typeMeta(t).chip}
           </Chip>
         </Stack>
@@ -268,12 +318,8 @@ function FieldSettingsPanel({
         </Typography>
       </Sheet>
 
-      {/* Modern Tabs UI */}
-      <Tabs
-        value={tabIndex}
-        onChange={(_, val) => setTabIndex(val as number)}
-        sx={{ bgcolor: "transparent" }}
-      >
+      {/* Tabs */}
+      <Tabs value={tabIndex} onChange={(_, val) => setTabIndex(val as number)} sx={{ bgcolor: "transparent" }}>
         <TabList
           disableUnderline
           sx={{
@@ -283,25 +329,37 @@ function FieldSettingsPanel({
             bgcolor: "background.level1",
             display: "flex",
             justifyContent: "space-between",
-            [`& .MuiTab-root`]: {
-              borderRadius: "lg",
-              flex: 1,
-              minHeight: 36,
-              transition: "0.2s",
-              [`&.Mui-selected`]: {
-                bgcolor: "background.surface",
-                color: green.accent,
-                boxShadow: "0 2px 8px rgba(0,0,0,0.06)",
-              },
-              [`&.Mui-disabled`]: { opacity: 0.3 },
-            },
           }}
         >
-          <Tooltip title="General" variant="soft"><Tab disableIndicator><Settings fontSize="small" /></Tab></Tooltip>
-          <Tooltip title="Options" variant="soft"><Tab disableIndicator disabled={!showOptions}><List fontSize="small" /></Tab></Tooltip>
-          <Tooltip title="Layout" variant="soft"><Tab disableIndicator><GridView fontSize="small" /></Tab></Tooltip>
-          <Tooltip title="Validation" variant="soft"><Tab disableIndicator><VerifiedUser fontSize="small" /></Tab></Tooltip>
-          <Tooltip title="Conditions" variant="soft"><Tab disableIndicator><Zap fontSize="small" /></Tab></Tooltip>
+          <Tab value={0} disableIndicator sx={tabSx(0)}>
+            <Tooltip title="General" variant="soft">
+              <Settings fontSize="small" />
+            </Tooltip>
+          </Tab>
+
+          <Tab value={1} disableIndicator disabled={!showOptions} sx={tabSx(1)}>
+            <Tooltip title="Options" variant="soft">
+              <List fontSize="small" />
+            </Tooltip>
+          </Tab>
+
+          <Tab value={2} disableIndicator sx={tabSx(2)}>
+            <Tooltip title="Layout" variant="soft">
+              <GridView fontSize="small" />
+            </Tooltip>
+          </Tab>
+
+          <Tab value={3} disableIndicator sx={tabSx(3)}>
+            <Tooltip title="Validation" variant="soft">
+              <VerifiedUser fontSize="small" />
+            </Tooltip>
+          </Tab>
+
+          <Tab value={4} disableIndicator sx={tabSx(4)}>
+            <Tooltip title="Conditions" variant="soft">
+              <Zap size={16} />
+            </Tooltip>
+          </Tab>
         </TabList>
 
         <Box sx={{ mt: 3 }}>
@@ -358,13 +416,15 @@ function FieldSettingsPanel({
               <Divider sx={{ my: 1 }} />
 
               <Stack direction="row" justifyContent="space-between" alignItems="center">
-                <Typography level="title-sm" sx={{ fontWeight: 600 }}>Required Field</Typography>
+                <Typography level="title-sm" sx={{ fontWeight: 600 }}>
+                  Required Field
+                </Typography>
                 <Switch
                   checked={Boolean(selected.required)}
                   onChange={(e) => onPatch({ required: e.target.checked })}
                   sx={{
                     "--Switch-trackBackground": Boolean(selected.required) ? green.accent : undefined,
-                    "&:hover": { "--Switch-trackBackground": green.accent }
+                    "&:hover": { "--Switch-trackBackground": green.accent },
                   } as any}
                 />
               </Stack>
@@ -445,6 +505,7 @@ function FieldSettingsPanel({
             {showOptions ? (
               <FieldOptionBuilder
                 type={t}
+                value={selected.options}
                 variant={selected.variant}
                 onChange={(opts: any) => onPatch({ options: opts ?? [] })}
               />
@@ -466,15 +527,16 @@ function FieldSettingsPanel({
           {/* TAB 3: VALIDATION */}
           <TabPanel value={3} sx={{ p: 0 }}>
             <ValidationBuilder
+              value={(selected.validation as ValidationRule) ?? {}}
               onChange={(rules: ValidationRule) => onPatch({ validation: rules })}
             />
           </TabPanel>
 
           {/* TAB 4: CONDITIONS */}
           <TabPanel value={4} sx={{ p: 0 }}>
-            <ConditionBuilder
-              onChange={(c: ConditionType) => onPatch({ conditions: c })}
-            />
+            <ConditionBuilder 
+              value={selected.conditions}
+              onChange={(c: ConditionType) => onPatch({ conditions: c })} />
           </TabPanel>
         </Box>
       </Tabs>

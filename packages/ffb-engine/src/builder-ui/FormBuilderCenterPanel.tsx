@@ -19,8 +19,15 @@ import {
   Textarea,
   Typography,
 } from "@mui/joy";
-import { ChevronLeft, ChevronRight, Code as CodeIcon, Visibility } from "@mui/icons-material";
-import { InputTypes } from "formik-form-builder";
+import {
+  ChevronLeft,
+  ChevronRight,
+  Code as CodeIcon,
+  Visibility,
+} from "@mui/icons-material";
+import { InputTypes, type FieldType } from "formik-form-builder";
+import { FormBuilderPreview } from "./FormuBuilderPreview";
+import { FormCodeBuilder } from "./FormCodeBuilder";
 
 export type PaletteItem = { type: InputTypes; label: string };
 
@@ -88,7 +95,9 @@ export function FormBuilderCenterPanel({
   const canvasGlow = isOver && canDrop;
 
   return (
-    <Box sx={{ flex: 1, minWidth: 0, display: "flex", flexDirection: "column" }}>
+    <Box
+      sx={{ flex: 1, minWidth: 0, display: "flex", flexDirection: "column" }}
+    >
       <Sheet
         variant="plain"
         sx={{
@@ -114,7 +123,11 @@ export function FormBuilderCenterPanel({
 
         <Box sx={{ flex: 1 }} />
 
-        <Chip size="sm" variant="soft" sx={{ bgcolor: green.glow, color: green.accent }}>
+        <Chip
+          size="sm"
+          variant="soft"
+          sx={{ bgcolor: green.glow, color: green.accent }}
+        >
           Fields: {fields.length}
         </Chip>
 
@@ -145,14 +158,22 @@ export function FormBuilderCenterPanel({
               transition: "border-color .12s ease, background-color .12s ease",
             }}
           >
-            <Stack direction="row" justifyContent="space-between" alignItems="center">
+            <Stack
+              direction="row"
+              justifyContent="space-between"
+              alignItems="center"
+            >
               <Box sx={{ minWidth: 0 }}>
                 <Typography level="h3">Canvas</Typography>
                 <Typography level="body-sm" sx={{ opacity: 0.75, mt: 0.5 }}>
                   Drop items here. Drag handle to reorder.
                 </Typography>
               </Box>
-              <Chip variant="outlined" size="sm" sx={{ borderColor: green.accent, color: green.accent }}>
+              <Chip
+                variant="outlined"
+                size="sm"
+                sx={{ borderColor: green.accent, color: green.accent }}
+              >
                 Drag & Drop
               </Chip>
             </Stack>
@@ -167,7 +188,9 @@ export function FormBuilderCenterPanel({
                     p: 6,
                     borderRadius: "2xl",
                     border: "2px dashed",
-                    borderColor: canvasGlow ? green.accent : "neutral.outlinedBorder",
+                    borderColor: canvasGlow
+                      ? green.accent
+                      : "neutral.outlinedBorder",
                     textAlign: "center",
                     bgcolor: canvasGlow ? green.glow2 : "background.level1",
                   }}
@@ -195,86 +218,20 @@ export function FormBuilderCenterPanel({
           </Box>
 
           {/* Preview + JSON */}
-          <Card variant="outlined" sx={{ borderRadius: "2xl", overflow: "hidden", boxShadow: "sm" }}>
-            <Tabs defaultValue={0}>
-              <TabList
-                sx={{
-                  px: 1,
-                  py: 0.75,
-                  bgcolor: "background.level1",
-                  borderBottom: "1px solid",
-                  borderColor: "divider",
-                  gap: 0.5,
-                }}
-              >
-                <Tab sx={{ gap: 1, alignItems: "center" }}>
-                  <Visibility sx={{ fontSize: 18 }} /> Preview
-                </Tab>
-                <Tab sx={{ gap: 1, alignItems: "center" }}>
-                  <CodeIcon sx={{ fontSize: 18 }} /> JSON
-                </Tab>
-              </TabList>
+          {/* Preview + JSON (NEW: your components) */}
+          <Stack direction={{ xs: "column", md: "row" }} spacing={2}>
+            <FormBuilderPreview
+              fields={fields as unknown as FieldType[]}
+              group="form"
+            />
 
-              <TabPanel value={0} sx={{ p: 3 }}>
-                <Stack spacing={2}>
-                  {fields.length === 0 ? (
-                    <Typography sx={{ opacity: 0.75 }}>Add fields to see preview.</Typography>
-                  ) : (
-                    fields.map((f) => {
-                      const t = f.type;
-                      const lbl = f.label ?? "";
-                      const ph = f.placeholder ?? "Enter value";
-                      const opts = (f.options ?? []) as { label: string; value: string }[];
-
-                      return (
-                        <Box key={f.id}>
-                          <Typography level="body-sm" sx={{ mb: 0.5 }}>
-                            {lbl}
-                          </Typography>
-
-                          {t === InputTypes.SELECT || t === InputTypes.DROPDOWN || t === InputTypes.AUTO_COMPLETE ? (
-                            <Select size="sm" sx={{ borderRadius: "lg" }} placeholder="Select...">
-                              {opts.map((o) => (
-                                <Option key={o.value} value={o.value}>
-                                  {o.label}
-                                </Option>
-                              ))}
-                            </Select>
-                          ) : t === InputTypes.CHECKBOX ? (
-                            <Input size="sm" sx={{ borderRadius: "lg" }} value="(checkbox group)" />
-                          ) : t === InputTypes.RADIO ? (
-                            <Input size="sm" sx={{ borderRadius: "lg" }} value="(radio group)" />
-                          ) : t === InputTypes.DATE ? (
-                            <Input size="sm" sx={{ borderRadius: "lg" }} value="(date)" />
-                          ) : t === InputTypes.MULTI_TEXT ? (
-                            <Textarea minRows={3} placeholder={ph} />
-                          ) : (
-                            <Input size="sm" sx={{ borderRadius: "lg" }} placeholder={ph} />
-                          )}
-                        </Box>
-                      );
-                    })
-                  )}
-                </Stack>
-              </TabPanel>
-
-              <TabPanel value={1} sx={{ p: 0 }}>
-                <Textarea
-                  minRows={12}
-                  readOnly
-                  value={JSON.stringify({ group: "MyGroup", fields }, null, 2)}
-                  sx={{
-                    border: "none",
-                    borderRadius: 0,
-                    fontFamily:
-                      "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
-                    fontSize: 13,
-                    bgcolor: "background.level1",
-                  }}
-                />
-              </TabPanel>
-            </Tabs>
-          </Card>
+            <FormCodeBuilder
+              finalConfig={{
+                group: "MyGroup",
+                fields,
+              }}
+            />
+          </Stack>
         </Stack>
       </Box>
     </Box>

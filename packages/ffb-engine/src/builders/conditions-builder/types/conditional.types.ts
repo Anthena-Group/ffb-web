@@ -32,4 +32,5 @@ export type LogicRowProps = {
 
 export interface ConditionBuilderProps {
   onChange: (conditions: ConditionType) => void;
+  value?: ConditionType;
 }

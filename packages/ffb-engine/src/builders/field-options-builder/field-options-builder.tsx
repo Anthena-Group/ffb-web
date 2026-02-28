@@ -11,8 +11,8 @@ import * as MuiIcons from "@mui/icons-material";
 import type { ExtendedOptionType, OptionBuilderProps } from "./types";
 import { useOptionBuilder } from "./hooks";
 
-export const FieldOptionBuilder = React.memo(({ onChange, type, variant }: OptionBuilderProps) => {
-  const { options, handleOptionChange, addOption, removeOption, getIconSuggestions } = useOptionBuilder(onChange);
+export const FieldOptionBuilder = React.memo(({ onChange, type, variant, value }: OptionBuilderProps) => {
+  const { options, handleOptionChange, addOption, removeOption, getIconSuggestions } = useOptionBuilder(onChange, value);
   const showIconField = type === "radio" && variant === "ICON";
   const [isLabel, setIsLabel] = useState<boolean>(true);
   const [iconInputs, setIconInputs] = useState<string[]>([]);

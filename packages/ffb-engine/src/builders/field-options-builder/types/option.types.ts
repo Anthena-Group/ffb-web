@@ -8,4 +8,5 @@ export type OptionBuilderProps = {
     onChange: (options: OptionType[]) => void;
     type?: InputTypes;
     variant?: "ICON" | "DEFAULT";
+    value?: OptionType[];
 };
