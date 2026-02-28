@@ -16,6 +16,7 @@ import {
   SelectInputExamples,
   TextInputExamples,
 } from "./all-examples";
+import { FormBuilder } from "ffb-engine";
 
 const examples: Record<string, { label: string; component: React.ReactNode }> =
   {
@@ -78,7 +79,7 @@ const App = () => {
 
   return (
     <Box sx={{ display: "flex" }}>
-      <Box
+      {/* <Box
         sx={{
           borderRight: "1px solid #ddd",
           p: 2,
@@ -103,7 +104,8 @@ const App = () => {
         </Stack>
       </Box>
 
-      <Box sx={{ flex: 1, p: 4 }}>{examples[selected].component}</Box>
+      <Box sx={{ flex: 1, p: 4 }}>{examples[selected].component}</Box> */}
+      <FormBuilder />
     </Box>
   );
 };

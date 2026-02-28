@@ -6,6 +6,7 @@ import {
   Stack,
   Typography,
   type GridProps,
+  
 } from "@mui/joy";
 import { useConfigBuilder } from "../../hooks";
 import {
@@ -16,15 +17,14 @@ import {
 } from "formik-form-builder";
 import RadioConfigFields from "./radio-config-fields";
 import {
-  ConditionBuilder,
-  ConfigPreview,
-  GridPropsBuilder,
+  //ConditionBuilder,
   LivePreview,
   OptionBuilder,
-  ValidationBuilder,
+  //ValidationBuilder,
 } from "../common";
 import { useCallback } from "react";
 import type { ExtendedOptionType } from "../../types";
+import { GridPropsBuilder, ValidationBuilder, FieldOptionBuilder, ConditionBuilder, CodeBuilder, CheckBoxComponent } from "ffb-engine";
 
 function RadioButtonBuilder() {
   const {
@@ -73,6 +73,8 @@ function RadioButtonBuilder() {
           <Typography level="h2" sx={{ mb: 3 }}>
             Radio Field Builder
           </Typography>
+                <GridPropsBuilder onChange={onGridPropsChange} value={config.gridProps} />
+          
           <RadioConfigFields
             config={config as FieldRadioType}
             initialInput={initialInput}
@@ -84,7 +86,13 @@ function RadioButtonBuilder() {
             type={config.type}
             variant={config.variant}
           />
-          <GridPropsBuilder onChange={onGridPropsChange} />
+
+           <FieldOptionBuilder
+            onChange={onOptionsChange}
+            type={config.type}
+            variant={config.variant}
+          />
+          {/* <GridPropsBuilder onChange={onGridPropsChange} /> */}
           <ValidationBuilder onChange={onValidationChange} />
           <ConditionBuilder onChange={onConditionsChange} />
           <Box
@@ -103,9 +111,12 @@ function RadioButtonBuilder() {
         </CardContent>
       </Card>
       <Stack direction="row" spacing={3}>
-        <ConfigPreview finalConfig={finalConfig as FieldRadioType} />
+        {/* <ConfigPreview finalConfig={finalConfig as FieldRadioType} /> */}
+        <CodeBuilder finalConfig={finalConfig as FieldRadioType} />
         <LivePreview finalConfig={finalConfig as FieldRadioType} />
       </Stack>
+
+      <CheckBoxComponent />
     </Stack>
   );
 }

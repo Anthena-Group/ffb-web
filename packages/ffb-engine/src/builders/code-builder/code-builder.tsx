@@ -1,0 +1,181 @@
+import React, { useMemo, useState } from "react";
+import { 
+  Card, 
+  Typography, 
+  Box, 
+  IconButton, 
+  Tooltip, 
+  Badge, 
+  Divider,
+  Sheet
+} from "@mui/joy";
+import { 
+  Code2, 
+  Copy, 
+  Check, 
+  Terminal, 
+  ExternalLink 
+} from "lucide-react";
+import type { FieldType } from "formik-form-builder";
+
+interface CodeBuilderProps {
+  finalConfig: Partial<FieldType>;
+}
+
+export const CodeBuilder = React.memo(({ finalConfig }: CodeBuilderProps) => {
+  const [copied, setCopied] = useState(false);
+
+  const prettyConfig = useMemo(
+    () =>
+      JSON.stringify(
+        finalConfig,
+        (_key, value) => (value instanceof RegExp ? value.source : value),
+        2
+      ),
+    [finalConfig]
+  );
+
+  const handleCopy = async () => {
+    await navigator.clipboard.writeText(prettyConfig);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
+
+  return (
+    <Card
+      variant="outlined"
+      sx={{
+        flex: 1,
+        borderRadius: "xl",
+        boxShadow: "lg",
+        overflow: "hidden",
+        border: "1px solid",
+        borderColor: "divider",
+        background: "linear-gradient(135deg, #0F172A 0%, #1E293B 100%)", // Deep Slate Midnight
+        minHeight: "400px",
+        display: "flex",
+        flexDirection: "column",
+      }}
+    >
+      {/* Header Toolbar */}
+      <Box
+        sx={{
+          p: 2,
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+          bgcolor: "rgba(255, 255, 255, 0.05)",
+          backdropFilter: "blur(10px)",
+        }}
+      >
+        <Stack direction="row" spacing={1.5} alignItems="center">
+          <Box
+            sx={{
+              display: "flex",
+              p: 0.75,
+              borderRadius: "md",
+              bgcolor: "primary.solidBg",
+              color: "white",
+            }}
+          >
+            <Terminal size={18} />
+          </Box>
+          <Box>
+            <Typography level="title-sm" sx={{ color: "white" }}>
+              Configuration Output
+            </Typography>
+            <Stack direction="row" spacing={1} alignItems="center">
+              <Badge color="success" size="sm" variant="solid" sx={{ "--Badge-ring": "0px" }} />
+              <Typography sx={{ color: "rgba(255,255,255,0.5)", fontSize: "10px", fontWeight: "bold", textTransform: "uppercase", letterSpacing: "0.05em" }}>
+                Live Sync Active
+              </Typography>
+            </Stack>
+          </Box>
+        </Stack>
+
+        <Tooltip title={copied ? "Copied!" : "Copy JSON"} variant="solid">
+          <IconButton
+            variant="soft"
+            color={copied ? "success" : "neutral"}
+            onClick={handleCopy}
+            sx={{ 
+              borderRadius: "lg", 
+              "--IconButton-size": "36px",
+              bgcolor: "rgba(255,255,255,0.1)",
+              color: "white",
+              "&:hover": { bgcolor: "rgba(255,255,255,0.2)" }
+            }}
+          >
+            {copied ? <Check size={18} /> : <Copy size={18} />}
+          </IconButton>
+        </Tooltip>
+      </Box>
+
+      <Divider sx={{ opacity: 0.1, bgcolor: "white" }} />
+
+      {/* Code Display Area */}
+      <Box
+        sx={{
+          flex: 1,
+          p: 2,
+          overflow: "auto",
+          position: "relative",
+          "&::-webkit-scrollbar": { width: "8px" },
+          "&::-webkit-scrollbar-thumb": { bgcolor: "rgba(255,255,255,0.1)", borderRadius: "10px" },
+        }}
+      >
+        <Typography
+          component="pre"
+          sx={{
+            fontFamily: "'Fira Code', 'JetBrains Mono', monospace",
+            fontSize: "0.85rem",
+            lineHeight: 1.6,
+            color: "#94A3B8", // Slate 400
+            "& .key": { color: "#F472B6" },    // Pink for keys
+            "& .string": { color: "#34D399" }, // Emerald for strings
+            "& .number": { color: "#FB923C" }, // Orange for numbers
+            "& .boolean": { color: "#818CF8" } // Indigo for booleans
+          }}
+        >
+          {/* Simple regex highlighting for a "Premium" look without heavy libraries */}
+          <span
+            dangerouslySetInnerHTML={{
+              __html: prettyConfig
+                .replace(/"(\w+)":/g, '<span class="key">"$1"</span>:')
+                .replace(/: "(.*?)"/g, ': <span class="string">"$1"</span>')
+                .replace(/: (\d+)/g, ': <span class="number">$1</span>')
+                .replace(/: (true|false)/g, ': <span class="boolean">$1</span>'),
+            }}
+          />
+        </Typography>
+      </Box>
+
+      {/* Footer Info */}
+      <Box
+        sx={{
+          p: 1.5,
+          bgcolor: "rgba(0,0,0,0.2)",
+          display: "flex",
+          justifyContent: "center",
+        }}
+      >
+        <Typography
+          level="body-xs"
+          startDecorator={<Code2 size={12} />}
+          sx={{ color: "rgba(255,255,255,0.3)", fontStyle: "italic" }}
+        >
+          Generated by Formik Form Builder Engine
+        </Typography>
+      </Box>
+    </Card>
+  );
+});
+
+// Helper component for layout spacing (Lucide doesn't include Stack)
+function Stack({ children, direction = "column", spacing = 0, alignItems = "stretch" }: any) {
+  return (
+    <Box sx={{ display: "flex", flexDirection: direction, gap: spacing, alignItems }}>
+      {children}
+    </Box>
+  );
+}
