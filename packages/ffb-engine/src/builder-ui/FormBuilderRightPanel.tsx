@@ -42,9 +42,11 @@ import {
   ValidationBuilder,
   ConditionBuilder,
   FieldOptionBuilder,
+  MuiPropsBuilder,
 } from "../builders";
 import type { GridProps } from "@mui/joy";
 import { Zap } from "lucide-react";
+import { GREEN } from "./FormBuilder";
 
 // --- Types ---
 
@@ -188,7 +190,11 @@ export function FormBuilderRightPanel({
           </Box>
         </Stack>
 
-        <IconButton size="sm" variant="plain" onClick={() => setRightOpen(false)}>
+        <IconButton
+          size="sm"
+          variant="plain"
+          onClick={() => setRightOpen(false)}
+        >
           <ChevronRight />
         </IconButton>
       </Box>
@@ -240,7 +246,9 @@ function FieldSettingsPanel({
         }}
       >
         <Settings sx={{ fontSize: 40 }} />
-        <Typography level="body-sm">Select an element on the canvas to edit its properties.</Typography>
+        <Typography level="body-sm">
+          Select an element on the canvas to edit its properties.
+        </Typography>
       </Box>
     );
   }
@@ -296,8 +304,16 @@ function FieldSettingsPanel({
           borderColor: "divider",
         }}
       >
-        <Stack direction="row" justifyContent="space-between" alignItems="center">
-          <Typography level="body-xs" fontWeight="800" sx={{ color: "neutral.500" }}>
+        <Stack
+          direction="row"
+          justifyContent="space-between"
+          alignItems="center"
+        >
+          <Typography
+            level="body-xs"
+            fontWeight="800"
+            sx={{ color: "neutral.500" }}
+          >
             ACTIVE FIELD
           </Typography>
           <Chip
@@ -319,7 +335,11 @@ function FieldSettingsPanel({
       </Sheet>
 
       {/* Tabs */}
-      <Tabs value={tabIndex} onChange={(_, val) => setTabIndex(val as number)} sx={{ bgcolor: "transparent" }}>
+      <Tabs
+        value={tabIndex}
+        onChange={(_, val) => setTabIndex(val as number)}
+        sx={{ bgcolor: "transparent" }}
+      >
         <TabList
           disableUnderline
           sx={{
@@ -360,6 +380,12 @@ function FieldSettingsPanel({
               <Zap size={16} />
             </Tooltip>
           </Tab>
+
+          <Tab value={5} disableIndicator sx={tabSx(5)}>
+            <Tooltip title="MUI Props" variant="soft">
+              <Tune fontSize="small" />
+            </Tooltip>
+          </Tab>
         </TabList>
 
         <Box sx={{ mt: 3 }}>
@@ -375,12 +401,19 @@ function FieldSettingsPanel({
                 />
               </PropertyRow>
 
-              <PropertyRow label="Field Key (API ID)" description="Used as the key in the JSON output.">
+              <PropertyRow
+                label="Field Key (API ID)"
+                description="Used as the key in the JSON output."
+              >
                 <Input
                   placeholder="e.g. user_first_name"
                   value={selected.field || ""}
                   onChange={(e) => onPatch({ field: e.target.value })}
-                  sx={{ borderRadius: "lg", fontFamily: "code", fontSize: "xs" }}
+                  sx={{
+                    borderRadius: "lg",
+                    fontFamily: "code",
+                    fontSize: "xs",
+                  }}
                 />
               </PropertyRow>
 
@@ -413,7 +446,7 @@ function FieldSettingsPanel({
                 />
               </PropertyRow>
 
-              <Divider sx={{ my: 1 }} />
+              {/* <Divider sx={{ my: 1 }} />
 
               <Stack direction="row" justifyContent="space-between" alignItems="center">
                 <Typography level="title-sm" sx={{ fontWeight: 600 }}>
@@ -427,7 +460,7 @@ function FieldSettingsPanel({
                     "&:hover": { "--Switch-trackBackground": green.accent },
                   } as any}
                 />
-              </Stack>
+              </Stack> */}
 
               <Divider sx={{ my: 1 }} />
 
@@ -465,9 +498,15 @@ function FieldSettingsPanel({
                     onChange={(_, v) => onPatch({ valueType: v as any })}
                     sx={{ borderRadius: "lg" }}
                   >
-                    <Option value={CHECK_BOX_VALUE_TYPE.ARRAY}>Array (Multiple)</Option>
-                    <Option value={CHECK_BOX_VALUE_TYPE.STRING}>String (Single)</Option>
-                    <Option value={CHECK_BOX_VALUE_TYPE.BOOLEAN}>Boolean (True/False)</Option>
+                    <Option value={CHECK_BOX_VALUE_TYPE.ARRAY}>
+                      Array (Multiple)
+                    </Option>
+                    <Option value={CHECK_BOX_VALUE_TYPE.STRING}>
+                      String (Single)
+                    </Option>
+                    <Option value={CHECK_BOX_VALUE_TYPE.BOOLEAN}>
+                      Boolean (True/False)
+                    </Option>
                   </Select>
                 </PropertyRow>
               )}
@@ -510,7 +549,12 @@ function FieldSettingsPanel({
                 onChange={(opts: any) => onPatch({ options: opts ?? [] })}
               />
             ) : (
-              <Typography level="body-sm" color="neutral" textAlign="center" sx={{ py: 4 }}>
+              <Typography
+                level="body-sm"
+                color="neutral"
+                textAlign="center"
+                sx={{ py: 4 }}
+              >
                 Options not available for this type.
               </Typography>
             )}
@@ -528,15 +572,26 @@ function FieldSettingsPanel({
           <TabPanel value={3} sx={{ p: 0 }}>
             <ValidationBuilder
               value={(selected.validation as ValidationRule) ?? {}}
-              onChange={(rules: ValidationRule) => onPatch({ validation: rules })}
+              onChange={(rules: ValidationRule) =>
+                onPatch({ validation: rules })
+              }
             />
           </TabPanel>
 
           {/* TAB 4: CONDITIONS */}
           <TabPanel value={4} sx={{ p: 0 }}>
-            <ConditionBuilder 
+            <ConditionBuilder
               value={selected.conditions}
-              onChange={(c: ConditionType) => onPatch({ conditions: c })} />
+              onChange={(c: ConditionType) => onPatch({ conditions: c })}
+            />
+          </TabPanel>
+
+          <TabPanel value={5} sx={{ p: 0 }}>
+            <MuiPropsBuilder
+              green={GREEN}
+              value={(selected.muiProps ?? {}) as any}
+              onChange={(next) => onPatch({ muiProps: next })}
+            />
           </TabPanel>
         </Box>
       </Tabs>

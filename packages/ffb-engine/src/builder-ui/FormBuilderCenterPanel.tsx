@@ -7,26 +7,15 @@ import {
   Card,
   Chip,
   Divider,
-  Input,
-  Option,
-  Select,
+  Modal,
+  ModalDialog,
   Sheet,
   Stack,
-  Tab,
-  TabList,
-  TabPanel,
-  Tabs,
-  Textarea,
   Typography,
 } from "@mui/joy";
-import {
-  ChevronLeft,
-  ChevronRight,
-  Code as CodeIcon,
-  Visibility,
-} from "@mui/icons-material";
+import { ChevronLeft, ChevronRight, Code as CodeIcon, Visibility, X } from "@mui/icons-material";
 import { InputTypes, type FieldType } from "formik-form-builder";
-import { FormBuilderPreview } from "./FormuBuilderPreview";
+import { FormBuilderPreview } from "./FormBuilderPreview";
 import { FormCodeBuilder } from "./FormCodeBuilder";
 
 export type PaletteItem = { type: InputTypes; label: string };
@@ -42,6 +31,8 @@ export type CanvasField = {
   type: InputTypes;
   [k: string]: any;
 };
+
+type PopupMode = "NONE" | "PREVIEW" | "CODE";
 
 export function FormBuilderCenterPanel({
   green,
@@ -94,10 +85,14 @@ export function FormBuilderCenterPanel({
 
   const canvasGlow = isOver && canDrop;
 
+  const [popup, setPopup] = React.useState<PopupMode>("NONE");
+  const closePopup = () => setPopup("NONE");
+
+  const hasFields = fields.length > 0;
+
   return (
-    <Box
-      sx={{ flex: 1, minWidth: 0, display: "flex", flexDirection: "column" }}
-    >
+    <Box sx={{ flex: 1, minWidth: 0, display: "flex", flexDirection: "column" }}>
+      {/* Top row inside center */}
       <Sheet
         variant="plain"
         sx={{
@@ -111,33 +106,41 @@ export function FormBuilderCenterPanel({
         }}
       >
         {!leftOpen && (
-          <Button
-            variant="outlined"
-            size="sm"
-            startDecorator={<ChevronRight />}
-            onClick={() => setLeftOpen(true)}
-          >
+          <Button variant="outlined" size="sm" startDecorator={<ChevronRight />} onClick={() => setLeftOpen(true)}>
             Elements
           </Button>
         )}
 
         <Box sx={{ flex: 1 }} />
 
-        <Chip
-          size="sm"
-          variant="soft"
-          sx={{ bgcolor: green.glow, color: green.accent }}
-        >
+        <Chip size="sm" variant="soft" sx={{ bgcolor: green.glow, color: green.accent }}>
           Fields: {fields.length}
         </Chip>
 
+        {/* ✅ NEW: Buttons instead of inline preview/code */}
+        <Button
+          size="sm"
+          variant="outlined"
+          startDecorator={<Visibility />}
+          onClick={() => setPopup("PREVIEW")}
+          disabled={!hasFields}
+          sx={{ ml: 1 }}
+        >
+          Preview
+        </Button>
+
+        <Button
+          size="sm"
+          variant="outlined"
+          startDecorator={<CodeIcon />}
+          onClick={() => setPopup("CODE")}
+          disabled={!hasFields}
+        >
+          Code
+        </Button>
+
         {!rightOpen && (
-          <Button
-            variant="outlined"
-            size="sm"
-            endDecorator={<ChevronLeft />}
-            onClick={() => setRightOpen(true)}
-          >
+          <Button variant="outlined" size="sm" endDecorator={<ChevronLeft />} onClick={() => setRightOpen(true)}>
             Settings
           </Button>
         )}
@@ -158,22 +161,14 @@ export function FormBuilderCenterPanel({
               transition: "border-color .12s ease, background-color .12s ease",
             }}
           >
-            <Stack
-              direction="row"
-              justifyContent="space-between"
-              alignItems="center"
-            >
+            <Stack direction="row" justifyContent="space-between" alignItems="center">
               <Box sx={{ minWidth: 0 }}>
                 <Typography level="h3">Canvas</Typography>
                 <Typography level="body-sm" sx={{ opacity: 0.75, mt: 0.5 }}>
                   Drop items here. Drag handle to reorder.
                 </Typography>
               </Box>
-              <Chip
-                variant="outlined"
-                size="sm"
-                sx={{ borderColor: green.accent, color: green.accent }}
-              >
+              <Chip variant="outlined" size="sm" sx={{ borderColor: green.accent, color: green.accent }}>
                 Drag & Drop
               </Chip>
             </Stack>
@@ -188,9 +183,7 @@ export function FormBuilderCenterPanel({
                     p: 6,
                     borderRadius: "2xl",
                     border: "2px dashed",
-                    borderColor: canvasGlow
-                      ? green.accent
-                      : "neutral.outlinedBorder",
+                    borderColor: canvasGlow ? green.accent : "neutral.outlinedBorder",
                     textAlign: "center",
                     bgcolor: canvasGlow ? green.glow2 : "background.level1",
                   }}
@@ -216,24 +209,86 @@ export function FormBuilderCenterPanel({
               )}
             </Stack>
           </Box>
-
-          {/* Preview + JSON */}
-          {/* Preview + JSON (NEW: your components) */}
-          <Stack direction={{ xs: "column", md: "row" }} spacing={2}>
-            <FormBuilderPreview
-              fields={fields as unknown as FieldType[]}
-              group="form"
-            />
-
-            <FormCodeBuilder
-              finalConfig={{
-                group: "MyGroup",
-                fields,
-              }}
-            />
-          </Stack>
         </Stack>
       </Box>
+
+      {/* ✅ Modal Popup */}
+      <Modal open={popup !== "NONE"} onClose={closePopup}>
+        <ModalDialog
+          layout="center"
+          sx={{
+            width: { xs: "95vw", md: "78vw" },
+            maxWidth: 980,
+            maxHeight: "90vh",
+            overflow: "auto",
+            p: 0,
+            borderRadius: "2xl",
+            boxShadow: "lg",
+          }}
+        >
+          {/* Modal Header */}
+          <Sheet
+            variant="plain"
+            sx={{
+              px: 2,
+              py: 1.25,
+              borderBottom: "1px solid",
+              borderColor: "divider",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+              position: "sticky",
+              top: 0,
+              bgcolor: "background.surface",
+              zIndex: 1,
+            }}
+          >
+            <Stack direction="row" spacing={1} alignItems="center">
+              <Box
+                sx={{
+                  width: 34,
+                  height: 34,
+                  borderRadius: "lg",
+                  display: "grid",
+                  placeItems: "center",
+                  bgcolor: green.glow,
+                  color: green.accent,
+                }}
+              >
+                {popup === "CODE" ? <CodeIcon /> : <Visibility />}
+              </Box>
+
+              <Box>
+                <Typography level="title-md" sx={{ fontWeight: 800 }}>
+                  {popup === "CODE" ? "Code" : "Preview"}
+                </Typography>
+                <Typography level="body-xs" sx={{ opacity: 0.7 }}>
+                  {popup === "CODE" ? "Copy-paste ready output" : "Live form rendering"}
+                </Typography>
+              </Box>
+            </Stack>
+
+            <Button
+              size="sm"
+              variant="outlined"
+              startDecorator={<X fontSize="small" />}
+              onClick={closePopup}
+              sx={{ borderRadius: "xl" }}
+            >
+              Close
+            </Button>
+          </Sheet>
+
+          {/* Modal Body */}
+          <Box sx={{ p: 2 }}>
+            {popup === "PREVIEW" ? (
+              <FormBuilderPreview fields={fields as unknown as FieldType[]} group="form" />
+            ) : popup === "CODE" ? (
+              <FormCodeBuilder fields={fields as unknown as FieldType[]} group="MyGroup" />
+            ) : null}
+          </Box>
+        </ModalDialog>
+      </Modal>
     </Box>
   );
 }

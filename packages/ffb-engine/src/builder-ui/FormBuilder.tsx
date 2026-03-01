@@ -26,7 +26,7 @@ const DND_TYPES = {
 } as const;
 
 /* -------------------- Theme tokens (GREEN) -------------------- */
-const GREEN = {
+export const GREEN = {
   accent: "rgba(16,185,129,1)",
   glow: "rgba(16,185,129,0.18)",
   glow2: "rgba(34,197,94,0.10)",
