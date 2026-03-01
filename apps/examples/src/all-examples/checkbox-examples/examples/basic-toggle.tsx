@@ -1,5 +1,5 @@
 import { Box, Button } from "@mui/joy";
-import { FormBuilder, useFormBuilder } from "formik-form-builder";
+import { FormBuilder, useFormBuilder } from "@mjfy/core";
 import { Form, Formik } from "formik";
 import { basicToggling } from "../../../constants";
 function BasicToggleCheckBox() {

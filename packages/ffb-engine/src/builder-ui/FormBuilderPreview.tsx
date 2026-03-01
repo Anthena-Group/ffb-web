@@ -1,7 +1,7 @@
 // FormBuilderPreview.tsx
 import { Card, CardContent, Typography, Box, Button } from "@mui/joy";
 import { Formik, Form } from "formik";
-import { FormBuilder, useFormBuilder, type FieldType } from "formik-form-builder";
+import { FormBuilder, useFormBuilder, type FieldType } from "@mjfy/core";
 import { useMemo } from "react";
 
 interface FormBuilderPreviewProps {

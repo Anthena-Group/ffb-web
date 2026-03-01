@@ -8,7 +8,7 @@ import {
   Stack,
   Typography,
 } from "@mui/joy";
-import { ConditionName, PostCondition } from "formik-form-builder";
+import { ConditionName, PostCondition } from "@mjfy/core";
 import { conditionNameList } from "../../../../constants";
 import type { LogicRowProps } from "../../../../types";
 import React from "react";

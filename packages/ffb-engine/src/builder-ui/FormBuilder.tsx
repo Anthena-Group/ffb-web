@@ -12,7 +12,7 @@ import {
   CHECK_BOX_VALUE_TYPE,
   type FieldType,
   type OptionType,
-} from "formik-form-builder";
+} from "@mjfy/core";
 
 import { FormBuilderLayout } from "./FormBuilderLayout";
 import { FormBuilderLeftPanel, type PaletteItem } from "./FormBuilderLeftPanel";

@@ -13,7 +13,7 @@ import {
   Sheet,
 } from "@mui/joy";
 import { AddCircleOutline, ChevronLeft } from "@mui/icons-material";
-import type { InputTypes } from "formik-form-builder";
+import type { InputTypes } from "@mjfy/core";
 
 export type PaletteItem = { type: InputTypes; label: string };
 

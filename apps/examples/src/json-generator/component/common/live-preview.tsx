@@ -4,7 +4,7 @@ import {
   FormBuilder,
   useFormBuilder,
   type FieldType,
-} from "formik-form-builder";
+} from "@mjfy/core";
 import { useMemo } from "react";
 
 interface LivePreviewProps {

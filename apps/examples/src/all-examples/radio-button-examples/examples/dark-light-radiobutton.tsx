@@ -3,7 +3,7 @@ import {
   InputTypes,
   useFormBuilder,
   type FieldType,
-} from "formik-form-builder";
+} from "@mjfy/core";
 import { Form, Formik } from "formik";
 import { Box, Button } from "@mui/joy";
 import { DarkMode, LightMode } from "@mui/icons-material";

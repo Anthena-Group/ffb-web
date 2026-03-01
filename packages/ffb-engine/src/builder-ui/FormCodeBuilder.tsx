@@ -14,7 +14,7 @@ import {
   Chip,
 } from "@mui/joy";
 import { Code2, Copy, Check, Terminal } from "lucide-react";
-import type { FieldType } from "formik-form-builder";
+import type { FieldType } from "@mjfy/core";
 
 type Mode = "FULL_CODE" | "JSON_ONLY";
 
@@ -66,7 +66,7 @@ export const FormCodeBuilder = React.memo(({ fields, group = "form" }: FormCodeB
     return `import React, { useMemo } from "react";
 import { Card, CardContent, Typography, Box, Button } from "@mui/joy";
 import { Formik, Form } from "formik";
-import { FormBuilder, useFormBuilder, type FieldType } from "formik-form-builder";
+import { FormBuilder, useFormBuilder, type FieldType } from "@mjfy/core";
 
 const FIELDS: FieldType[] = ${fieldsOnly};
 

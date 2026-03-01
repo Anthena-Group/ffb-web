@@ -1,5 +1,5 @@
 import { Card, CardContent, Typography } from "@mui/joy";
-import type { FieldType } from "formik-form-builder";
+import type { FieldType } from "@mjfy/core";
 import { useMemo } from "react";
 interface ConfigPreviewProps {
   finalConfig: Partial<FieldType>;

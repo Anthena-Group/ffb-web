@@ -6,7 +6,7 @@ import {
   type ConditionGroup,
   type ConditionLogic,
   type ConditionType,
-} from "formik-form-builder";
+} from "@mjfy/core";
 
 export function useConditionBuilder(onChange: (condition: ConditionType) => void) {
   const [action, setAction] = useState<ConditionAction >(ConditionAction.SHOW);

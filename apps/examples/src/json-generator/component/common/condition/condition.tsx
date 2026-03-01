@@ -1,6 +1,6 @@
 import { Add } from "@mui/icons-material";
 import { Box, Button, Option, Select, Stack, Typography } from "@mui/joy";
-import { ConditionAction } from "formik-form-builder";
+import { ConditionAction } from "@mjfy/core";
 import type { ConditionBuilderProps } from "../../../types";
 import { useConditionBuilder } from "../../../hooks";
 import { GroupCard } from "./card";

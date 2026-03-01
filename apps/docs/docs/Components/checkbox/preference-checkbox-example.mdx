@@ -11,7 +11,7 @@ import {
   ConditionAction,
   ConditionName,
   PostCondition,
-} from "formik-form-builder";
+} from "@mjfy/core";
 
 A checkbox can also be used to control the availability of other fields. For example, you may want a text input to remain disabled until the user selects a specific option (or combination of options). This approach guides users through a logical flow, ensuring they only interact with fields when they are relevant. It’s useful for scenarios like enabling special instructions, unlocking advanced settings, or revealing optional details once a prerequisite choice is made. Refer [Conditional Rendering](/docs/getting-started/my-doc-configuration#conditional-rendering).
 
@@ -28,7 +28,7 @@ Each field is validated using Yup and defined in giftWrapFields config variable.
   code={`
 import { Box, Button } from "@mui/joy";
 import { Formik, Form } from "formik";
-import { FormBuilder, ConditionAction, ConditionName, InputTypes, useFormBuilder, PostCondition, type FieldType} from "formik-form-builder";
+import { FormBuilder, ConditionAction, ConditionName, InputTypes, useFormBuilder, PostCondition, type FieldType} from "@mjfy/core";
 
 function PreferenceCheckBox() {
 const giftWrapFields: FieldType[] = [

@@ -14,7 +14,7 @@ import {
   type ConditionType,
   type FieldRadioType,
   type ValidationRule,
-} from "formik-form-builder";
+} from "@mjfy/core";
 import RadioConfigFields from "./radio-config-fields";
 import {
   //ConditionBuilder,
@@ -24,7 +24,7 @@ import {
 } from "../common";
 import { useCallback } from "react";
 import type { ExtendedOptionType } from "../../types";
-import { GridPropsBuilder, ValidationBuilder, FieldOptionBuilder, ConditionBuilder, CodeBuilder, CheckBoxComponent } from "ffb-engine";
+import { GridPropsBuilder, ValidationBuilder, FieldOptionBuilder, ConditionBuilder, CodeBuilder, CheckBoxComponent } from "@mjfy/form-builder";
 
 function RadioButtonBuilder() {
   const {

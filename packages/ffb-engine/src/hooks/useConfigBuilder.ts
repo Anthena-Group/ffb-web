@@ -1,5 +1,5 @@
 import { useReducer, useState, useCallback } from "react";
-import type { FieldType } from "formik-form-builder";
+import type { FieldType } from "@mjfy/core";
 import type { Action } from "../types";
 
 function configReducer<T extends FieldType>(state: T, action: Action<T>): T {

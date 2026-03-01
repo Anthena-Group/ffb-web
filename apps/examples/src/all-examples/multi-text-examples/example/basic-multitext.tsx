@@ -1,5 +1,5 @@
 import { Box, Button } from "@mui/joy";
-import { FormikRenderer } from "formik-form-builder";
+import { FormikRenderer } from "@mjfy/core";
 import { FeedBack } from "../../../constants";
 
 function BasicMultiText() {

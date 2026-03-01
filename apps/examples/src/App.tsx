@@ -16,7 +16,7 @@ import {
   SelectInputExamples,
   TextInputExamples,
 } from "./all-examples";
-import { FormBuilder } from "ffb-engine";
+import { FormBuilder } from "@mjfy/form-builder";
 
 const examples: Record<string, { label: string; component: React.ReactNode }> =
   {

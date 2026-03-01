@@ -7,7 +7,7 @@ import {
   type ConditionGroup,
   type ConditionLogic,
   type ConditionType,
-} from "formik-form-builder";
+} from "@mjfy/core";
 
 function makeEmptyGroup(index: number): ConditionGroup {
   return {

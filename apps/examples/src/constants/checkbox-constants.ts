@@ -1,4 +1,4 @@
-import { ConditionAction, ConditionName, InputTypes, PostCondition, type FieldType } from "formik-form-builder";
+import { ConditionAction, ConditionName, InputTypes, PostCondition, type FieldType } from "@mjfy/core";
 
 export const termsAndAgreement: FieldType[] = [
   {

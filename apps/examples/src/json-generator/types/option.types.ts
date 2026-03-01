@@ -1,4 +1,4 @@
-import type { InputTypes, OptionType } from "formik-form-builder";
+import type { InputTypes, OptionType } from "@mjfy/core";
 
 export type ExtendedOptionType = OptionType & {
   title?: string;

@@ -16,7 +16,7 @@ import {
   Terminal, 
   ExternalLink 
 } from "lucide-react";
-import type { FieldType } from "formik-form-builder";
+import type { FieldType } from "@mjfy/core";
 
 interface CodeBuilderProps {
   finalConfig: Partial<FieldType>;

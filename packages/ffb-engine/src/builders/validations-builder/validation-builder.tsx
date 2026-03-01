@@ -17,7 +17,7 @@ import {
   RequiredRule,
 } from "./validation-rule";
 import { useValidationBuilder } from "./hooks";
-import type { ValidationRule } from "formik-form-builder";
+import type { ValidationRule } from "@mjfy/core";
 
 export const ValidationBuilder = React.memo(
   ({ value, onChange }: ValidationBuilderProps) => {

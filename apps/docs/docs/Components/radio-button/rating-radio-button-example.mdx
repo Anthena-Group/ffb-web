@@ -7,7 +7,7 @@ description: Rating example of radio button using formik form builder.
 ---
 
 import LiveCodeBlock from "@site/src/components/live-demo"
-import { FormikRenderer } from "formik-form-builder"
+import { FormikRenderer } from "@mjfy/core"
 
 This field is used for rating inputs where users select a single value from an ordered scale. The column layout displays each option vertically for better readability, making it suitable for feedback, satisfaction scores, or evaluations with a clear, quantifiable outcome.
 
@@ -19,7 +19,7 @@ The field is validated using Yup and defined in rate config variable. Check [Val
   scope={{FormikRenderer}}
   code={`
 import { Box, Button } from "@mui/joy";
-import { FormikRenderer, InputTypes, type FieldType } from "formik-form-builder";
+import { FormikRenderer, InputTypes, type FieldType } from "@mjfy/core";
 
 const Rating = () => {
   const rate: FieldType[] = [

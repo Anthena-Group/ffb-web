@@ -7,7 +7,7 @@ description: Conditional example of radio button using formik form builder.
 ---
 
 import LiveCodeBlock from "@site/src/components/live-demo"
-import { ConditionAction, ConditionName, PostCondition } from "formik-form-builder";
+import { ConditionAction, ConditionName, PostCondition } from "@mjfy/core";
 
 This setup uses conditional display logic, where selecting a specific option in the first radio group reveals an additional text area for further input. It’s useful for scenarios where extra details are only needed for certain choices, keeping the form clean and focused while still capturing all required information when applicable. Refer [Conditional Rendering](/docs/getting-started/my-doc-configuration#conditional-rendering).
 
@@ -20,7 +20,7 @@ The field is validated using Yup and defined in conditionalRadio config variable
   code={`
 import { Form, Formik } from "formik";
 import { Box, Button } from "@mui/joy";
-import { FormBuilder, useFormBuilder, ConditionAction, ConditionName, InputTypes, PostCondition, type FieldType } from "formik-form-builder";
+import { FormBuilder, useFormBuilder, ConditionAction, ConditionName, InputTypes, PostCondition, type FieldType } from "@mjfy/core";
 
 const ConditionalRadioButton = () => {
    

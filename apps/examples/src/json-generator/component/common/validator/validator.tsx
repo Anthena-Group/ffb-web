@@ -12,7 +12,7 @@ import {
 } from "./validation-rule";
 import { useValidationBuilder } from "../../../hooks";
 import React from "react";
-import type { ValidationRule } from "formik-form-builder";
+import type { ValidationRule } from "@mjfy/core";
 
 function ValidationBuilder({ onChange }: ValidationBuilderProps) {
   const {

@@ -1,5 +1,5 @@
 {
-  "name": "ffb-engine",
+  "name": "@mjfy/form-builder",
   "version": "1.0.0",
   "description": "A React library to UI based on the Json using Formik-Form-Builder. It also generates react files, typescript files, and JSON schema from the Json.",
   "main": "dist/index.js",
@@ -36,11 +36,11 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/Anthena-Group/formik-from-builder.git"
+    "url": "git+https://github.com/Anthena-Group/ffb-web.git"
   },
-  "homepage": "https://github.com/Anthena-Group/formik-form-builder#readme",
+  "homepage": "https://github.com/Anthena-Group/ffb-web#readme",
   "bugs": {
-    "url": "https://github.com/Anthena-Group/formik-form-builder/issues"
+    "url": "https://github.com/Anthena-Group/ffb-web/issues"
   },
   "dependencies": {
     "@emotion/react": "^11.14.0",
@@ -49,7 +49,7 @@
     "@mui/joy": "^5.0.0-beta.51",
     "@mui/material": "^6.3.1",
     "formik": "^2.4.6",
-    "formik-form-builder": "workspace:*",
+    "@mjfy/core": "1.0.15",
     "lucide-react": "^0.575.0",
     "react-dnd": "^16.0.1",
     "react-dnd-html5-backend": "^16.0.1",

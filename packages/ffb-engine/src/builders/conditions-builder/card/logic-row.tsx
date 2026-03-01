@@ -3,7 +3,7 @@ import {
   Box, IconButton, Input, Select, Option, Stack, 
   Typography, Tooltip, Divider 
 } from "@mui/joy";
-import { ConditionName, PostCondition } from "formik-form-builder";
+import { ConditionName, PostCondition } from "@mjfy/core";
 import { Trash2, Hash, Braces, ChevronDown } from "lucide-react";
 import { conditionNameList } from "../constants";
 import type { LogicRowProps } from "../types";

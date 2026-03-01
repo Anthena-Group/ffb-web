@@ -5,7 +5,7 @@ import * as Yup from "yup";
 
 
 import { Formik, Form, Field, ErrorMessage } from "formik";
-import { FormBuilder, InputTypes, useFormBuilder } from "formik-form-builder";
+import { FormBuilder, InputTypes, useFormBuilder } from "@mjfy/core";
 
 type LiveCodeBlockProps = {
   code: string;

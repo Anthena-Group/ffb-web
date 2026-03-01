@@ -1,4 +1,4 @@
-import { FormBuilder, useFormBuilder } from "formik-form-builder";
+import { FormBuilder, useFormBuilder } from "@mjfy/core";
 import { disabledRadio } from "../../../constants";
 import { Form, Formik } from "formik";
 import { Box, Button } from "@mui/joy";

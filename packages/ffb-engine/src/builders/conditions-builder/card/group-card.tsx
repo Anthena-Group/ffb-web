@@ -5,7 +5,7 @@ import {
 } from "@mui/joy";
 import { Trash2, Plus, Layers, ChevronDown } from "lucide-react";
 import type { GroupCardProps } from "../types";
-import { PostCondition } from "formik-form-builder";
+import { PostCondition } from "@mjfy/core";
 import { LogicRow } from "./logic-row"; // Assuming LogicRow is in the same folder
 
 export const GroupCard = React.memo(({

@@ -14,7 +14,7 @@ import {
   Typography,
 } from "@mui/joy";
 import { ChevronLeft, ChevronRight, Code as CodeIcon, Visibility, X } from "@mui/icons-material";
-import { InputTypes, type FieldType } from "formik-form-builder";
+import { InputTypes, type FieldType } from "@mjfy/core";
 import { FormBuilderPreview } from "./FormBuilderPreview";
 import { FormCodeBuilder } from "./FormCodeBuilder";
 

@@ -3,7 +3,7 @@ import { Form, Formik } from "formik";
 import {
   FormBuilder,
   useFormBuilder,
-} from "formik-form-builder";
+} from "@mjfy/core";
 import { termsAndAgreement } from "../../../constants";
 
 

@@ -40,7 +40,7 @@ import {
 /**
  * IMPORTANT:
  * Update these import paths to match your monorepo.
- * I’m using "formik-form-builder" because that’s what you used in other files.
+ * I’m using "@mjfy/core" because that’s what you used in other files.
  */
 import {
   InputTypes,
@@ -49,7 +49,7 @@ import {
   type ConditionType,
   type FieldType,
   type OptionType,
-} from "formik-form-builder";
+} from "@mjfy/core";
 
 /**
  * Your existing premium builders (the ones you uploaded).
@@ -60,7 +60,7 @@ import {
   ValidationBuilder,
   ConditionBuilder,
   FieldOptionBuilder,
-} from "ffb-engine";
+} from "@mjfy/form-builder";
 
 import type { GridProps } from "@mui/joy";
 

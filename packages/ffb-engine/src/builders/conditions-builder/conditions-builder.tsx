@@ -12,7 +12,7 @@ import {
   IconButton,
   Tooltip,
 } from "@mui/joy";
-import { ConditionAction } from "formik-form-builder";
+import { ConditionAction } from "@mjfy/core";
 import { Plus, Zap, Info, Trash2 } from "lucide-react";
 import type { ConditionBuilderProps } from "./types";
 import { useConditionBuilder } from "./hooks";

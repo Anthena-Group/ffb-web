@@ -1,4 +1,4 @@
-import type { ConditionGroup, ConditionLogic, ConditionType } from "formik-form-builder";
+import type { ConditionGroup, ConditionLogic, ConditionType } from "@mjfy/core";
 
 export type GroupCardProps = {
   group: ConditionGroup;

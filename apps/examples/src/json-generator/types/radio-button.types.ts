@@ -1,4 +1,4 @@
-import type { FieldRadioType } from "formik-form-builder";
+import type { FieldRadioType } from "@mjfy/core";
 
 export interface RadioFieldsProps {
   config: FieldRadioType;

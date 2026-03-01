@@ -7,7 +7,7 @@ description: Basic multitext using formik form builder.
 ---
 
 import LiveCodeBlock from "@site/src/components/live-demo"
-import { FormikRenderer } from "formik-form-builder"
+import { FormikRenderer } from "@mjfy/core"
 
 This field is used for collecting longer, detailed text responses from users. It’s ideal for open-ended inputs such as feedback, comments, descriptions, or notes, where multiple lines of text are needed for clarity.
 
@@ -20,7 +20,7 @@ scope={{
 }}
 code= {`
 import { Box, Button } from "@mui/joy";
-import { FormikRenderer, InputTypes, type FieldType } from "formik-form-builder";
+import { FormikRenderer, InputTypes, type FieldType } from "@mjfy/core";
 
 function BasicMultiText() {
     const FeedBack: FieldType[] = [

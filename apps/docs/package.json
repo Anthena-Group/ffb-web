@@ -23,7 +23,7 @@
     "@mui/material": "^6.3.1",
     "clsx": "^2.0.0",
     "formik": "^2.4.6",
-    "formik-form-builder": "workspace:*",
+    "@mjfy/core": "workspace:*",
     "prism-react-renderer": "^2.3.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",

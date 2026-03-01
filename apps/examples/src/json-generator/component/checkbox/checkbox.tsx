@@ -13,7 +13,7 @@ import {
   type ConditionType,
   type FieldCheckboxType,
   type ValidationRule,
-} from "formik-form-builder";
+} from "@mjfy/core";
 
 import {
   CheckboxConfigField,

@@ -1,5 +1,5 @@
 import { Box, Button } from "@mui/joy";
-import { FormikRenderer } from "formik-form-builder";
+import { FormikRenderer } from "@mjfy/core";
 import { confirmAction } from "../../../constants";
 
 export const Confirmation = () => {

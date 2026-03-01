@@ -1,7 +1,7 @@
 import React from "react";
 import { Input, Select, Option, Box, Stack } from "@mui/joy";
-import { CHECK_BOX_VALUE_TYPE } from "formik-form-builder";
-import type { FieldCheckboxType } from "formik-form-builder";
+import { CHECK_BOX_VALUE_TYPE } from "@mjfy/core";
+import type { FieldCheckboxType } from "@mjfy/core";
 
 export interface CheckboxConfigFieldProps {
   config: FieldCheckboxType;

@@ -1,4 +1,4 @@
-import type { FieldCheckboxType } from "formik-form-builder";
+import type { FieldCheckboxType } from "@mjfy/core";
 
 export interface CheckboxConfigFieldProps {
   config: FieldCheckboxType;

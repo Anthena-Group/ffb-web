@@ -1,4 +1,4 @@
-import type { ValidationRule } from "formik-form-builder";
+import type { ValidationRule } from "@mjfy/core";
 
 export type ValidationRuleType =
     | "required"

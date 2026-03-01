@@ -36,7 +36,7 @@ yarn add formik-form-builder
 ```tsx
 import { Box, Button } from "@mui/joy";
 import { Formik } from "formik";
-import { FormBuilder, InputTypes, useFormBuilder } from "formik-form-builder";
+import { FormBuilder, InputTypes, useFormBuilder } from "@mjfy/core";
 
 function FullNameForm() {
   const fields = [

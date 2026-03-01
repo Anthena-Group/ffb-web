@@ -39,6 +39,9 @@ importers:
       '@mdx-js/react':
         specifier: ^3.0.0
         version: 3.1.0(@types/react@19.1.9)(react@19.1.1)
+      '@mjfy/core':
+        specifier: workspace:*
+        version: link:../../packages/formik-form-builder
       '@mui/joy':
         specifier: 5.0.0-beta.52
         version: 5.0.0-beta.52(@emotion/react@11.14.0(@types/react@19.1.9)(react@19.1.1))(@emotion/styled@11.14.1(@emotion/react@11.14.0(@types/react@19.1.9)(react@19.1.1))(@types/react@19.1.9)(react@19.1.1))(@types/react@19.1.9)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
@@ -51,9 +54,6 @@ importers:
       formik:
         specifier: ^2.4.6
         version: 2.4.6(@types/react@19.1.9)(react@19.1.1)
-      formik-form-builder:
-        specifier: workspace:*
-        version: link:../../packages/formik-form-builder
       prism-react-renderer:
         specifier: ^2.3.0
         version: 2.4.1(react@19.1.1)
@@ -91,6 +91,9 @@ importers:
       '@emotion/styled':
         specifier: ^11.14.0
         version: 11.14.1(@emotion/react@11.14.0(@types/react@19.1.9)(react@19.1.1))(@types/react@19.1.9)(react@19.1.1)
+      '@mjfy/core':
+        specifier: workspace:*
+        version: link:../../packages/formik-form-builder
       '@mui/icons-material':
         specifier: ^6.4.0
         version: 6.5.0(@mui/material@6.5.0(@emotion/react@11.14.0(@types/react@19.1.9)(react@19.1.1))(@emotion/styled@11.14.1(@emotion/react@11.14.0(@types/react@19.1.9)(react@19.1.1))(@types/react@19.1.9)(react@19.1.1))(@types/react@19.1.9)(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(@types/react@19.1.9)(react@19.1.1)
@@ -100,15 +103,9 @@ importers:
       '@mui/material':
         specifier: ^6.3.1
         version: 6.5.0(@emotion/react@11.14.0(@types/react@19.1.9)(react@19.1.1))(@emotion/styled@11.14.1(@emotion/react@11.14.0(@types/react@19.1.9)(react@19.1.1))(@types/react@19.1.9)(react@19.1.1))(@types/react@19.1.9)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
-      ffb-engine:
-        specifier: workspace:*
-        version: link:../../packages/ffb-engine
       formik:
         specifier: ^2.4.6
         version: 2.4.6(@types/react@19.1.9)(react@19.1.1)
-      formik-form-builder:
-        specifier: workspace:*
-        version: link:../../packages/formik-form-builder
       react:
         specifier: ^19.1.0
         version: 19.1.1
@@ -167,6 +164,9 @@ importers:
       '@emotion/styled':
         specifier: ^11.14.0
         version: 11.14.1(@emotion/react@11.14.0(@types/react@19.1.9)(react@19.1.1))(@types/react@19.1.9)(react@19.1.1)
+      '@mjfy/core':
+        specifier: 1.0.15
+        version: 1.0.15(@types/react-dom@19.1.7(@types/react@19.1.9))(@types/react@19.1.9)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
       '@mui/icons-material':
         specifier: ^6.4.0
         version: 6.5.0(@mui/material@6.5.0(@emotion/react@11.14.0(@types/react@19.1.9)(react@19.1.1))(@emotion/styled@11.14.1(@emotion/react@11.14.0(@types/react@19.1.9)(react@19.1.1))(@types/react@19.1.9)(react@19.1.1))(@types/react@19.1.9)(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(@types/react@19.1.9)(react@19.1.1)
@@ -179,9 +179,6 @@ importers:
       formik:
         specifier: ^2.4.6
         version: 2.4.6(@types/react@19.1.9)(react@19.1.1)
-      formik-form-builder:
-        specifier: workspace:*
-        version: link:../formik-form-builder
       lucide-react:
         specifier: ^0.575.0
         version: 0.575.0(react@19.1.1)
@@ -1847,6 +1844,14 @@ packages:
     peerDependencies:
       '@types/react': '>=16'
       react: '>=16'
+
+  '@mjfy/core@1.0.15':
+    resolution: {integrity: sha512-6iRvHeuuu9ZQ+T9nA4JuaV/wTN+mMGHP3482DPe5LfCinEUqIgCgCdOeDNH+uUUZ0DS3D40OC5JoJvIOcL0nnw==}
+    peerDependencies:
+      '@types/react': ^18.0.14 || ^19
+      '@types/react-dom': ^18.0.5 || ^19
+      react: ^16.8 || ^17 || ^18 || ^19
+      react-dom: ^16.8 || ^17 || ^18 || ^19
 
   '@mui/base@5.0.0-beta.40-1':
     resolution: {integrity: sha512-agKXuNNy0bHUmeU7pNmoZwNFr7Hiyhojkb9+2PVyDG5+6RafYuyMgbrav8CndsB7KUc/U51JAw9vKNDLYBzaUA==}
@@ -8734,6 +8739,23 @@ snapshots:
       '@types/mdx': 2.0.13
       '@types/react': 19.1.9
       react: 19.1.1
+
+  '@mjfy/core@1.0.15(@types/react-dom@19.1.7(@types/react@19.1.9))(@types/react@19.1.9)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)':
+    dependencies:
+      '@emotion/react': 11.14.0(@types/react@19.1.9)(react@19.1.1)
+      '@emotion/styled': 11.14.1(@emotion/react@11.14.0(@types/react@19.1.9)(react@19.1.1))(@types/react@19.1.9)(react@19.1.1)
+      '@mui/icons-material': 6.5.0(@mui/material@6.5.0(@emotion/react@11.14.0(@types/react@19.1.9)(react@19.1.1))(@emotion/styled@11.14.1(@emotion/react@11.14.0(@types/react@19.1.9)(react@19.1.1))(@types/react@19.1.9)(react@19.1.1))(@types/react@19.1.9)(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(@types/react@19.1.9)(react@19.1.1)
+      '@mui/joy': 5.0.0-beta.52(@emotion/react@11.14.0(@types/react@19.1.9)(react@19.1.1))(@emotion/styled@11.14.1(@emotion/react@11.14.0(@types/react@19.1.9)(react@19.1.1))(@types/react@19.1.9)(react@19.1.1))(@types/react@19.1.9)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
+      '@mui/material': 6.5.0(@emotion/react@11.14.0(@types/react@19.1.9)(react@19.1.1))(@emotion/styled@11.14.1(@emotion/react@11.14.0(@types/react@19.1.9)(react@19.1.1))(@types/react@19.1.9)(react@19.1.1))(@types/react@19.1.9)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
+      '@types/react': 19.1.9
+      '@types/react-dom': 19.1.7(@types/react@19.1.9)
+      formik: 2.4.6(@types/react@19.1.9)(react@19.1.1)
+      react: 19.1.1
+      react-dom: 19.1.1(react@19.1.1)
+      yup: 1.7.0
+    transitivePeerDependencies:
+      - '@mui/material-pigment-css'
+      - supports-color
 
   '@mui/base@5.0.0-beta.40-1(@types/react@19.1.9)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)':
     dependencies:

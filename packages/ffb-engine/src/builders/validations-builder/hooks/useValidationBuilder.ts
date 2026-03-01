@@ -1,5 +1,5 @@
 import { useState, useCallback, useEffect } from "react";
-import type { ValidationRule } from "formik-form-builder";
+import type { ValidationRule } from "@mjfy/core";
 import type { ValidationRuleType } from "../types";
 
 export function useValidationBuilder(onChange: (rule: ValidationRule) => void, defaultRules?: ValidationRule) {

@@ -1,6 +1,6 @@
 import { Button, FormControl, Checkbox, Box, FormLabel } from "@mui/joy";
 import { Form, Formik } from "formik";
-import { FormBuilder, useFormBuilder } from "formik-form-builder";
+import { FormBuilder, useFormBuilder } from "@mjfy/core";
 import { bulkSelect, itemOptions } from "../../../constants";
 
 const BulkSelection = () => {

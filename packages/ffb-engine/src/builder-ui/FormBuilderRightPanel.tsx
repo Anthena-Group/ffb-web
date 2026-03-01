@@ -35,7 +35,7 @@ import {
   type ValidationRule,
   type ConditionType,
   type OptionType,
-} from "formik-form-builder";
+} from "@mjfy/core";
 
 import {
   GridPropsBuilder,
