@@ -1,5 +1,5 @@
 ---
-id: my-doc-configuration
+id: configuration
 title: Configuration
 description: Configurations need to use Formik-form-builder
 sidebar_position: 2

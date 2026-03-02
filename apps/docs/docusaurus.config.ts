@@ -1,27 +1,28 @@
-import { themes as prismThemes } from 'prism-react-renderer';
-import type { Config } from '@docusaurus/types';
-import type * as Preset from '@docusaurus/preset-classic';
+import { themes as prismThemes } from "prism-react-renderer";
+import type { Config } from "@docusaurus/types";
+import type * as Preset from "@docusaurus/preset-classic";
 
 const config: Config = {
-  title: 'Formik Form Builder',
-  tagline: 'Leverage Formik-Form-Builder Creator to effortlessly construct MUI-based forms using concise JSON definitions.',
-  favicon: 'img/favicon.ico',
+  title: "@mjfy Form Builder",
+  tagline:
+    "MUI-JOY | FORMIK | YUP Form Builder for React. Build forms with ease using our drag-and-drop interface, powered by MUI, Formik, and Yup.",
+  favicon: "img/favicon.ico",
   future: {
-    v4: true, 
+    v4: true,
   },
 
-  url: 'https://your-docusaurus-site.example.com',
+  url: "https://formik-form-builder.web.app/", // Your website URL
   // Set the /<baseUrl>/ pathname under which your site is served
   // For GitHub pages deployment, it is often '/<projectName>/'
-  baseUrl: '/',
+  baseUrl: "/",
 
-  organizationName: 'Anthena Group', // Usually your GitHub org/user name.
-  projectName: 'formik-form-builder', // Usually your repo name.
+  organizationName: "Anthena Group", // Usually your GitHub org/user name.
+  projectName: "mjfy Form Builder", // Usually your repo name.
 
-  onBrokenLinks: 'throw',
-  onBrokenMarkdownLinks: 'warn',
+  onBrokenLinks: "throw",
+  onBrokenMarkdownLinks: "warn",
 
-// Translate page
+  // Translate page
   i18n: {
     defaultLocale: "en",
     locales: ["en"],
@@ -29,23 +30,23 @@ const config: Config = {
 
   presets: [
     [
-      'classic',
+      "classic",
       {
         docs: {
-          sidebarPath: './sidebars.ts',
+          sidebarPath: "./sidebars.ts",
         },
         blog: {
           showReadingTime: true,
           feedOptions: {
-            type: ['rss', 'atom'],
+            type: ["rss", "atom"],
             xslt: true,
           },
-          onInlineTags: 'warn',
-          onInlineAuthors: 'warn',
-          onUntruncatedBlogPosts: 'warn',
+          onInlineTags: "warn",
+          onInlineAuthors: "warn",
+          onUntruncatedBlogPosts: "warn",
         },
         theme: {
-          customCss: './src/css/custom.css',
+          customCss: "./src/css/custom.css",
         },
       } satisfies Preset.Options,
     ],
@@ -53,83 +54,87 @@ const config: Config = {
 
   themeConfig: {
     // Replace with your project's social card
-    image: 'img/docusaurus-social-card.jpg',
+    image: "img/docusaurus-social-card.jpg",
     navbar: {
-      title: 'Formik Form Builder',
+      title: "MJFY Form Builder",
       logo: {
-        alt: 'My Site Logo',
-        src: 'img/lightModeLogo.png',
-        srcDark: 'img/darkModeLogo.png',
+        alt: "My Site Logo",
+        src: "img/mjfy-logo.png",
+        srcDark: "img/mjfy-logo.png",
       },
       hideOnScroll: true,
       items: [
         {
-          type: 'docSidebar',
-          sidebarId: 'tutorialSidebar',
-          position: 'left',
-          label: 'Docs',
+          type: "docSidebar",
+          sidebarId: "tutorialSidebar",
+          position: "left",
+          label: "Docs",
         },
-
-        { to: '/blog', label: 'Blog', position: 'left' },
         {
-          href: 'https://github.com/Anthena-Group/ffb-web',
+          type: "docsVersionDropdown",
+          position: "right",
+          dropdownActiveClassDisabled: true,
+        },
+        { to: "/blog", label: "Blog", position: "left" },
+        {
+          href: "https://github.com/Anthena-Group/ffb-web",
           className: "header-github-logo",
           "arial-label": "Github repository",
-          position: 'right',
+          position: "right",
         },
       ],
     },
     footer: {
-      style: 'dark',
+      style: "dark",
       links: [
         {
-          title: 'Docs',
+          title: "Docs",
           items: [
             {
-              label: 'Introduction',
-              to: '/docs/intro',
+              label: "Introduction",
+              to: "/docs/intro",
             },
             {
-              label: 'Getting Started',
-              to: '/docs/category/getting-started',
+              label: "Getting Started",
+              to: "/docs/category/getting-started",
             },
             {
-              label: 'Components',
-              to: '/docs/category/components',
+              label: "Components",
+              to: "/docs/category/components",
             },
             {
-              label: 'Contribution',
-              to: '/docs/contribution',
+              label: "Contribution",
+              to: "/docs/contribution",
             },
           ],
         },
         {
-          title: 'Community',
+          title: "Community",
           items: [
             {
-              label: 'Stack Overflow',
-              href: '#',
+              label: "Stack Overflow",
+              href: "#",
             },
             {
-              label: 'Discord',
-              href: 'https://discord.gg/YxhWTrbq',
+              label: "Discord",
+              href: "https://discord.gg/YxhWTrbq",
             },
             {
-              label: 'X',
-              href: '#',
+              label: "X",
+              href: "#",
             },
           ],
         },
         {
-          title: 'More',
+          title: "More",
           items: [
             {
-              label: 'Blog',
-              to: '/blog',
+              label: "Blog",
+              to: "/blog",
             },
             {
-              label: 'GitHub',
-              href: 'https://github.com/Anthena-Group/ffb-web',
+              label: "GitHub",
+              href: "https://github.com/Anthena-Group/ffb-web",
             },
           ],
         },
@@ -137,13 +142,12 @@ const config: Config = {
       copyright: `Copyright © ${new Date().getFullYear()} @anthenaGroup, Inc. Built with Docusaurus.`,
     },
 
-
     prism: {
       theme: prismThemes.github,
       darkTheme: prismThemes.dracula,
     },
     docs: {
-      versionPersistence: 'localStorage',
+      versionPersistence: "localStorage",
       sidebar: {
         hideable: true,
         autoCollapseCategories: true,
