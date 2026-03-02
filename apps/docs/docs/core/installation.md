@@ -1,0 +1,151 @@
+---
+id: installation
+title: Installation
+description: How to install and set up Formik Form Builder
+sidebar_position: 1
+---
+
+import Tabs from "@theme/Tabs";
+import TabItem from "@theme/TabItem";
+import LiveCodeBlock from "@site/src/components/live-demo";
+
+# Installation
+
+Formik Form Builder is a configurable form generation tool built on **Formik**, **MUI** (Material UI or Joy UI), and **Yup**.  
+It lets you define forms entirely via JSON configuration — controlling inputs, validation, and conditional logic — without repetitive boilerplate.
+
+---
+
+## Requirements
+
+- [Node.js](https://nodejs.org/) version **18.0 or above** (check with: `node -v`)
+- npm (bundled with Node.js) or yarn
+- **Peer dependencies** :
+  - [Formik](https://formik.org/)
+  - [Yup](https://github.com/jquense/yup)
+  - [@mui/material](https://mui.com/) or [@mui/joy](https://mui.com/joy-ui/getting-started/)
+
+
+---
+
+## Install the package
+
+You can install **Formik Form Builder** using either **npm** or **yarn**:
+
+<Tabs>
+  <TabItem value="npm" label="npm" default>
+    ```bash
+    npm install formik-form-builder 
+  ```
+  </TabItem>
+  <TabItem value="yarn" label="yarn">
+    ```bash
+  yarn add formik-form-builder
+  ```
+  </TabItem>
+</Tabs>
+
+---
+
+## Verify installation
+
+Open your `package.json` and check for the following:
+
+```json
+"dependencies": {
+  "@mjfy/core": "^x.x.x",
+  "formik": "^x.x.x",
+  "yup": "^x.x.x",
+  "@mui/joy": "^x.x.x"
+}
+```
+
+## Quick Example
+
+The following example shows how to build a simple form with a single Full Name text field using Formik Form Builder and MUI Joy.
+
+When you click Continue, the form values are logged to the console and alert:
+
+**Example code:**
+<LiveCodeBlock
+componentName="FullName"
+code={`
+import { Box, Button } from "@mui/joy";
+import { Formik, Form } from "formik";
+import { FormBuilder,InputTypes,useFormBuilder, type FieldType } from "@mjfy/core";
+
+function FullName() {
+  const fullName: FieldType[] = [
+    {
+      field: "name",
+      type: InputTypes.TEXT,
+      initialValue: "",
+      label: "Full Name",
+      validation: {
+        required: true,
+        message: "Required",
+      },
+      gridProps: {xs:10, md:5}
+    }
+  ]
+  const { initailValues, yupSchemaValidation } = useFormBuilder(fullName);
+
+  return (
+    <Formik
+      initialValues={initailValues}
+      validationSchema={yupSchemaValidation}
+      onSubmit={(values, actions) => {
+        console.log(values);
+        alert(JSON.stringify(values, null, 2));
+        actions.setSubmitting(false);
+      }}
+    >
+      {({ values }) => (
+        <Form>
+          <FormBuilder
+            group="form"
+            values={values}
+            data-test="form"
+            fields={fullName}
+          />
+          <Box
+            width={"40%"}
+            mt={1}           
+            display={"flex"}
+            justifyContent={"center"}
+            alignItems={"center"}
+          >
+            <Button variant="solid" type="submit">
+              Continue
+            </Button>
+          </Box>
+        </Form>
+      )}
+    </Formik>
+  );
+}
+export default FullName;
+`}
+/>
+
+<br/>
+
+**Code Explanation:** 
+
+We define the field configuration (fullName) as an array of objects, where each object describes:
+- `field` : the key in your form values.
+- `type` : the input type from InputTypes.
+- `initialValue` : the default value for the field.
+- `label` : the field’s display label.
+- `validation` :  rules for Yup validation.
+- `gridProps`: layout control for responsive sizing.
+
+We then use useFormBuilder to automatically generate:
+
+- `initialValues` : pre-filled values for Formik.
+- `yupSchemaValidation` : a Yup schema based on the validation rules.
+
+Inside the Formik component:
+
+We pass initialValues and validationSchema from useFormBuilder. We render `<FormBuilder /> ` with our field config — this takes care of rendering the MUI Joy input and wiring up validation automatically. We add a submit button to handle form submission.
+

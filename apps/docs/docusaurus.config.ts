@@ -4,25 +4,18 @@ import type * as Preset from "@docusaurus/preset-classic";
 
 const config: Config = {
   title: "@mjfy Form Builder",
-  tagline:
-    "MUI-JOY | FORMIK | YUP Form Builder for React. Build forms with ease using our drag-and-drop interface, powered by MUI, Formik, and Yup.",
+  tagline: "MUI-JOY | FORMIK | YUP Form Builder for React.",
   favicon: "img/favicon.ico",
-  future: {
-    v4: true,
-  },
+  future: { v4: true },
 
-  url: "https://formik-form-builder.web.app/", // Your website URL
-  // Set the /<baseUrl>/ pathname under which your site is served
-  // For GitHub pages deployment, it is often '/<projectName>/'
+  url: "https://formik-form-builder.web.app/",
   baseUrl: "/",
-
-  organizationName: "Anthena Group", // Usually your GitHub org/user name.
-  projectName: "mjfy Form Builder", // Usually your repo name.
+  organizationName: "Anthena Group",
+  projectName: "mjfy Form Builder",
 
   onBrokenLinks: "throw",
   onBrokenMarkdownLinks: "warn",
 
-  // Translate page
   i18n: {
     defaultLocale: "en",
     locales: ["en"],
@@ -33,17 +26,22 @@ const config: Config = {
       "classic",
       {
         docs: {
-          sidebarPath: "./sidebars.ts",
+          // Instance 1: @mjfy/core
+          id: "default",
+          path: "docs/core", // CHANGED: Points inside your docs folder
+          routeBasePath: "core-docs",
+          sidebarPath: "./sidebarsCore.ts",
+          lastVersion: "current",
+          includeCurrentVersion: true,
+          versions: {
+            current: {
+              label: "1.0.16 (Next)",
+              badge: true, // This shows the badge in the UI
+            },
+          },
         },
         blog: {
           showReadingTime: true,
-          feedOptions: {
-            type: ["rss", "atom"],
-            xslt: true,
-          },
-          onInlineTags: "warn",
-          onInlineAuthors: "warn",
-          onUntruncatedBlogPosts: "warn",
         },
         theme: {
           customCss: "./src/css/custom.css",
@@ -52,34 +50,70 @@ const config: Config = {
     ],
   ],
 
+  plugins: [
+    [
+      "@docusaurus/plugin-content-docs",
+      {
+        // Instance 2: @mjfy/form-builder
+        id: "form-builder",
+        path: "docs/form-builder", // CHANGED: Points inside your docs folder
+        routeBasePath: "form-builder-docs",
+        sidebarPath: "./sidebarsFormBuilder.ts",
+        lastVersion: "current",
+        includeCurrentVersion: true,
+        versions: {
+          current: {
+            label: "1.0.1 (Next)",
+            badge: true, // This shows the badge in the UI
+          },
+        },
+      },
+    ],
+  ],
+
   themeConfig: {
-    // Replace with your project's social card
     image: "img/docusaurus-social-card.jpg",
     navbar: {
-      title: "MJFY Form Builder",
+      title: "MJFY",
       logo: {
-        alt: "My Site Logo",
+        alt: "MJFY Logo",
         src: "img/mjfy-logo.png",
-        srcDark: "img/mjfy-logo.png",
       },
       hideOnScroll: true,
       items: [
         {
           type: "docSidebar",
-          sidebarId: "tutorialSidebar",
+          sidebarId: "coreSidebar",
+          docsPluginId: "default",
           position: "left",
-          label: "Docs",
+          label: "@mjfy/Core",
+        },
+        {
+          type: "docSidebar",
+          sidebarId: "builderSidebar",
+          docsPluginId: "form-builder",
+          position: "left",
+          label: "@mjfy/form-builder",
         },
         {
           type: "docsVersionDropdown",
+          docsPluginId: "default",
           position: "right",
-          dropdownActiveClassDisabled: true,
+          label: "Core Version",
+          className: "navbar-version-core",
+        },
+        {
+          type: "docsVersionDropdown",
+          docsPluginId: "form-builder",
+          position: "right",
+          label: "Builder Version",
+          className: "navbar-version-builder",
         },
         { to: "/blog", label: "Blog", position: "left" },
         {
           href: "https://github.com/Anthena-Group/ffb-web",
           className: "header-github-logo",
-          "arial-label": "Github repository",
+          "aria-label": "Github repository",
           position: "right",
         },
       ],
@@ -90,48 +124,18 @@ const config: Config = {
         {
           title: "Docs",
           items: [
-            {
-              label: "Introduction",
-              to: "/docs/intro",
-            },
-            {
-              label: "Getting Started",
-              to: "/docs/category/getting-started",
-            },
-            {
-              label: "Components",
-              to: "/docs/category/components",
-            },
-            {
-              label: "Contribution",
-              to: "/docs/contribution",
-            },
+            { label: "Core Docs", to: "/core-docs/intro" },
+            { label: "Form Builder Docs", to: "/form-builder-docs/intro" },
           ],
         },
         {
           title: "Community",
-          items: [
-            {
-              label: "Stack Overflow",
-              href: "#",
-            },
-            {
-              label: "Discord",
-              href: "https://discord.gg/YxhWTrbq",
-            },
-            {
-              label: "X",
-              href: "#",
-            },
-          ],
+          items: [{ label: "Discord", href: "https://discord.gg/YxhWTrbq" }],
         },
         {
           title: "More",
           items: [
-            {
-              label: "Blog",
-              to: "/blog",
-            },
+            { label: "Blog", to: "/blog" },
             {
               label: "GitHub",
               href: "https://github.com/Anthena-Group/ffb-web",
@@ -141,17 +145,9 @@ const config: Config = {
       ],
       copyright: `Copyright © ${new Date().getFullYear()} @anthenaGroup, Inc. Built with Docusaurus.`,
     },
-
     prism: {
       theme: prismThemes.github,
       darkTheme: prismThemes.dracula,
-    },
-    docs: {
-      versionPersistence: "localStorage",
-      sidebar: {
-        hideable: true,
-        autoCollapseCategories: true,
-      },
     },
   } satisfies Preset.ThemeConfig,
 };
