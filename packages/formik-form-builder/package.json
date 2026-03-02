@@ -1,7 +1,7 @@
 {
-  "name": "formik-form-builder",
+  "name": "@mjfy/core",
   "version": "1.0.15",
-  "description": "Leverage Formik-Form-Builder Creator to effortlessly construct MUI-based forms using concise JSON definitions.",
+  "description": "Leverage @mjfy/core Creator to effortlessly construct MUI-based forms using concise JSON definitions.",
   "main": "dist/index.js",
   "module": "dist/index.js",
   "browser": "dist/index.js",
@@ -15,7 +15,7 @@
     "package-build": "rm -rf dist && npm run build:js"
   },
   "keywords": [
-    "formik-form-builder",
+    "@mjfy/core",
     "MUI",
     "Formik",
     "Form-Builder",
@@ -36,11 +36,11 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/Anthena-Group/formik-from-builder.git"
+    "url": "https://github.com/Anthena-Group/ffb-web.git"
   },
-  "homepage": "https://github.com/Anthena-Group/formik-form-builder#readme",
+  "homepage": "https://github.com/Anthena-Group/ffb-web#readme",
   "bugs": {
-    "url": "https://github.com/Anthena-Group/formik-form-builder/issues"
+    "url": "https://github.com/Anthena-Group/ffb-web/issues"
   },
   "dependencies": {
     "formik": "^2.4.6",

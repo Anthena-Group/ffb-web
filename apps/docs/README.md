@@ -1,41 +1,105 @@
-# Website
+# Formik Form Builder
 
-This website is built using [Docusaurus](https://docusaurus.io/), a modern static website generator.
+**Formik Form Builder** is a configuration-driven form library built on **Formik**, **MUI** (Material UI or Joy UI), and **Yup**.  
+It allows you to create fully functional, validated forms using just a JSON configuration—no repetitive boilerplate.
+
+---
+
+## Features
+
+- **Declarative & JSON-driven**: Define fields, layout, and validations via a single JSON object.
+- **Built-in validation**: Supports Yup validation rules.
+- **Multiple input types**: Text, Multi-text, Checkbox, Radio, Select, AutoComplete, Dropdown, etc.
+- **Conditional rendering**: Show, hide, enable, or disable fields dynamically.
+- **MUI & Joy UI styling**: Fully compatible with Material UI and Joy themes.
+- **Extensible**: Add custom components, validation rules, or UI tweaks.
+
+---
 
 ## Installation
 
 ```bash
-yarn
+npm install formik-form-builder
+# or
+yarn add formik-form-builder
 ```
 
-## Local Development
+**Peer dependencies**:  
+- `formik`  
+- `yup`  
+- `@mui/material` or `@mui/joy`  
 
-```bash
-yarn start
+---
+
+## Quick Example
+
+```tsx
+import { Box, Button } from "@mui/joy";
+import { Formik } from "formik";
+import { FormBuilder, InputTypes, useFormBuilder } from "@mjfy/core";
+
+function FullNameForm() {
+  const fields = [
+    {
+      field: "name",
+      type: InputTypes.TEXT,
+      initialValue: "",
+      label: "Full Name",
+      validation: { required: true, message: "Required" },
+    },
+  ];
+
+  const { initialValues, yupSchemaValidation } = useFormBuilder(fields);
+
+  return (
+    <Formik
+      initialValues={initialValues}
+      validationSchema={yupSchemaValidation}
+      onSubmit={(values, actions) => {
+        console.log(values);
+        alert(JSON.stringify(values, null, 2));
+        actions.setSubmitting(false);
+      }}
+    >
+      {({ values }) => (
+        <form>
+          <FormBuilder group="form" values={values} fields={fields} />
+          <Box mt={2} display="flex" justifyContent="center">
+            <Button type="submit">Continue</Button>
+          </Box>
+        </form>
+      )}
+    </Formik>
+  );
+}
+
+export default FullNameForm;
 ```
 
-This command starts a local development server and opens up a browser window. Most changes are reflected live without having to restart the server.
+---
 
-## Build
+## Usage
 
-```bash
-yarn build
-```
+- **`<FormikRenderer />`**: Quick setup for a full form, including Formik integration, validation, and submission.
+- **`<FormBuilder />`**: Render form fields based on your field config.
+- **`useFormBuilder`**: Generates `initialValues` and Yup schema from your field config for custom Formik setups.
 
-This command generates static content into the `build` directory and can be served using any static contents hosting service.
+---
 
-## Deployment
+## Field Configuration
 
-Using SSH:
+Each field is defined by an object with:
 
-```bash
-USE_SSH=true yarn deploy
-```
+- `field` – unique key  
+- `type` – input type (`TEXT`, `CHECKBOX`, `RADIO`, etc.)  
+- `initialValue` – default value  
+- `label` / `groupLabel` – display labels  
+- `validation` – Yup rules  
+- `options` – for choice-based fields  
+- `conditions` – dynamic show/hide/enable/disable rules  
+- `muiProps` – additional MUI/Joy props  
+- etc based on the needs
 
-Not using SSH:
+For more detail, please see the **full documentation**: [Docs](https://formik-form-builder.web.app/)
 
-```bash
-GIT_USER=<Your GitHub username> yarn deploy
-```
-
-If you are using GitHub pages for hosting, this command is a convenient way to build the website and push to the `gh-pages` branch.
+---

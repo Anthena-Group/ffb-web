@@ -1,4 +1,4 @@
-import { InputTypes, type FieldType } from "formik-form-builder";
+import { InputTypes, type FieldType } from "@mjfy/core";
 
 export const FeedBack: FieldType[] = [
     {

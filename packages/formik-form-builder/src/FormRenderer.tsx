@@ -25,9 +25,9 @@ export const FormikRenderer: React.FC<FormikRendererProps> = ({
   group = "form",
   builderProps = {},
 }) => {
-  const { initailValues, yupSchemaValidation } = useFormBuilder(fields);
+  const { initialValues, yupSchemaValidation } = useFormBuilder(fields);
 
-  const effectiveInitialValues = formProps?.initialValues || initailValues;
+  const effectiveInitialValues = formProps?.initialValues || initialValues;
   const effectiveValidationSchema = formProps?.validationSchema || yupSchemaValidation;
 
   return (
