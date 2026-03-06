@@ -55,3 +55,8 @@ html.plugin-id-default .navbar-version-core {
 html.plugin-id-form-builder .navbar-version-builder {
   display: block;
 }
+
+[class*='plugin-pages'] main {
+  display: flex;
+  flex-direction: column;
+}

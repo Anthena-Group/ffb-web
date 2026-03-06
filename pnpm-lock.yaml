@@ -42,6 +42,9 @@ importers:
       '@mjfy/core':
         specifier: workspace:*
         version: link:../../packages/formik-form-builder
+      '@mjfy/form-builder':
+        specifier: workspace:*
+        version: link:../../packages/ffb-engine
       '@mui/joy':
         specifier: 5.0.0-beta.52
         version: 5.0.0-beta.52(@emotion/react@11.14.0(@types/react@19.1.9)(react@19.1.1))(@emotion/styled@11.14.1(@emotion/react@11.14.0(@types/react@19.1.9)(react@19.1.1))(@types/react@19.1.9)(react@19.1.1))(@types/react@19.1.9)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)

@@ -17,6 +17,11 @@ function HomepageHeader() {
           {siteConfig.title}
         </Heading>
         <p className="hero__subtitle">{siteConfig.tagline}</p>
+
+        <Link className="button button--primary button--lg" to="/builder">
+          Open Builder 🛠️
+        </Link>
+
         <div className={styles.buttons}>
           <Link
             className="button button--secondary button--lg"
