@@ -6,7 +6,7 @@ sidebar_position: 1
 description: Introduction to auto complete usage with formik-form-builder
 ---
 
-[Autocomplete](/docs/category/autocomplete) is a text input enhanced by a panel of suggested options when users start typing.
+[Autocomplete](/core-docs/category/autocomplete) is a text input enhanced by a panel of suggested options when users start typing.
 
 ## Introduction
 
@@ -15,7 +15,7 @@ description: Introduction to auto complete usage with formik-form-builder
 ### Usage
 
 To use a MultiText field, set the type to `InputTypes.AUTO_COMPLETE`.
-Check [Configuration](/docs/getting-started/my-doc-configuration#fieldtype-structure) to see what we can pass.
+Check [Configuration](/core-docs/configuration#fieldtype-structure) to see what we can pass.
 
 Examples have been provided in the next pages of how we can use Autocomplete using `formik-form-builder`.
 

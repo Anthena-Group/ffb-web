@@ -6,7 +6,7 @@ sidebar_position: 1
 description: Introduction to radio button usage with formik-form-builder
 ---
 
-[Radio](/docs/category/radio-button) buttons enable the user to select one option from a set.
+[Radio](/core-docs/category/radio-button) buttons enable the user to select one option from a set.
 
 ## Introduction
 
@@ -16,7 +16,7 @@ description: Introduction to radio button usage with formik-form-builder
 
 To use a MultiText field, set the type to `InputTypes.RADIO`.
 We can make it a variant of either 	`"DEFAULT"` or `"ICON"`
-Check [Configuration](/docs/getting-started/my-doc-configuration#fieldtype-structure) to see what we can pass.
+Check [Configuration](/core-docs/configuration#fieldtype-structure) to see what we can pass.
 
 Examples have been provided in the next pages of how we can use radio button using `formik-form-builder`.
 

@@ -27,7 +27,7 @@ Below are the available configuration options for each field:
 | `helperText`     | `string`     | False       | Additional hint or instruction under the field. |
 | `options`        | `[{ label: string, value: string/number, description: string },]` | True(for choice-based inputs else False) | For choice-based inputs like checkboxes, radios, selects. |
 | `direction`      | `"row" \| "column"`| False | Layout direction for option-based inputs. |
-| `validation`     | `object `    | False       | Yup validation rules for the field. Check [Validation Rules](/docs/getting-started/my-doc-configuration#validation-rules) |
+| `validation`     | `object `    | False       | Yup validation rules for the field. Check [Validation Rules](/core-docs/configuration#validation-rules) |
 | `gridProps`      | `object`     | False       | MUI grid props for responsive layouts. |
 | `conditions`     | `object`     | False       | Conditional display rules based on other fields. |
 | `placeholder`    | `string`     | False       | To provide placeholder. |
@@ -169,7 +169,7 @@ The Formik component is used to manage form state, validation, and submission. Y
 |`onSubmit` | A callback function that is called for form submission. |
 |`onReset`(optional) | A callback function to reset from inputs. |
 
-Check `</FormikRenderer>` usage [example](/docs/components/multi-text/basic-multi-text).
+Check `</FormikRenderer>` usage [example](/core-docs/components/multi-text/basic-multi-text).
 
 ### Formik Integration
  
@@ -194,7 +194,7 @@ You should pass this global configuration props to `<FormBuilder />` :
 |`data-test`| Test identifier for automated testing. |
 |`fields`	|	Array of field configurations. |
 
-Check usage [Example.](/docs/components/checkbox/agrement-checkbox)
+Check usage [Example.](/core-docs/components/checkbox/agrement-checkbox)
 
 ## Form Submission
 

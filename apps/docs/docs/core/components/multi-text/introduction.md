@@ -6,7 +6,7 @@ sidebar_position: 1
 description: Introduction to multi text usage with formik-form-builder
 ---
 
-[MultiText](/docs/category/multitext) allows users to enter longer, multi-line responses in a form.
+[MultiText](/core-docs/category/multitext) allows users to enter longer, multi-line responses in a form.
 
 ## Introduction
 
@@ -15,7 +15,7 @@ description: Introduction to multi text usage with formik-form-builder
 ### Usage
 
 To use a MultiText field, set the type to `InputTypes.MULTI_TEXT`.
-Check [Configuration](/docs/getting-started/my-doc-configuration#fieldtype-structure) to see what we can pass.
+Check [Configuration](/core-docs/configuration#fieldtype-structure) to see what we can pass.
 
 Examples have been provided in the next pages of how we can use MultiText using `formik-form-builder`.
 

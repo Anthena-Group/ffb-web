@@ -9,10 +9,10 @@ description: Disabled example of radio button using formik form builder.
 import LiveCodeBlock from "@site/src/components/live-demo"
 import { ConditionAction, ConditionName, PostCondition } from "@mjfy/core";
 
-This setup demonstrates a conditional enablement pattern in forms. The first radio group collects a primary choice, while the second radio group remains disabled until a specific value from the first group is selected. This approach is useful for tiered selections, subscription or plan pickers, and scenarios where later options depend on earlier decisions. It guides users through a logical flow, prevents irrelevant input, and ensures the form only presents valid choices based on context. Refer [Conditional Rendering](/docs/getting-started/my-doc-configuration#conditional-rendering).
+This setup demonstrates a conditional enablement pattern in forms. The first radio group collects a primary choice, while the second radio group remains disabled until a specific value from the first group is selected. This approach is useful for tiered selections, subscription or plan pickers, and scenarios where later options depend on earlier decisions. It guides users through a logical flow, prevents irrelevant input, and ensures the form only presents valid choices based on context. Refer [Conditional Rendering](/core-docs/configuration#conditional-rendering).
 
 This example uses the `FormikFormBuilder` to render.
-The field is validated using Yup and defined in disabledRadio config variable. Check [Validation Rules](/docs/getting-started/my-doc-configuration#validation-rules) for more detail.
+The field is validated using Yup and defined in disabledRadio config variable. Check [Validation Rules](/core-docs/configuration#validation-rules) for more detail.
 
 <LiveCodeBlock
   componentName="DisabledRadio"

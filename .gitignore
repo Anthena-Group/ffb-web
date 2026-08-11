@@ -1,1 +1,6 @@
 node_modules
+
+# Mitii local runtime data
+.mitii/
+.mitii-session-export.json
+.mitii-audit-pack.json
